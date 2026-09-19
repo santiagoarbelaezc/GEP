@@ -1,1 +1,163 @@
-/* You can add global styles to this file, and also import other style files */
+/* ── Tailwind Directives ─────────────────────────────────────────── */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base ────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    font-size: 16.5px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-zinc-50 text-zinc-900 font-sans;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-zinc-300 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-zinc-400;
+  }
+}
+
+/* ── Reusable Component Classes ──────────────────────────────────── */
+@layer components {
+  /* Botón píldora negro */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-black text-white text-sm font-semibold rounded-full shadow-sm hover:bg-zinc-800 active:scale-[0.98] transition-all duration-200 cursor-pointer;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-zinc-100 text-zinc-800 text-sm font-semibold rounded-full hover:bg-zinc-200 active:scale-[0.98] transition-all duration-200 cursor-pointer;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-rose-50 text-rose-600 text-sm font-semibold rounded-full hover:bg-rose-100 active:scale-[0.98] transition-all duration-200 cursor-pointer;
+  }
+
+  .btn-success {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-emerald-50 text-emerald-700 text-sm font-semibold rounded-full hover:bg-emerald-100 active:scale-[0.98] transition-all duration-200 cursor-pointer;
+  }
+
+  /* Input redondeado */
+  .input-premium {
+    @apply w-full px-4 py-3 bg-zinc-50 border border-zinc-200/90 rounded-2xl text-sm text-zinc-900 placeholder:text-zinc-400 focus:bg-white focus:outline-none focus:border-black transition-all duration-200;
+  }
+
+  /* Select */
+  .select-premium {
+    @apply w-full px-4 py-3 bg-zinc-50 border border-zinc-200/90 rounded-2xl text-sm text-zinc-900 focus:bg-white focus:outline-none focus:border-black transition-all duration-200 appearance-none cursor-pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 40px;
+  }
+
+  /* Tarjeta limpia */
+  .card {
+    @apply bg-white border border-zinc-200/80 rounded-2xl shadow-sm;
+  }
+
+  /* Microetiqueta en mayúscula */
+  .micro-label {
+    @apply text-xs font-semibold uppercase tracking-widest text-zinc-400;
+  }
+
+  /* Page title */
+  .page-title {
+    @apply text-xl font-extrabold text-zinc-900 tracking-tight;
+  }
+
+  /* Section subtitle */
+  .section-subtitle {
+    @apply text-sm font-semibold text-zinc-700;
+  }
+}
+
+/* ── Animations ──────────────────────────────────────────────────── */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1); }
+  50% { box-shadow: 0 0 0 8px rgba(0, 0, 0, 0); }
+}
+
+.animate-slide-in-up {
+  animation: slideInUp 0.4s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+/* Staggered animation for lists */
+.animate-stagger > * {
+  opacity: 0;
+  animation: slideInUp 0.4s ease-out forwards;
+}
+
+.animate-stagger > *:nth-child(1) { animation-delay: 0.05s; }
+.animate-stagger > *:nth-child(2) { animation-delay: 0.1s; }
+.animate-stagger > *:nth-child(3) { animation-delay: 0.15s; }
+.animate-stagger > *:nth-child(4) { animation-delay: 0.2s; }
+.animate-stagger > *:nth-child(5) { animation-delay: 0.25s; }
+.animate-stagger > *:nth-child(6) { animation-delay: 0.3s; }
+.animate-stagger > *:nth-child(7) { animation-delay: 0.35s; }
+.animate-stagger > *:nth-child(8) { animation-delay: 0.4s; }
+.animate-stagger > *:nth-child(9) { animation-delay: 0.45s; }
+.animate-stagger > *:nth-child(10) { animation-delay: 0.5s; }
+
+/* ── Material Overrides ──────────────────────────────────────────── */
+.mat-mdc-table {
+  @apply bg-white !important;
+}
+
+.mat-mdc-header-row {
+  @apply bg-zinc-50 !important;
+}
+
+.mat-mdc-header-cell {
+  @apply text-xs font-semibold uppercase tracking-widest text-zinc-400 border-b border-zinc-200 !important;
+}
+
+.mat-mdc-cell {
+  @apply text-sm text-zinc-700 border-b border-zinc-100 !important;
+}
+
+.mat-mdc-row:hover {
+  @apply bg-zinc-50/50 !important;
+}
+
+.mat-mdc-paginator {
+  @apply bg-transparent border-t border-zinc-100 !important;
+}
