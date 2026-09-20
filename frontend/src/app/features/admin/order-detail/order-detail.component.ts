@@ -30,14 +30,6 @@ import { Order, OrderStatus, ORDER_STATUS_LABELS } from '../../../core/models/or
 
           <!-- Admin actions -->
           <div class="flex items-center gap-2 flex-wrap">
-            <a
-              [routerLink]="['/admin/trazabilidad', order.folio]"
-              class="btn-secondary text-xs px-3.5 py-2 inline-flex items-center gap-1.5 border border-zinc-200 hover:border-zinc-900 bg-white"
-            >
-              <span class="material-symbols-outlined text-base">timeline</span>
-              Línea de Tiempo
-            </a>
-
             @if (order.estado !== 'entregado' && order.estado !== 'cancelado') {
               <select
                 class="select-premium text-sm py-2"

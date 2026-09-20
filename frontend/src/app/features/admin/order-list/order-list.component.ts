@@ -93,14 +93,6 @@ import { Order, OrderStatus, ORDER_STATUS_LABELS } from '../../../core/models/or
                   </td>
                   <td class="px-5 py-4 text-right">
                     <div class="flex items-center justify-end gap-1">
-                      <a
-                        [routerLink]="['/admin/trazabilidad', order.folio]"
-                        (click)="$event.stopPropagation()"
-                        title="Ver línea de tiempo / trazabilidad"
-                        class="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 transition-colors"
-                      >
-                        <span class="material-symbols-outlined text-lg">timeline</span>
-                      </a>
                       <span class="material-symbols-outlined text-zinc-300 group-hover:text-zinc-600 text-lg transition-colors">chevron_right</span>
                     </div>
                   </td>

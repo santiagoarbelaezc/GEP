@@ -25,7 +25,6 @@ export const ROLE_MENUS: Record<UserRole, MenuItem[]> = {
   admin: [
     { label: 'Dashboard', icon: 'dashboard', route: '/admin/dashboard' },
     { label: 'Pedidos', icon: 'receipt_long', route: '/admin/pedidos' },
-    { label: 'Trazabilidad', icon: 'timeline', route: '/admin/trazabilidad' },
     { label: 'Estadísticas', icon: 'bar_chart', route: '/admin/estadisticas' },
   ],
   caja: [

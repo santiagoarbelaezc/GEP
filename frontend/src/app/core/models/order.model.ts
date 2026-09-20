@@ -34,7 +34,9 @@ export interface Payment {
   comprobanteUrl?: string;
   estado: 'pendiente' | 'revisado' | 'confirmado' | 'rechazado';
   revisadoPor?: number;
+  revisadoPorNombre?: string;
   fechaRevision?: string;
+  monto: number;
 }
 
 export interface OrderStatusHistory {
@@ -59,11 +61,16 @@ export interface Delivery {
 export interface Order {
   id: number;
   folio: string;
+  clienteId: number;
   cliente: OrderClient;
   direccionEnvio: string;
   ciudad: string;
   referencias?: string;
   items: OrderItem[];
+  subtotal: number;
+  descuento: number;
+  impuestos: number;
+  costoEnvio: number;
   total: number;
   estado: OrderStatus;
   pago?: Payment;
@@ -92,4 +99,15 @@ export const TRACKING_STEPS: OrderStatus[] = [
   'en_preparacion',
   'en_camino',
   'entregado',
+];
+
+/** Full workflow steps for the admin workflow component */
+export const WORKFLOW_STEPS: { status: OrderStatus; label: string; icon: string }[] = [
+  { status: 'nuevo', label: 'Nuevo', icon: 'add_circle' },
+  { status: 'pago_pendiente', label: 'Pago Pendiente', icon: 'schedule' },
+  { status: 'pago_en_revision', label: 'En Revisión', icon: 'find_in_page' },
+  { status: 'pago_confirmado', label: 'Pago OK', icon: 'verified' },
+  { status: 'en_preparacion', label: 'Preparación', icon: 'inventory' },
+  { status: 'en_camino', label: 'En Camino', icon: 'local_shipping' },
+  { status: 'entregado', label: 'Entregado', icon: 'check_circle' },
 ];

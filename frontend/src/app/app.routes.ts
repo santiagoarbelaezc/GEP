@@ -36,16 +36,6 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/admin/stats/stats.component').then(m => m.StatsComponent),
       },
-      {
-        path: 'trazabilidad',
-        loadComponent: () =>
-          import('./features/admin/client-timeline/client-timeline.component').then(m => m.ClientTimelineComponent),
-      },
-      {
-        path: 'trazabilidad/:id',
-        loadComponent: () =>
-          import('./features/admin/client-timeline/client-timeline.component').then(m => m.ClientTimelineComponent),
-      },
     ],
   },
 
