@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { roleGuard } from './core/guards/role.guard';
 import { MainLayoutComponent } from './shared/layouts/main-layout/main-layout.component';
 
+// Application routes configuration
 export const routes: Routes = [
   {
     path: 'login',
@@ -22,6 +23,16 @@ export const routes: Routes = [
           import('./features/admin/dashboard/dashboard.component').then(m => m.DashboardComponent),
       },
       {
+        path: 'clientes',
+        loadComponent: () =>
+          import('./features/admin/clients/client-list.component').then(m => m.ClientListComponent),
+      },
+      {
+        path: 'clientes/:id',
+        loadComponent: () =>
+          import('./features/admin/clients/client-detail.component').then(m => m.ClientDetailComponent),
+      },
+      {
         path: 'pedidos',
         loadComponent: () =>
           import('./features/admin/order-list/order-list.component').then(m => m.OrderListComponent),
@@ -32,9 +43,29 @@ export const routes: Routes = [
           import('./features/admin/order-detail/order-detail.component').then(m => m.OrderDetailComponent),
       },
       {
+        path: 'pagos',
+        loadComponent: () =>
+          import('./features/admin/payments/payments.component').then(m => m.PaymentsComponent),
+      },
+      {
+        path: 'factura/:id',
+        loadComponent: () =>
+          import('./features/admin/invoice/invoice.component').then(m => m.InvoiceComponent),
+      },
+      {
+        path: 'recibo/:id',
+        loadComponent: () =>
+          import('./features/admin/invoice/receipt.component').then(m => m.ReceiptComponent),
+      },
+      {
         path: 'estadisticas',
         loadComponent: () =>
           import('./features/admin/stats/stats.component').then(m => m.StatsComponent),
+      },
+      {
+        path: 'auditoria',
+        loadComponent: () =>
+          import('./features/admin/audit/audit-log.component').then(m => m.AuditLogComponent),
       },
     ],
   },

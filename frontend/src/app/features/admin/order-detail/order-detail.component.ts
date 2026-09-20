@@ -5,12 +5,13 @@ import { FormsModule } from '@angular/forms';
 import { OrderService } from '../../../core/services/order.service';
 import { StatusBadgeComponent } from '../../../shared/components/status-badge/status-badge.component';
 import { TimelineComponent } from '../../../shared/components/timeline/timeline.component';
+import { OrderWorkflowComponent } from '../../../shared/components/order-workflow/order-workflow.component';
 import { Order, OrderStatus, ORDER_STATUS_LABELS } from '../../../core/models/order.model';
 
 @Component({
   selector: 'app-order-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, StatusBadgeComponent, TimelineComponent],
+  imports: [CommonModule, RouterModule, FormsModule, StatusBadgeComponent, TimelineComponent, OrderWorkflowComponent],
   template: `
     @if (order) {
       <div class="animate-fade-in">
@@ -30,6 +31,14 @@ import { Order, OrderStatus, ORDER_STATUS_LABELS } from '../../../core/models/or
 
           <!-- Admin actions -->
           <div class="flex items-center gap-2 flex-wrap">
+            <a [routerLink]="['/admin/factura', order.id]" class="btn-secondary text-xs px-3 py-2 flex items-center gap-1.5" title="Ver e imprimir factura">
+              <span class="material-symbols-outlined text-base">receipt_long</span>
+              Factura
+            </a>
+            <a [routerLink]="['/admin/recibo', order.id]" class="btn-secondary text-xs px-3 py-2 flex items-center gap-1.5" title="Ver e imprimir recibo">
+              <span class="material-symbols-outlined text-base">description</span>
+              Recibo
+            </a>
             @if (order.estado !== 'entregado' && order.estado !== 'cancelado') {
               <select
                 class="select-premium text-sm py-2"
@@ -48,6 +57,12 @@ import { Order, OrderStatus, ORDER_STATUS_LABELS } from '../../../core/models/or
               }
             }
           </div>
+        </div>
+
+        <!-- Workflow Stepper Banner -->
+        <div class="card p-5 mb-6 overflow-x-auto">
+          <p class="micro-label mb-3">Flujo Operativo del Pedido</p>
+          <app-order-workflow [status]="order.estado" />
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
