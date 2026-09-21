@@ -45,7 +45,7 @@ import { Order } from '../../../core/models/order.model';
         </div>
 
         @if (client) {
-          <div class="flex items-center gap-2.5">
+          <div class="flex items-center gap-2 flex-wrap">
             <a
               [href]="getWhatsAppUrl()"
               target="_blank"
@@ -61,8 +61,8 @@ import { Order } from '../../../core/models/order.model';
               class="btn-secondary text-xs py-2 px-3 flex items-center gap-2"
               title="Llamar al cliente"
             >
-              <span class="material-symbols-outlined text-base text-zinc-600">call</span>
-              <span>{{ client.telefono }}</span>
+              <span class="material-symbols-outlined text-base text-zinc-500">call</span>
+              <span>Llamar</span>
             </a>
           </div>
         }
@@ -70,43 +70,27 @@ import { Order } from '../../../core/models/order.model';
 
       <!-- ── Ficha Resumen del Cliente (Estilo Admin) ── -->
       @if (client) {
-        <div class="card p-6 mb-6 bg-white border border-zinc-200 shadow-xs">
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
+        <div class="card p-5 mb-6">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             
-            <!-- Columna 1: Avatar y Datos Principales -->
-            <div class="md:col-span-2 flex items-start gap-4">
-              <div class="w-14 h-14 rounded-2xl bg-zinc-900 text-white flex items-center justify-center font-extrabold text-xl shrink-0 shadow-sm">
-                {{ client.nombre.charAt(0) }}
-              </div>
-              <div>
-                <div class="flex items-center gap-2">
-                  <h3 class="font-bold text-zinc-900 text-base leading-tight">{{ client.nombre }}</h3>
-                </div>
-                <p class="text-xs font-mono text-zinc-500 mt-0.5">
-                  {{ client.tipoDocumento === 'nit' ? 'NIT' : 'C.C.' }} {{ client.documento }}
-                </p>
-                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-zinc-500 mt-2">
-                  <span class="inline-flex items-center gap-1 font-semibold text-zinc-700">
-                    <span class="material-symbols-outlined text-sm text-zinc-400">location_on</span>
-                    {{ client.ciudad }}, Quindío
-                  </span>
-                  <span>&bull;</span>
-                  <span>{{ client.direccion }}</span>
-                  <span>&bull;</span>
-                  <span>{{ client.email }}</span>
-                </div>
-                @if (client.notas) {
-                  <p class="text-xs text-zinc-400 italic mt-2 bg-zinc-50 p-2 rounded-xl border border-zinc-100">
-                    &ldquo;{{ client.notas }}&rdquo;
-                  </p>
-                }
-              </div>
+            <!-- Columna 1: Contacto y Ubicación -->
+            <div class="p-4 rounded-2xl bg-zinc-50/80 border border-zinc-100 flex flex-col justify-center">
+              <span class="micro-label block mb-1">Identificación & Ubicación</span>
+              <p class="text-sm font-bold text-zinc-900">
+                {{ client.tipoDocumento }}: {{ client.documento }}
+              </p>
+              <p class="text-xs text-zinc-600 mt-0.5">
+                {{ client.ciudad }} &bull; {{ client.direccion }}
+              </p>
+              <p class="text-xs text-zinc-400 mt-0.5 font-mono">
+                Tel: {{ client.telefono }} &bull; {{ client.email }}
+              </p>
             </div>
 
             <!-- Columna 2: KPI Total Facturado -->
             <div class="p-4 rounded-2xl bg-zinc-50/80 border border-zinc-100 flex flex-col justify-center">
-              <span class="micro-label block mb-1">Total Comprado (Histórico)</span>
-              <p class="price-value-xl text-zinc-900">
+              <span class="micro-label block mb-1">Volumen Total Facturado</span>
+              <p class="text-2xl font-extrabold text-zinc-900">
                 {{ client.totalGastado | currency:'COP':'symbol-narrow':'1.0-0' }}
               </p>
               <span class="text-[11px] text-zinc-400 mt-0.5">
@@ -141,8 +125,8 @@ import { Order } from '../../../core/models/order.model';
           </div>
 
           <!-- Filtro de Búsqueda y Estado -->
-          <div class="flex items-center gap-2.5">
-            <div class="relative w-48 sm:w-56">
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full sm:w-auto">
+            <div class="relative w-full sm:w-56">
               <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 text-sm">search</span>
               <input
                 type="text"
@@ -173,12 +157,12 @@ import { Order } from '../../../core/models/order.model';
           <table class="w-full">
             <thead>
               <tr class="bg-zinc-50 border-b border-zinc-200">
-                <th class="text-left px-5 py-3 micro-label">Código / Fecha</th>
-                <th class="text-left px-5 py-3 micro-label hidden md:table-cell">Productos Plaxtilíneas</th>
-                <th class="text-left px-5 py-3 micro-label hidden lg:table-cell">Canal / Referencia</th>
-                <th class="text-right px-5 py-3 micro-label">Total</th>
-                <th class="text-center px-5 py-3 micro-label">Estado</th>
-                <th class="text-right px-5 py-3 micro-label">Acción</th>
+                <th class="text-left px-3.5 sm:px-5 py-3 micro-label">Código / Fecha</th>
+                <th class="text-left px-3.5 sm:px-5 py-3 micro-label hidden md:table-cell">Productos Plaxtilíneas</th>
+                <th class="text-left px-3.5 sm:px-5 py-3 micro-label hidden lg:table-cell">Canal / Referencia</th>
+                <th class="text-right px-3.5 sm:px-5 py-3 micro-label">Total</th>
+                <th class="text-center px-3.5 sm:px-5 py-3 micro-label">Estado</th>
+                <th class="text-right px-3.5 sm:px-5 py-3 micro-label">Acción</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-zinc-100">
@@ -190,7 +174,7 @@ import { Order } from '../../../core/models/order.model';
                 >
                   
                   <!-- Folio y Fecha -->
-                  <td class="px-5 py-4">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4">
                     <span class="font-bold text-zinc-900 font-mono text-sm group-hover:text-emerald-700 transition-colors">
                       {{ order.folio }}
                     </span>
@@ -200,7 +184,7 @@ import { Order } from '../../../core/models/order.model';
                   </td>
 
                   <!-- Productos Plaxtilíneas -->
-                  <td class="px-5 py-4 hidden md:table-cell max-w-[280px]">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4 hidden md:table-cell max-w-[280px]">
                     <div class="space-y-0.5">
                       @for (item of order.items.slice(0, 2); track item.id) {
                         <p class="truncate text-xs text-zinc-700">
@@ -214,7 +198,7 @@ import { Order } from '../../../core/models/order.model';
                   </td>
 
                   <!-- Canal de Pago / Referencia -->
-                  <td class="px-5 py-4 hidden lg:table-cell">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4 hidden lg:table-cell">
                     <span class="text-sm font-semibold text-zinc-800">{{ order.pago?.metodo || 'Efectivo / Mostrador' }}</span>
                     @if (order.pago?.referencia) {
                       <p class="font-mono text-xs text-zinc-400 mt-0.5">{{ order.pago!.referencia }}</p>
@@ -222,19 +206,19 @@ import { Order } from '../../../core/models/order.model';
                   </td>
 
                   <!-- Total -->
-                  <td class="px-5 py-4 text-right">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4 text-right">
                     <span class="price-value-sm">
                       {{ order.total | currency:'COP':'symbol-narrow':'1.0-0' }}
                     </span>
                   </td>
 
                   <!-- Estado -->
-                  <td class="px-5 py-4 text-center">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4 text-center">
                     <app-status-badge [status]="order.estado" />
                   </td>
 
                   <!-- Botón Ver Detalle -->
-                  <td class="px-5 py-4 text-right">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4 text-right">
                     <span class="inline-flex items-center gap-1 text-xs font-bold text-zinc-600 group-hover:text-zinc-900 transition-colors">
                       <span>Ver Detalle</span>
                       <span class="material-symbols-outlined text-base">chevron_right</span>
