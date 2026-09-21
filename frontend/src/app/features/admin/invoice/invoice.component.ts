@@ -12,12 +12,12 @@ import { Order } from '../../../core/models/order.model';
     @if (order) {
       <!-- Print controls (hidden on print) -->
       <div class="print:hidden mb-6 animate-fade-in max-w-4xl mx-auto">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <a routerLink="/admin/pagos" class="inline-flex items-center gap-1 text-xs text-zinc-400 hover:text-zinc-900 transition-colors">
             <span class="material-symbols-outlined text-base">arrow_back</span>
             Volver a pagos
           </a>
-          <div class="flex items-center gap-3">
+          <div class="flex flex-wrap items-center gap-2 sm:gap-3">
             @if (isPaid) {
               <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-full text-xs font-bold">
                 <span class="material-symbols-outlined text-sm">verified</span>
@@ -29,11 +29,11 @@ import { Order } from '../../../core/models/order.model';
                 Pendiente de Pago
               </span>
             }
-            <a [routerLink]="['/admin/recibo', order.id]" class="btn-secondary text-xs py-2 px-4">
+            <a [routerLink]="['/admin/recibo', order.id]" class="btn-secondary text-xs py-2 px-3 sm:px-4">
               <span class="material-symbols-outlined text-base">receipt</span>
               Ver Recibo
             </a>
-            <button (click)="printInvoice()" class="btn-primary text-xs py-2 px-5 flex items-center gap-2 shadow-sm">
+            <button (click)="printInvoice()" class="btn-primary text-xs py-2 px-4 sm:px-5 flex items-center gap-2 shadow-sm">
               <span class="material-symbols-outlined text-base">print</span>
               Imprimir Factura
             </button>
@@ -42,7 +42,7 @@ import { Order } from '../../../core/models/order.model';
       </div>
 
       <!-- Invoice Sheet (Fits exactly on 1 Letter/A4 page) -->
-      <div class="invoice-sheet relative overflow-hidden max-w-4xl mx-auto bg-white border border-zinc-200 rounded-2xl print:border-none print:rounded-none print:shadow-none shadow-sm p-8 print:p-0 animate-fade-in" id="invoice-content">
+      <div class="invoice-sheet relative overflow-x-auto max-w-4xl mx-auto bg-white border border-zinc-200 rounded-2xl print:border-none print:rounded-none print:shadow-none shadow-sm p-4 sm:p-8 print:p-0 animate-fade-in" id="invoice-content">
         
         <!-- Watermark when Paid -->
         @if (isPaid) {

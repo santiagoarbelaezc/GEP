@@ -43,10 +43,10 @@ import { ProductStat, DeliveryTimeStat } from '../../../core/models/stats.model'
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Top Products chart -->
-        <div class="card p-6">
+        <div class="card p-5 sm:p-6">
           <p class="micro-label mb-4">Productos Más Vendidos</p>
           @if (topProducts.length > 0) {
-            <div class="h-[350px]">
+            <div class="h-[280px] sm:h-[350px]">
               <ngx-charts-bar-horizontal
                 [results]="topProducts"
                 [xAxis]="true"
@@ -65,10 +65,10 @@ import { ProductStat, DeliveryTimeStat } from '../../../core/models/stats.model'
 
         <!-- Delivery time & Rejection -->
         <div class="space-y-6">
-          <div class="card p-6">
+          <div class="card p-5 sm:p-6">
             <p class="micro-label mb-4">Distribución de Tiempos de Entrega</p>
             @if (deliveryTime) {
-              <div class="flex items-end gap-8 mt-4">
+              <div class="flex items-end gap-4 sm:gap-8 mt-4">
                 <div class="text-center flex-1">
                   <div class="h-16 bg-emerald-100 rounded-xl mb-2 flex items-end justify-center">
                     <div class="w-full bg-emerald-500 rounded-xl" [style.height.%]="(deliveryTime.minimo / deliveryTime.maximo) * 100"></div>
@@ -94,7 +94,7 @@ import { ProductStat, DeliveryTimeStat } from '../../../core/models/stats.model'
             }
           </div>
 
-          <div class="card p-6">
+          <div class="card p-5 sm:p-6">
             <p class="micro-label mb-4">Tasa de Rechazo</p>
             <div class="flex items-center gap-6">
               <div class="w-24 h-24 relative">

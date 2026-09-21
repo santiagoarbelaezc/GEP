@@ -31,16 +31,16 @@ type FilterStage = 'todos' | 'revision' | 'espera' | 'aprobados';
       </div>
 
       <!-- KPIs (Estilo Admin) -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6 animate-stagger">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 animate-stagger">
         
         <!-- Por Revisar -->
         <div 
           (click)="setFilterStage('revision')"
-          class="card p-5 cursor-pointer hover:border-zinc-400 transition-all group"
+          class="card p-4 sm:p-5 cursor-pointer hover:border-zinc-400 transition-all group"
         >
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
-              <span class="material-symbols-outlined text-xl text-amber-600">find_in_page</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-amber-50 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-amber-600">find_in_page</span>
             </div>
             @if (revisionCount > 0) {
               <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 animate-pulse">
@@ -48,51 +48,50 @@ type FilterStage = 'todos' | 'revision' | 'espera' | 'aprobados';
               </span>
             }
           </div>
-          <p class="text-2xl font-extrabold text-zinc-900">{{ revisionCount }}</p>
-          <p class="text-xs text-zinc-400 mt-0.5">Por Revisar</p>
+          <p class="text-xl sm:text-2xl font-extrabold text-zinc-900">{{ revisionCount }}</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Por Revisar</p>
         </div>
 
         <!-- Esperando Soporte -->
         <div 
           (click)="setFilterStage('espera')"
-          class="card p-5 cursor-pointer hover:border-zinc-400 transition-all group"
+          class="card p-4 sm:p-5 cursor-pointer hover:border-zinc-400 transition-all group"
         >
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-zinc-100 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
-              <span class="material-symbols-outlined text-xl text-zinc-600">pending_actions</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-zinc-100 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-zinc-600">pending_actions</span>
             </div>
           </div>
-          <p class="text-2xl font-extrabold text-zinc-900">{{ pendingCount }}</p>
-          <p class="text-xs text-zinc-400 mt-0.5">Esperando Soporte</p>
+          <p class="text-xl sm:text-2xl font-extrabold text-zinc-900">{{ pendingCount }}</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Esperando Soporte</p>
         </div>
 
         <!-- Aprobados Hoy -->
         <div 
           (click)="setFilterStage('aprobados')"
-          class="card p-5 cursor-pointer hover:border-zinc-400 transition-all group"
+          class="card p-4 sm:p-5 cursor-pointer hover:border-zinc-400 transition-all group"
         >
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
-              <span class="material-symbols-outlined text-xl text-emerald-600">check_circle</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-emerald-50 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-emerald-600">check_circle</span>
             </div>
           </div>
-          <p class="text-2xl font-extrabold text-zinc-900">{{ approvedTodayCount }}</p>
-          <p class="text-xs text-zinc-400 mt-0.5">Aprobados Hoy</p>
+          <p class="text-xl sm:text-2xl font-extrabold text-zinc-900">{{ approvedTodayCount }}</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Aprobados Hoy</p>
         </div>
 
         <!-- Recaudo Turno -->
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-zinc-900 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-white">payments</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-zinc-900 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-white">payments</span>
             </div>
           </div>
-          <p class="price-value-xl truncate">
+          <p class="text-base sm:text-2xl font-extrabold text-zinc-900 truncate">
             {{ totalRecaudadoHoy | currency:'COP':'symbol-narrow':'1.0-0' }}
           </p>
-          <p class="text-xs text-zinc-400 mt-0.5">Recaudo Turno</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Recaudo Turno</p>
         </div>
-
       </div>
 
       <!-- Filtros (Estilo Admin) -->

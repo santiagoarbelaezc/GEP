@@ -18,42 +18,42 @@ import { Order, Payment } from '../../../core/models/order.model';
       </div>
 
       <!-- KPIs -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6 animate-stagger">
-        <div class="card p-5">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 animate-stagger">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-emerald-600">account_balance</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-emerald-600">account_balance</span>
             </div>
           </div>
-          <p class="text-2xl font-extrabold text-zinc-900">{{ totalConfirmado | currency:'COP':'symbol-narrow':'1.0-0' }}</p>
-          <p class="text-xs text-zinc-400 mt-0.5">Ingresos Confirmados</p>
+          <p class="text-lg sm:text-2xl font-extrabold text-zinc-900 truncate">{{ totalConfirmado | currency:'COP':'symbol-narrow':'1.0-0' }}</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Ingresos Confirmados</p>
         </div>
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-amber-600">pending</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-amber-50 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-amber-600">pending</span>
             </div>
           </div>
-          <p class="text-2xl font-extrabold text-zinc-900">{{ pendingCount }}</p>
-          <p class="text-xs text-zinc-400 mt-0.5">Pagos Pendientes</p>
+          <p class="text-xl sm:text-2xl font-extrabold text-zinc-900">{{ pendingCount }}</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Pagos Pendientes</p>
         </div>
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-emerald-600">check_circle</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-emerald-600">check_circle</span>
             </div>
           </div>
-          <p class="text-2xl font-extrabold text-zinc-900">{{ confirmedCount }}</p>
-          <p class="text-xs text-zinc-400 mt-0.5">Confirmados</p>
+          <p class="text-xl sm:text-2xl font-extrabold text-zinc-900">{{ confirmedCount }}</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Confirmados</p>
         </div>
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-rose-50 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-rose-600">block</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-rose-50 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-rose-600">block</span>
             </div>
           </div>
-          <p class="text-2xl font-extrabold text-zinc-900">{{ rejectedCount }}</p>
-          <p class="text-xs text-zinc-400 mt-0.5">Rechazados</p>
+          <p class="text-xl sm:text-2xl font-extrabold text-zinc-900">{{ rejectedCount }}</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Rechazados</p>
         </div>
       </div>
 
@@ -63,7 +63,7 @@ import { Order, Payment } from '../../../core/models/order.model';
           <input
             type="text"
             class="input-premium"
-            placeholder="Buscar código..."
+            placeholder="Buscar por código o cliente..."
             [(ngModel)]="searchQuery"
             (input)="applyFilters()"
             id="payment-search"
@@ -89,14 +89,14 @@ import { Order, Payment } from '../../../core/models/order.model';
           <table class="w-full">
             <thead>
               <tr class="bg-zinc-50 border-b border-zinc-200">
-                <th class="text-left px-5 py-3 micro-label">Código</th>
-                <th class="text-left px-5 py-3 micro-label">Cliente</th>
-                <th class="text-left px-5 py-3 micro-label hidden md:table-cell">Método</th>
-                <th class="text-left px-5 py-3 micro-label hidden lg:table-cell">Referencia</th>
-                <th class="text-right px-5 py-3 micro-label">Monto</th>
-                <th class="text-left px-5 py-3 micro-label">Estado Pago</th>
-                <th class="text-left px-5 py-3 micro-label hidden sm:table-cell">Pedido</th>
-                <th class="px-5 py-3"></th>
+                <th class="text-left px-3.5 sm:px-5 py-3 micro-label">Código</th>
+                <th class="text-left px-3.5 sm:px-5 py-3 micro-label">Cliente</th>
+                <th class="text-left px-3.5 sm:px-5 py-3 micro-label hidden md:table-cell">Método</th>
+                <th class="text-left px-3.5 sm:px-5 py-3 micro-label hidden lg:table-cell">Referencia</th>
+                <th class="text-right px-3.5 sm:px-5 py-3 micro-label">Monto</th>
+                <th class="text-left px-3.5 sm:px-5 py-3 micro-label">Estado Pago</th>
+                <th class="text-left px-3.5 sm:px-5 py-3 micro-label hidden sm:table-cell">Pedido</th>
+                <th class="px-3.5 sm:px-5 py-3"></th>
               </tr>
             </thead>
             <tbody>
@@ -104,32 +104,32 @@ import { Order, Payment } from '../../../core/models/order.model';
                 <tr class="border-b border-zinc-100 hover:bg-zinc-50/50 transition-colors cursor-pointer group"
                   (click)="selectOrder(item)"
                 >
-                  <td class="px-5 py-4">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4">
                     <span class="text-sm font-bold text-zinc-900">{{ item.folio }}</span>
                   </td>
-                  <td class="px-5 py-4">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4">
                     <p class="text-sm font-medium text-zinc-800">{{ item.cliente.nombre }}</p>
                   </td>
-                  <td class="px-5 py-4 hidden md:table-cell">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4 hidden md:table-cell">
                     <span class="text-sm text-zinc-600">{{ item.pago?.metodo }}</span>
                   </td>
-                  <td class="px-5 py-4 hidden lg:table-cell">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4 hidden lg:table-cell">
                     <span class="text-xs text-zinc-400 font-mono">{{ item.pago?.referencia }}</span>
                   </td>
-                  <td class="px-5 py-4 text-right">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4 text-right">
                     <span class="text-sm font-bold text-zinc-900">{{ item.total | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
                   </td>
-                  <td class="px-5 py-4">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4">
                     <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold"
                       [class]="getPaymentStatusClass(item.pago?.estado || 'pendiente')"
                     >
                       {{ getPaymentStatusLabel(item.pago?.estado || 'pendiente') }}
                     </span>
                   </td>
-                  <td class="px-5 py-4 hidden sm:table-cell">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4 hidden sm:table-cell">
                     <app-status-badge [status]="item.estado" />
                   </td>
-                  <td class="px-5 py-4 text-right">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4 text-right">
                     <div class="flex items-center justify-end gap-1">
                       <a
                         [routerLink]="['/admin/factura', item.id]"
@@ -155,7 +155,7 @@ import { Order, Payment } from '../../../core/models/order.model';
           <div class="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
         </div>
         <div class="fixed top-0 right-0 h-full w-full sm:w-[480px] bg-white z-50 shadow-2xl overflow-y-auto animate-slide-in-right border-l border-zinc-200">
-          <div class="p-6">
+          <div class="p-4 sm:p-6">
             <div class="flex items-center justify-between mb-6">
               <div>
                 <h2 class="text-lg font-extrabold text-zinc-900">{{ selectedOrder.folio }}</h2>

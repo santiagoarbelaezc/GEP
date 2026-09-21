@@ -30,31 +30,33 @@ import { Order, OrderStatus, ORDER_STATUS_LABELS } from '../../../core/models/or
           </div>
 
           <!-- Admin actions -->
-          <div class="flex items-center gap-2 flex-wrap">
-            <a [routerLink]="['/admin/factura', order.id]" class="btn-secondary text-xs px-3 py-2 flex items-center gap-1.5" title="Ver e imprimir factura">
+          <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+            <a [routerLink]="['/admin/factura', order.id]" class="btn-secondary text-xs px-3 py-2 flex items-center gap-1.5 flex-1 sm:flex-initial justify-center" title="Ver e imprimir factura">
               <span class="material-symbols-outlined text-base">receipt_long</span>
               Factura
             </a>
-            <a [routerLink]="['/admin/recibo', order.id]" class="btn-secondary text-xs px-3 py-2 flex items-center gap-1.5" title="Ver e imprimir recibo">
+            <a [routerLink]="['/admin/recibo', order.id]" class="btn-secondary text-xs px-3 py-2 flex items-center gap-1.5 flex-1 sm:flex-initial justify-center" title="Ver e imprimir recibo">
               <span class="material-symbols-outlined text-base">description</span>
               Recibo
             </a>
             @if (order.estado !== 'entregado' && order.estado !== 'cancelado') {
-              <select
-                class="select-premium text-sm py-2"
-                [(ngModel)]="newStatus"
-                id="status-change-select"
-              >
-                <option value="">Cambiar estado...</option>
-                @for (status of availableStatuses; track status.value) {
-                  <option [value]="status.value">{{ status.label }}</option>
+              <div class="flex items-center gap-2 w-full sm:w-auto">
+                <select
+                  class="select-premium text-sm py-2 flex-1 sm:flex-initial"
+                  [(ngModel)]="newStatus"
+                  id="status-change-select"
+                >
+                  <option value="">Cambiar estado...</option>
+                  @for (status of availableStatuses; track status.value) {
+                    <option [value]="status.value">{{ status.label }}</option>
+                  }
+                </select>
+                @if (newStatus) {
+                  <button class="btn-primary text-xs px-4 py-2 shrink-0" (click)="changeStatus()" id="change-status-btn">
+                    Aplicar
+                  </button>
                 }
-              </select>
-              @if (newStatus) {
-                <button class="btn-primary text-xs px-4 py-2" (click)="changeStatus()" id="change-status-btn">
-                  Aplicar
-                </button>
-              }
+              </div>
             }
           </div>
         </div>
@@ -69,7 +71,7 @@ import { Order, OrderStatus, ORDER_STATUS_LABELS } from '../../../core/models/or
           <!-- Left: Details -->
           <div class="lg:col-span-2 space-y-6">
             <!-- Client info -->
-            <div class="card p-6">
+            <div class="card p-5 sm:p-6">
               <p class="micro-label mb-4">Datos del Cliente</p>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
@@ -97,35 +99,35 @@ import { Order, OrderStatus, ORDER_STATUS_LABELS } from '../../../core/models/or
 
             <!-- Products table -->
             <div class="card overflow-hidden">
-              <div class="p-6 pb-0">
+              <div class="p-5 sm:p-6 pb-0">
                 <p class="micro-label mb-4">Productos del Pedido</p>
               </div>
               <div class="overflow-x-auto">
                 <table class="w-full">
                   <thead>
                     <tr class="border-b border-zinc-200 bg-zinc-50">
-                      <th class="text-left px-6 py-3 micro-label">Producto</th>
-                      <th class="text-left px-6 py-3 micro-label">Variante</th>
-                      <th class="text-center px-6 py-3 micro-label">Cant.</th>
-                      <th class="text-right px-6 py-3 micro-label">Precio</th>
-                      <th class="text-right px-6 py-3 micro-label">Subtotal</th>
+                      <th class="text-left px-4 sm:px-6 py-3 micro-label">Producto</th>
+                      <th class="text-left px-4 sm:px-6 py-3 micro-label">Variante</th>
+                      <th class="text-center px-4 sm:px-6 py-3 micro-label">Cant.</th>
+                      <th class="text-right px-4 sm:px-6 py-3 micro-label">Precio</th>
+                      <th class="text-right px-4 sm:px-6 py-3 micro-label">Subtotal</th>
                     </tr>
                   </thead>
                   <tbody>
                     @for (item of order.items; track item.id) {
                       <tr class="border-b border-zinc-50">
-                        <td class="px-6 py-3.5 text-sm font-medium text-zinc-900">{{ item.nombreProducto }}</td>
-                        <td class="px-6 py-3.5 text-sm text-zinc-500">{{ item.nombreVariante || '—' }}</td>
-                        <td class="px-6 py-3.5 text-sm text-zinc-600 text-center">{{ item.cantidad }}</td>
-                        <td class="px-6 py-3.5 text-sm text-zinc-600 text-right">{{ item.precioUnitario | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
-                        <td class="px-6 py-3.5 text-sm font-semibold text-zinc-900 text-right">{{ item.subtotal | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
+                        <td class="px-4 sm:px-6 py-3.5 text-sm font-medium text-zinc-900">{{ item.nombreProducto }}</td>
+                        <td class="px-4 sm:px-6 py-3.5 text-sm text-zinc-500">{{ item.nombreVariante || '—' }}</td>
+                        <td class="px-4 sm:px-6 py-3.5 text-sm text-zinc-600 text-center">{{ item.cantidad }}</td>
+                        <td class="px-4 sm:px-6 py-3.5 text-sm text-zinc-600 text-right">{{ item.precioUnitario | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
+                        <td class="px-4 sm:px-6 py-3.5 text-sm font-semibold text-zinc-900 text-right">{{ item.subtotal | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
                       </tr>
                     }
                   </tbody>
                   <tfoot>
                     <tr class="bg-zinc-50">
-                      <td colspan="4" class="px-6 py-3 text-sm font-bold text-zinc-900 text-right">Total</td>
-                      <td class="px-6 py-3 text-base font-extrabold text-zinc-900 text-right">{{ order.total | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
+                      <td colspan="4" class="px-4 sm:px-6 py-3 text-sm font-bold text-zinc-900 text-right">Total</td>
+                      <td class="px-4 sm:px-6 py-3 text-base font-extrabold text-zinc-900 text-right">{{ order.total | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
                     </tr>
                   </tfoot>
                 </table>
@@ -134,10 +136,10 @@ import { Order, OrderStatus, ORDER_STATUS_LABELS } from '../../../core/models/or
 
             <!-- Payment proof -->
             @if (order.pago?.comprobanteUrl) {
-              <div class="card p-6">
+              <div class="card p-5 sm:p-6">
                 <p class="micro-label mb-4">Comprobante de Pago</p>
-                <div class="flex items-start gap-4">
-                  <div class="w-36 h-64 bg-zinc-100/70 rounded-xl overflow-hidden flex-shrink-0 p-1 flex items-center justify-center border border-zinc-200 cursor-pointer group">
+                <div class="flex flex-col sm:flex-row items-start gap-4">
+                  <div class="w-full sm:w-36 h-52 sm:h-64 bg-zinc-100/70 rounded-xl overflow-hidden flex-shrink-0 p-1 flex items-center justify-center border border-zinc-200 cursor-pointer group">
                     <img
                       [src]="order.pago!.comprobanteUrl"
                       alt="Comprobante de pago"
@@ -151,7 +153,7 @@ import { Order, OrderStatus, ORDER_STATUS_LABELS } from '../../../core/models/or
                     <p class="text-sm text-zinc-600 mt-1"><span class="font-semibold">Estado:</span> {{ order.pago!.estado }}</p>
                     <button
                       (click)="imageExpanded = true"
-                      class="mt-3 btn-secondary text-xs py-1 px-3 inline-flex items-center gap-1"
+                      class="mt-3 btn-secondary text-xs py-1.5 px-3 inline-flex items-center gap-1"
                     >
                       <span class="material-symbols-outlined text-sm">zoom_in</span>
                       Ampliar

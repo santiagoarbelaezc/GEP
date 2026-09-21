@@ -94,7 +94,7 @@ import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
           </div>
 
           <!-- Quick Metrics Bar -->
-          <div class="grid grid-cols-3 gap-3 mb-6 p-3 bg-zinc-50/70 rounded-2xl border border-zinc-100 text-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 mb-6 p-3 bg-zinc-50/70 rounded-2xl border border-zinc-100 text-xs">
             <div>
               <span class="text-zinc-400 block text-[11px]">Total Período</span>
               <span class="font-extrabold text-zinc-900 text-sm">{{ totalOrders }} pedidos</span>
@@ -114,7 +114,7 @@ import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
 
           <!-- Chart Visual Area -->
           @if (chartData.length > 0) {
-            <div class="h-[300px] w-full">
+            <div class="h-[250px] sm:h-[300px] w-full">
               <ngx-charts-bar-vertical
                 [results]="chartData"
                 [xAxis]="true"

@@ -17,42 +17,42 @@ import { UserRole, ROLE_LABELS } from '../../../core/models/user.model';
       </div>
 
       <!-- KPIs -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6 animate-stagger">
-        <div class="card p-5">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 animate-stagger">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-zinc-100 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-zinc-600">timeline</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-zinc-100 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-zinc-600">timeline</span>
             </div>
           </div>
-          <p class="text-2xl font-extrabold text-zinc-900">{{ todayCount }}</p>
-          <p class="text-xs text-zinc-400 mt-0.5">Acciones Hoy</p>
+          <p class="text-xl sm:text-2xl font-extrabold text-zinc-900">{{ todayCount }}</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Acciones Hoy</p>
         </div>
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-emerald-600">group</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-emerald-600">group</span>
             </div>
           </div>
-          <p class="text-2xl font-extrabold text-zinc-900">{{ activeSessions.length }}</p>
-          <p class="text-xs text-zinc-400 mt-0.5">Usuarios Activos</p>
+          <p class="text-xl sm:text-2xl font-extrabold text-zinc-900">{{ activeSessions.length }}</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Usuarios Activos</p>
         </div>
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-amber-600">point_of_sale</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-amber-50 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-amber-600">point_of_sale</span>
             </div>
           </div>
-          <p class="text-2xl font-extrabold text-zinc-900">{{ cajaCount }}</p>
-          <p class="text-xs text-zinc-400 mt-0.5">Acciones de Caja</p>
+          <p class="text-xl sm:text-2xl font-extrabold text-zinc-900">{{ cajaCount }}</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Acciones de Caja</p>
         </div>
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-zinc-900 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-white">local_shipping</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-zinc-900 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-white">local_shipping</span>
             </div>
           </div>
-          <p class="text-2xl font-extrabold text-zinc-900">{{ logisticaCount }}</p>
-          <p class="text-xs text-zinc-400 mt-0.5">Acciones Logística</p>
+          <p class="text-xl sm:text-2xl font-extrabold text-zinc-900">{{ logisticaCount }}</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Acciones Logística</p>
         </div>
       </div>
 

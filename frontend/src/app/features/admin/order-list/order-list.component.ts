@@ -57,13 +57,13 @@ import { Order, OrderStatus, ORDER_STATUS_LABELS } from '../../../core/models/or
           <table class="w-full">
             <thead>
               <tr class="bg-zinc-50 border-b border-zinc-200">
-                <th class="text-left px-5 py-3 micro-label">Código</th>
-                <th class="text-left px-5 py-3 micro-label">Cliente</th>
-                <th class="text-left px-5 py-3 micro-label hidden md:table-cell">Ciudad</th>
-                <th class="text-left px-5 py-3 micro-label">Total</th>
-                <th class="text-left px-5 py-3 micro-label">Estado</th>
-                <th class="text-left px-5 py-3 micro-label hidden sm:table-cell">Fecha</th>
-                <th class="px-5 py-3"></th>
+                <th class="text-left px-3.5 sm:px-5 py-3 micro-label">Código</th>
+                <th class="text-left px-3.5 sm:px-5 py-3 micro-label">Cliente</th>
+                <th class="text-left px-3.5 sm:px-5 py-3 micro-label hidden md:table-cell">Ciudad</th>
+                <th class="text-left px-3.5 sm:px-5 py-3 micro-label">Total</th>
+                <th class="text-left px-3.5 sm:px-5 py-3 micro-label">Estado</th>
+                <th class="text-left px-3.5 sm:px-5 py-3 micro-label hidden sm:table-cell">Fecha</th>
+                <th class="px-3 sm:px-5 py-3"></th>
               </tr>
             </thead>
             <tbody>
@@ -72,26 +72,26 @@ import { Order, OrderStatus, ORDER_STATUS_LABELS } from '../../../core/models/or
                   class="border-b border-zinc-100 hover:bg-zinc-50/50 transition-colors cursor-pointer group"
                   [routerLink]="['/admin/pedidos', order.id]"
                 >
-                  <td class="px-5 py-4">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4">
                     <span class="text-sm font-bold text-zinc-900">{{ order.folio }}</span>
                   </td>
-                  <td class="px-5 py-4">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4">
                     <p class="text-sm font-medium text-zinc-800">{{ order.cliente.nombre }}</p>
                     <p class="text-xs text-zinc-400">{{ order.cliente.email }}</p>
                   </td>
-                  <td class="px-5 py-4 hidden md:table-cell">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4 hidden md:table-cell">
                     <span class="text-sm text-zinc-600">{{ order.ciudad }}</span>
                   </td>
-                  <td class="px-5 py-4">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4">
                     <span class="text-sm font-bold text-zinc-900">{{ order.total | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
                   </td>
-                  <td class="px-5 py-4">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4">
                     <app-status-badge [status]="order.estado" />
                   </td>
-                  <td class="px-5 py-4 hidden sm:table-cell">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4 hidden sm:table-cell">
                     <span class="text-xs text-zinc-400">{{ order.createdAt | date:'dd/MM/yy HH:mm' }}</span>
                   </td>
-                  <td class="px-5 py-4 text-right">
+                  <td class="px-3.5 sm:px-5 py-3 sm:py-4 text-right">
                     <div class="flex items-center justify-end gap-1">
                       <span class="material-symbols-outlined text-zinc-300 group-hover:text-zinc-600 text-lg transition-colors">chevron_right</span>
                     </div>
@@ -104,23 +104,23 @@ import { Order, OrderStatus, ORDER_STATUS_LABELS } from '../../../core/models/or
 
         <!-- Pagination -->
         @if (totalPages > 1) {
-          <div class="flex items-center justify-between px-5 py-3 border-t border-zinc-100">
-            <p class="text-xs text-zinc-400">
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-3 px-4 sm:px-5 py-3 border-t border-zinc-100">
+            <p class="text-xs text-zinc-400 text-center sm:text-left">
               Mostrando {{ (currentPage - 1) * pageSize + 1 }}–{{ Math.min(currentPage * pageSize, filteredOrders.length) }}
               de {{ filteredOrders.length }}
             </p>
-            <div class="flex gap-1">
+            <div class="flex gap-1.5 w-full sm:w-auto justify-center sm:justify-end">
               <button
                 (click)="goToPage(currentPage - 1)"
                 [disabled]="currentPage === 1"
-                class="px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-600 hover:bg-zinc-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                class="flex-1 sm:flex-initial px-3.5 py-1.5 rounded-lg text-xs font-semibold text-zinc-600 hover:bg-zinc-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-center"
               >
                 ← Anterior
               </button>
               <button
                 (click)="goToPage(currentPage + 1)"
                 [disabled]="currentPage === totalPages"
-                class="px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-600 hover:bg-zinc-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                class="flex-1 sm:flex-initial px-3.5 py-1.5 rounded-lg text-xs font-semibold text-zinc-600 hover:bg-zinc-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-center"
               >
                 Siguiente →
               </button>

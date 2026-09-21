@@ -14,7 +14,7 @@ import { Order, OrderStatus } from '../../../core/models/order.model';
     <div class="animate-fade-in">
 
       <!-- Header (Estilo Admin) -->
-      <div class="flex items-center justify-between mb-6">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
         <div>
           <h1 class="page-title">Pedidos de Caja</h1>
           <p class="text-sm text-zinc-400 mt-1">Historial y control de órdenes gestionadas por el área de caja</p>
@@ -27,49 +27,49 @@ import { Order, OrderStatus } from '../../../core/models/order.model';
       </div>
 
       <!-- KPIs (Estilo Admin) -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6 animate-stagger">
-        <div class="card p-5">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 animate-stagger">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-zinc-100 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-zinc-600">receipt_long</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-zinc-100 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-zinc-600">receipt_long</span>
             </div>
           </div>
-          <p class="text-2xl font-extrabold text-zinc-900">{{ orders.length }}</p>
-          <p class="text-xs text-zinc-400 mt-0.5">Total Pedidos</p>
+          <p class="text-xl sm:text-2xl font-extrabold text-zinc-900">{{ orders.length }}</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Total Pedidos</p>
         </div>
 
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-amber-600">pending</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-amber-50 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-amber-600">pending</span>
             </div>
           </div>
-          <p class="text-2xl font-extrabold text-zinc-900">{{ getCountByStatus('pago_en_revision') }}</p>
-          <p class="text-xs text-zinc-400 mt-0.5">En Revisión de Pago</p>
+          <p class="text-xl sm:text-2xl font-extrabold text-zinc-900">{{ getCountByStatus('pago_en_revision') }}</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">En Revisión de Pago</p>
         </div>
 
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-emerald-600">check_circle</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-emerald-600">check_circle</span>
             </div>
           </div>
-          <p class="text-2xl font-extrabold text-zinc-900">
+          <p class="text-xl sm:text-2xl font-extrabold text-zinc-900">
             {{ getCountByStatus('pago_confirmado') + getCountByStatus('en_preparacion') }}
           </p>
-          <p class="text-xs text-zinc-400 mt-0.5">Pagos Confirmados</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Pagos Confirmados</p>
         </div>
 
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-zinc-900 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-white">payments</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-zinc-900 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-white">payments</span>
             </div>
           </div>
-          <p class="price-value-xl truncate">
+          <p class="text-base sm:text-2xl font-extrabold text-zinc-900 truncate">
             {{ totalMonto | currency:'COP':'symbol-narrow':'1.0-0' }}
           </p>
-          <p class="text-xs text-zinc-400 mt-0.5">Total Cartera</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Total Cartera</p>
         </div>
       </div>
 

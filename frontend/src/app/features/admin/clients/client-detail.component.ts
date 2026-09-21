@@ -50,7 +50,7 @@ import { Order } from '../../../core/models/order.model';
           <div class="lg:col-span-2 space-y-6">
             <!-- Orders Table -->
             <div class="card overflow-hidden">
-              <div class="p-6 pb-0">
+              <div class="p-5 sm:p-6 pb-0">
                 <p class="micro-label mb-4">Historial de Pedidos ({{ orders.length }})</p>
               </div>
               @if (orders.length > 0) {
@@ -58,10 +58,10 @@ import { Order } from '../../../core/models/order.model';
                   <table class="w-full">
                     <thead>
                       <tr class="border-b border-zinc-200 bg-zinc-50">
-                        <th class="text-left px-6 py-3 micro-label">Código</th>
-                        <th class="text-left px-6 py-3 micro-label">Fecha</th>
-                        <th class="text-right px-6 py-3 micro-label">Total</th>
-                        <th class="text-left px-6 py-3 micro-label">Estado</th>
+                        <th class="text-left px-4 sm:px-6 py-3 micro-label">Código</th>
+                        <th class="text-left px-4 sm:px-6 py-3 micro-label">Fecha</th>
+                        <th class="text-right px-4 sm:px-6 py-3 micro-label">Total</th>
+                        <th class="text-left px-4 sm:px-6 py-3 micro-label">Estado</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -70,10 +70,10 @@ import { Order } from '../../../core/models/order.model';
                           class="border-b border-zinc-50 hover:bg-zinc-50/50 transition-colors cursor-pointer"
                           [routerLink]="['/admin/pedidos', order.id]"
                         >
-                          <td class="px-6 py-3.5 text-sm font-bold text-zinc-900">{{ order.folio }}</td>
-                          <td class="px-6 py-3.5 text-xs text-zinc-400">{{ order.createdAt | date:'dd/MM/yy HH:mm' }}</td>
-                          <td class="px-6 py-3.5 text-sm font-bold text-zinc-900 text-right">{{ order.total | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
-                          <td class="px-6 py-3.5"><app-status-badge [status]="order.estado" /></td>
+                          <td class="px-4 sm:px-6 py-3 sm:py-3.5 text-sm font-bold text-zinc-900">{{ order.folio }}</td>
+                          <td class="px-4 sm:px-6 py-3 sm:py-3.5 text-xs text-zinc-400">{{ order.createdAt | date:'dd/MM/yy HH:mm' }}</td>
+                          <td class="px-4 sm:px-6 py-3 sm:py-3.5 text-sm font-bold text-zinc-900 text-right">{{ order.total | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
+                          <td class="px-4 sm:px-6 py-3 sm:py-3.5"><app-status-badge [status]="order.estado" /></td>
                         </tr>
                       }
                     </tbody>

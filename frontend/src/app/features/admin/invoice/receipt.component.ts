@@ -16,17 +16,17 @@ const DEFAULT_RECEIPT_IMAGE =
     @if (order) {
       <!-- Top Action Controls (hidden on print) -->
       <div class="print:hidden mb-6 animate-fade-in max-w-6xl mx-auto">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <a routerLink="/admin/pagos" class="inline-flex items-center gap-1 text-xs text-zinc-400 hover:text-zinc-900 transition-colors font-medium">
             <span class="material-symbols-outlined text-base">arrow_back</span>
             Volver a pagos
           </a>
-          <div class="flex items-center gap-3">
-            <a [routerLink]="['/admin/factura', order.id]" class="btn-secondary text-xs py-2 px-4 inline-flex items-center gap-1.5">
+          <div class="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
+            <a [routerLink]="['/admin/factura', order.id]" class="btn-secondary text-xs py-2 px-3 sm:px-4 inline-flex items-center justify-center gap-1.5 flex-1 sm:flex-initial">
               <span class="material-symbols-outlined text-base">receipt_long</span>
               Ver Factura
             </a>
-            <button (click)="printReceipt()" class="btn-primary text-xs py-2 px-5 inline-flex items-center gap-2 shadow-sm">
+            <button (click)="printReceipt()" class="btn-primary text-xs py-2 px-4 sm:px-5 inline-flex items-center justify-center gap-2 shadow-sm flex-1 sm:flex-initial">
               <span class="material-symbols-outlined text-base">print</span>
               Imprimir Recibo
             </button>
@@ -35,11 +35,11 @@ const DEFAULT_RECEIPT_IMAGE =
       </div>
 
       <!-- Main Two-Column Layout: Left (Receipt Ticket) & Right (Interactive Comprobante Zoom) -->
-      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in">
+      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start animate-fade-in">
 
         <!-- ── Left Section: Recibo de Caja (Ticket formal) ────────────────── -->
         <div class="lg:col-span-5 w-full">
-          <div class="receipt-sheet bg-white border border-zinc-200 rounded-3xl print:border-none print:rounded-none shadow-sm p-7 print:p-0">
+          <div class="receipt-sheet bg-white border border-zinc-200 rounded-2xl sm:rounded-3xl print:border-none print:rounded-none shadow-sm p-5 sm:p-7 print:p-0">
             <!-- Header -->
             <div class="text-center mb-5 pb-4 border-b border-dashed border-zinc-300">
               <div class="w-10 h-10 bg-zinc-900 rounded-xl flex items-center justify-center mx-auto mb-2.5 print:bg-black text-white font-extrabold text-sm shadow-xs">

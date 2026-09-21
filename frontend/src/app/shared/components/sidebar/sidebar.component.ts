@@ -47,6 +47,7 @@ import { UserRole, MenuItem, ROLE_LABELS, ROLE_MENUS } from '../../../core/model
             [routerLink]="item.route"
             routerLinkActive="bg-zinc-900 text-white shadow-sm"
             [routerLinkActiveOptions]="{ exact: item.route === '/caja' || item.route === '/admin' }"
+            (click)="mobileOpen = false"
             class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900 transition-all duration-200 mb-1"
           >
             <span class="material-symbols-outlined text-[20px]">{{ item.icon }}</span>

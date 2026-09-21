@@ -42,7 +42,7 @@ import { UserRole } from '../../../core/models/user.model';
           </header>
 
           <!-- Page content -->
-          <main class="p-4 lg:p-8">
+          <main class="p-3.5 sm:p-6 lg:p-8">
             <router-outlet />
           </main>
         </div>
