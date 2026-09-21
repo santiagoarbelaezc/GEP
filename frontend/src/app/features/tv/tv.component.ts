@@ -38,10 +38,10 @@ const QUINDIO_CUSTOMERS = [
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="h-screen max-h-screen bg-zinc-950 text-zinc-100 p-3 lg:p-4 flex flex-col font-sans select-none overflow-hidden">
+    <div class="min-h-screen lg:h-screen lg:max-h-screen bg-zinc-950 text-zinc-100 p-2.5 sm:p-3 lg:p-4 flex flex-col font-sans select-none overflow-y-auto lg:overflow-hidden">
       
       <!-- ── Header Sobrio y Elegante (Estilo Admin) ── -->
-      <header class="h-16 shrink-0 px-6 bg-zinc-900/80 backdrop-blur-md rounded-2xl border border-zinc-800/80 flex items-center justify-between gap-4 mb-3 shadow-lg">
+      <header class="h-16 shrink-0 px-4 sm:px-6 bg-zinc-900/80 backdrop-blur-md rounded-2xl border border-zinc-800/80 flex items-center justify-between gap-4 mb-3 shadow-lg">
         
         <!-- Logo & Título Limpio -->
         <div class="flex items-center gap-3.5">
@@ -63,9 +63,9 @@ const QUINDIO_CUSTOMERS = [
         </div>
 
         <!-- Reloj Digital y Salida (Tipografía Admin) -->
-        <div class="flex items-center gap-5">
+        <div class="flex items-center gap-3 sm:gap-5">
           <div class="text-right">
-            <p class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-none tabular-nums">
+            <p class="text-xl sm:text-3xl font-extrabold text-white tracking-tight leading-none tabular-nums">
               {{ currentTime }}
             </p>
             <p class="text-[10px] sm:text-[11px] text-zinc-400 font-semibold uppercase tracking-wider mt-1 capitalize">
@@ -84,12 +84,12 @@ const QUINDIO_CUSTOMERS = [
       </header>
 
       <!-- ── Contenedor Principal Split (100% Ajustado a la Pantalla) ── -->
-      <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-3.5 min-h-0 overflow-hidden">
+      <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-3.5 min-h-0 overflow-visible lg:overflow-hidden">
         
         <!-- ════════════════════════════════════════════════════════════════════════ -->
         <!-- LADO IZQUIERDO: HERO ELEGANTE Y DETALLADO                               -->
         <!-- ════════════════════════════════════════════════════════════════════════ -->
-        <section class="lg:col-span-7 flex flex-col min-h-0 h-full overflow-hidden">
+        <section class="lg:col-span-7 flex flex-col min-h-0 h-auto lg:h-full overflow-visible lg:overflow-hidden">
           
           @if (heroOrder) {
             <div

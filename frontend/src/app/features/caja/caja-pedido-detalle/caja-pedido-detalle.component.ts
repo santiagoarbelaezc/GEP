@@ -40,7 +40,7 @@ import { Order } from '../../../core/models/order.model';
         </div>
 
         @if (order) {
-          <div class="flex items-center gap-2">
+          <div class="flex flex-wrap items-center gap-2">
             <a
               [routerLink]="['/admin/factura', order.id]"
               target="_blank"
@@ -78,7 +78,7 @@ import { Order } from '../../../core/models/order.model';
       }
 
       @if (!order && !loading) {
-        <div class="card p-12 text-center">
+        <div class="card p-8 sm:p-12 text-center">
           <span class="material-symbols-outlined text-5xl text-zinc-300 mb-3">error_outline</span>
           <h2 class="text-lg font-bold text-zinc-800">Pedido no encontrado</h2>
           <p class="text-xs text-zinc-400 mt-1">La orden que intentas revisar no existe o fue retirada.</p>
@@ -97,8 +97,8 @@ import { Order } from '../../../core/models/order.model';
           <div class="lg:col-span-7 space-y-6">
 
             <!-- Ficha del Cliente -->
-            <div class="card p-5">
-              <div class="flex items-center justify-between pb-3 mb-3 border-b border-zinc-100">
+            <div class="card p-4 sm:p-5">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 pb-3 mb-3 border-b border-zinc-100">
                 <div class="flex items-center gap-2 text-zinc-900 font-bold text-sm">
                   <span class="material-symbols-outlined text-zinc-500 text-lg">person</span>
                   Información del Cliente
@@ -107,7 +107,7 @@ import { Order } from '../../../core/models/order.model';
                   [href]="getWhatsAppUrl()"
                   target="_blank"
                   rel="noopener"
-                  class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-bold rounded-lg transition-colors border border-emerald-200"
+                  class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-bold rounded-lg transition-colors border border-emerald-200 self-start sm:self-auto"
                 >
                   <span class="material-symbols-outlined text-sm">chat</span>
                   Contactar por WhatsApp

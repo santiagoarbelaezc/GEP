@@ -61,18 +61,18 @@ import { Order } from '../../../core/models/order.model';
         <div class="flex items-center gap-2.5">
           
           <!-- Controles de Zoom HUD -->
-          <div class="flex items-center bg-zinc-800/80 backdrop-blur-md rounded-xl border border-zinc-700 p-1 shadow-inner">
+          <div class="flex items-center bg-zinc-800/80 backdrop-blur-md rounded-xl border border-zinc-700 p-0.5 sm:p-1 shadow-inner">
             <button
               type="button"
               (click)="zoomOut()"
               [disabled]="scale <= 0.6"
-              class="w-8 h-8 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-700/80 flex items-center justify-center disabled:opacity-30 disabled:hover:bg-transparent transition-colors cursor-pointer"
+              class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-700/80 flex items-center justify-center disabled:opacity-30 disabled:hover:bg-transparent transition-colors cursor-pointer"
               title="Alejar (-)"
             >
-              <span class="material-symbols-outlined text-base">remove</span>
+              <span class="material-symbols-outlined text-sm sm:text-base">remove</span>
             </button>
 
-            <span class="text-xs font-mono font-bold px-2 text-white min-w-[52px] text-center">
+            <span class="text-xs font-mono font-bold px-1.5 text-white min-w-[44px] sm:min-w-[52px] text-center hidden xs:inline">
               {{ (scale * 100).toFixed(0) }}%
             </span>
 
@@ -80,28 +80,28 @@ import { Order } from '../../../core/models/order.model';
               type="button"
               (click)="zoomIn()"
               [disabled]="scale >= 5.5"
-              class="w-8 h-8 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-700/80 flex items-center justify-center disabled:opacity-30 disabled:hover:bg-transparent transition-colors cursor-pointer"
+              class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-700/80 flex items-center justify-center disabled:opacity-30 disabled:hover:bg-transparent transition-colors cursor-pointer"
               title="Acercar (+)"
             >
-              <span class="material-symbols-outlined text-base">add</span>
+              <span class="material-symbols-outlined text-sm sm:text-base">add</span>
             </button>
 
             <button
               type="button"
               (click)="rotate()"
-              class="w-8 h-8 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-700/80 flex items-center justify-center border-l border-zinc-700/60 ml-0.5 pl-0.5 transition-colors cursor-pointer"
+              class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-700/80 flex items-center justify-center border-l border-zinc-700/60 ml-0.5 pl-0.5 transition-colors cursor-pointer"
               title="Girar imagen 90°"
             >
-              <span class="material-symbols-outlined text-base">rotate_right</span>
+              <span class="material-symbols-outlined text-sm sm:text-base">rotate_right</span>
             </button>
 
             <button
               type="button"
               (click)="resetView()"
-              class="w-8 h-8 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-700/80 flex items-center justify-center transition-colors cursor-pointer"
+              class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-700/80 flex items-center justify-center transition-colors cursor-pointer"
               title="Restablecer tamaño y posición"
             >
-              <span class="material-symbols-outlined text-base">restart_alt</span>
+              <span class="material-symbols-outlined text-sm sm:text-base">restart_alt</span>
             </button>
           </div>
 
