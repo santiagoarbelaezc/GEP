@@ -41,38 +41,47 @@ const QUINDIO_CUSTOMERS = [
   template: `
     <div class="min-h-screen bg-zinc-950 text-white p-4 sm:p-6 lg:p-8 flex flex-col font-sans select-none overflow-x-hidden">
       
-      <!-- ── Header Minimalista del Monitor TV ── -->
-      <header class="h-18 bg-zinc-900/90 backdrop-blur-md rounded-2xl border border-zinc-800/80 px-6 flex items-center justify-between gap-4 mb-6 shrink-0 shadow-2xl">
+      <!-- ── Header Minimalista del Monitor TV con Reloj Prominente ── -->
+      <header class="py-4 px-6 sm:px-8 bg-zinc-900/95 backdrop-blur-md rounded-3xl border border-zinc-800/80 flex items-center justify-between gap-6 mb-6 shrink-0 shadow-2xl">
         
         <!-- Logo & Título Limpio -->
-        <div class="flex items-center gap-3.5">
-          <div class="w-10 h-10 bg-white text-zinc-950 rounded-xl flex items-center justify-center font-black text-lg shadow-md">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 bg-white text-zinc-950 rounded-2xl flex items-center justify-center font-black text-xl shadow-lg">
             G
           </div>
-          <div class="flex items-center gap-3">
-            <h1 class="text-lg sm:text-xl font-black text-white tracking-tight">
-              GEP &bull; PEDIDOS EN VIVO
-            </h1>
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase tracking-widest animate-pulse">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-              En Vivo
-            </span>
+          <div>
+            <div class="flex items-center gap-3">
+              <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">
+                GEP &bull; PEDIDOS EN VIVO
+              </h1>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase tracking-widest animate-pulse">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                En Vivo
+              </span>
+            </div>
+            <p class="text-xs text-zinc-400 font-medium mt-0.5">
+              Plaxtilíneas &bull; Quindío
+            </p>
           </div>
         </div>
 
-        <!-- Reloj Digital y Salida -->
-        <div class="flex items-center gap-5">
+        <!-- Reloj Digital Grande y Salida -->
+        <div class="flex items-center gap-6">
           <div class="text-right">
-            <p class="text-2xl font-black text-white font-mono tracking-tight leading-none">{{ currentTime }}</p>
-            <p class="text-[10px] text-zinc-400 uppercase tracking-wider font-semibold mt-1">{{ currentDate }}</p>
+            <p class="text-4xl sm:text-5xl lg:text-6xl font-black text-white font-mono tracking-tight leading-none drop-shadow-md">
+              {{ currentTime }}
+            </p>
+            <p class="text-xs sm:text-sm text-emerald-400 font-bold uppercase tracking-widest mt-1.5 capitalize">
+              {{ currentDate }}
+            </p>
           </div>
 
           <button
             (click)="onLogout()"
-            class="p-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors border border-zinc-700/80 cursor-pointer"
+            class="p-3 rounded-2xl bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors border border-zinc-700/80 cursor-pointer shadow-md"
             title="Cerrar sesión"
           >
-            <span class="material-symbols-outlined text-lg">logout</span>
+            <span class="material-symbols-outlined text-xl">logout</span>
           </button>
         </div>
       </header>
@@ -197,29 +206,32 @@ const QUINDIO_CUSTOMERS = [
         </section>
 
         <!-- ════════════════════════════════════════════════════════════════════════ -->
-        <!-- LADO DERECHO: CONTENEDORES PEQUEÑOS EN COLA                             -->
+        <!-- LADO DERECHO: CONTENEDORES PEQUEÑOS EN COLA CON PAGINACIÓN              -->
         <!-- ════════════════════════════════════════════════════════════════════════ -->
-        <section class="lg:col-span-5 xl:col-span-5 flex flex-col min-h-0">
+        <section class="lg:col-span-5 xl:col-span-5 flex flex-col min-h-0 bg-zinc-900/60 rounded-3xl border border-zinc-800/80 p-4 sm:p-5">
           
-          <div class="flex items-center justify-between mb-2.5 px-1">
-            <h2 class="text-xs font-black text-zinc-400 uppercase tracking-wider">
+          <div class="flex items-center justify-between mb-3 px-1">
+            <h2 class="text-xs font-black text-zinc-300 uppercase tracking-wider flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-emerald-400">view_agenda</span>
               En Cola ({{ queueOrders.length }})
             </h2>
-            <span class="text-[10px] text-zinc-500">Actualización en vivo</span>
+            <span class="text-xs text-zinc-400 font-mono">
+              Página {{ currentPage }} de {{ totalPages }}
+            </span>
           </div>
 
-          <!-- Contenedores Pequeños -->
-          <div class="flex-1 space-y-2.5 overflow-y-auto pr-1.5 custom-scrollbar min-h-0">
-            @for (order of queueOrders; track order.id; let i = $index) {
+          <!-- Contenedores Pequeños Paginados -->
+          <div class="flex-1 space-y-2.5 overflow-y-auto pr-1 custom-scrollbar min-h-0">
+            @for (order of paginatedQueueOrders; track order.id; let i = $index) {
               <div
                 (click)="spotlightOrder(order)"
-                class="p-3.5 rounded-xl bg-zinc-900/80 border border-zinc-800/80 hover:border-zinc-600 hover:bg-zinc-850 transition-all cursor-pointer flex flex-col gap-1.5 group shadow-sm active:scale-[0.99]"
+                class="p-3.5 rounded-2xl bg-zinc-950/80 border border-zinc-800 hover:border-emerald-500/50 hover:bg-zinc-900 transition-all cursor-pointer flex flex-col gap-1.5 group shadow-sm active:scale-[0.99]"
               >
-                <!-- Fila 1: Folio, Hora y Estado -->
+                <!-- Fila 1: Folio, Posición y Estado -->
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-2">
-                    <span class="w-5 h-5 rounded bg-zinc-800 text-zinc-400 text-[10px] font-bold flex items-center justify-center border border-zinc-700">
-                      {{ i + 2 }}
+                    <span class="w-6 h-6 rounded-lg bg-zinc-800 text-zinc-300 text-[10px] font-black flex items-center justify-center border border-zinc-700">
+                      #{{ (currentPage - 1) * pageSize + i + 2 }}
                     </span>
                     <span class="font-mono font-bold text-xs text-white group-hover:text-emerald-400 transition-colors">
                       {{ order.folio }}
@@ -255,11 +267,47 @@ const QUINDIO_CUSTOMERS = [
               </div>
             }
 
-            @if (queueOrders.length === 0) {
-              <div class="p-8 text-center bg-zinc-900/40 rounded-2xl border border-zinc-800/80 text-zinc-500 text-xs">
+            @if (paginatedQueueOrders.length === 0) {
+              <div class="p-8 text-center bg-zinc-950/40 rounded-2xl border border-zinc-800/80 text-zinc-500 text-xs">
                 No hay más pedidos en cola.
               </div>
             }
+          </div>
+
+          <!-- Paginación de la Cola -->
+          <div class="pt-3 mt-3 border-t border-zinc-800 flex items-center justify-between">
+            <button
+              type="button"
+              (click)="prevPage()"
+              [disabled]="currentPage === 1"
+              class="px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 disabled:opacity-30 disabled:cursor-not-allowed transition-all text-xs font-bold flex items-center gap-1 cursor-pointer border border-zinc-700"
+            >
+              <span class="material-symbols-outlined text-sm">chevron_left</span>
+              <span>Anterior</span>
+            </button>
+
+            <div class="flex items-center gap-1">
+              @for (p of pagesList; track p) {
+                <button
+                  type="button"
+                  (click)="goToPage(p)"
+                  class="w-7 h-7 rounded-xl text-xs font-bold transition-all flex items-center justify-center cursor-pointer"
+                  [class]="currentPage === p ? 'bg-emerald-500 text-zinc-950 font-black shadow-md' : 'bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-750 border border-zinc-700/60'"
+                >
+                  {{ p }}
+                </button>
+              }
+            </div>
+
+            <button
+              type="button"
+              (click)="nextPage()"
+              [disabled]="currentPage >= totalPages"
+              class="px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 disabled:opacity-30 disabled:cursor-not-allowed transition-all text-xs font-bold flex items-center gap-1 cursor-pointer border border-zinc-700"
+            >
+              <span>Siguiente</span>
+              <span class="material-symbols-outlined text-sm">chevron_right</span>
+            </button>
           </div>
 
         </section>
