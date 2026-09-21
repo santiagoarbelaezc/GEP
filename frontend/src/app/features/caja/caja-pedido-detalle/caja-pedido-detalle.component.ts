@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
@@ -253,44 +253,26 @@ import { Order } from '../../../core/models/order.model';
           <!-- ═════════════════════════════════════════════════════════════ -->
           <div class="lg:col-span-5 space-y-6">
 
-            <!-- Card del Comprobante con Lupa y Zoom -->
+            <!-- Card del Comprobante -->
             <div class="card overflow-hidden">
               <div class="p-4 border-b border-zinc-200 bg-zinc-50 flex items-center justify-between">
                 <div class="flex items-center gap-2">
                   <span class="material-symbols-outlined text-zinc-600 text-lg">receipt</span>
                   <div>
                     <h3 class="text-sm font-bold text-zinc-900">Comprobante de Pago</h3>
-                    <p class="text-[11px] text-zinc-400">Pasa el cursor sobre el recibo para hacer zoom detallado</p>
+                    <p class="text-[11px] text-zinc-400">Haz clic sobre la imagen para abrirla en tamaño completo</p>
                   </div>
                 </div>
 
                 @if (order.pago?.comprobanteUrl) {
-                  <div class="flex items-center gap-1 bg-white border border-zinc-200 rounded-lg p-1">
-                    <button
-                      (click)="adjustZoom(-0.25)"
-                      class="p-1 text-zinc-500 hover:text-zinc-900 rounded hover:bg-zinc-100"
-                      title="Disminuir zoom"
-                    >
-                      <span class="material-symbols-outlined text-base">zoom_out</span>
-                    </button>
-                    <span class="text-[10px] font-mono font-bold px-1 text-zinc-700">
-                      {{ (zoomLevel * 100).toFixed(0) }}%
-                    </span>
-                    <button
-                      (click)="adjustZoom(0.25)"
-                      class="p-1 text-zinc-500 hover:text-zinc-900 rounded hover:bg-zinc-100"
-                      title="Aumentar zoom"
-                    >
-                      <span class="material-symbols-outlined text-base">zoom_in</span>
-                    </button>
-                    <button
-                      (click)="resetZoom()"
-                      class="p-1 text-zinc-500 hover:text-zinc-900 rounded hover:bg-zinc-100 text-[10px] font-bold"
-                      title="Restablecer"
-                    >
-                      1:1
-                    </button>
-                  </div>
+                  <button
+                    (click)="openImageModal()"
+                    class="btn-secondary text-xs py-1.5 px-3 flex items-center gap-1.5"
+                    title="Ver imagen completa"
+                  >
+                    <span class="material-symbols-outlined text-base">fullscreen</span>
+                    <span>Ver Completo</span>
+                  </button>
                 }
               </div>
 
@@ -299,21 +281,22 @@ import { Order } from '../../../core/models/order.model';
                 <div class="p-4 bg-zinc-900 flex flex-col items-center justify-center min-h-[380px]">
                   
                   <div
-                    class="relative overflow-hidden rounded-xl border border-zinc-700 bg-zinc-950 cursor-crosshair max-w-full shadow-2xl group"
-                    (mousemove)="onImageMouseMove($event)"
-                    (mouseleave)="onImageMouseLeave()"
+                    class="relative overflow-hidden rounded-xl border border-zinc-700 bg-zinc-950 cursor-pointer max-w-full shadow-2xl group transition-all hover:border-zinc-500"
+                    (click)="openImageModal()"
+                    title="Haz clic para ver el comprobante completo"
                   >
                     <img
                       [src]="order.pago!.comprobanteUrl"
                       alt="Comprobante Bancario de Pago"
-                      class="max-h-[380px] w-auto object-contain transition-transform duration-100 ease-out select-none pointer-events-none"
-                      [style.transform]="getTransformStyle()"
+                      class="max-h-[380px] w-auto object-contain block select-none group-hover:scale-[1.01] transition-transform duration-200"
                     />
 
-                    <!-- Indicador Lupa -->
-                    <div class="absolute bottom-2.5 right-2.5 bg-black/75 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] font-bold text-white flex items-center gap-1.5 pointer-events-none border border-white/20">
-                      <span class="material-symbols-outlined text-xs text-amber-400">search</span>
-                      <span>Lupa Activa</span>
+                    <!-- Indicador Hover -->
+                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                      <span class="bg-black/80 backdrop-blur-md text-white px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-xl border border-white/20">
+                        <span class="material-symbols-outlined text-base">fullscreen</span>
+                        Ver imagen completa
+                      </span>
                     </div>
                   </div>
 
@@ -452,6 +435,35 @@ import { Order } from '../../../core/models/order.model';
         </div>
       }
 
+      <!-- Modal de Imagen Completa (Sin Padding) -->
+      @if (isImageModalOpen && order?.pago?.comprobanteUrl) {
+        <div
+          class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-0 m-0 animate-fade-in"
+          (click)="closeImageModal()"
+        >
+          <div
+            class="relative max-w-full max-h-screen flex items-center justify-center p-0 m-0 overflow-hidden shadow-2xl animate-scale-up"
+            (click)="$event.stopPropagation()"
+          >
+            <!-- Botón Cerrar Flotante -->
+            <button
+              (click)="closeImageModal()"
+              class="absolute top-4 right-4 z-30 w-11 h-11 rounded-full bg-black/75 hover:bg-black text-white flex items-center justify-center backdrop-blur-md transition-all border border-white/20 cursor-pointer shadow-2xl"
+              title="Cerrar (Esc)"
+            >
+              <span class="material-symbols-outlined text-2xl">close</span>
+            </button>
+
+            <!-- Imagen Completa sin padding ni bordes -->
+            <img
+              [src]="order!.pago!.comprobanteUrl"
+              alt="Comprobante Completo"
+              class="max-w-[96vw] max-h-[96vh] w-auto h-auto object-contain block p-0 m-0 select-none shadow-2xl rounded-lg"
+            />
+          </div>
+        </div>
+      }
+
     </div>
   `,
   styles: [`
@@ -462,17 +474,21 @@ import { Order } from '../../../core/models/order.model';
     .animate-fade-in {
       animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
+    @keyframes scaleUp {
+      from { transform: scale(0.96); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .animate-scale-up {
+      animation: scaleUp 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
   `]
 })
 export class CajaPedidoDetalleComponent implements OnInit {
   order: Order | null = null;
   loading = true;
 
-  // Zoom & Inspección
-  zoomLevel = 1.0;
-  originX = 50;
-  originY = 50;
-  isHoveringImage = false;
+  // Modal de Comprobante Completo
+  isImageModalOpen = false;
 
   // Acciones
   reviewNote = '';
@@ -510,34 +526,19 @@ export class CajaPedidoDetalleComponent implements OnInit {
     });
   }
 
-  adjustZoom(delta: number): void {
-    this.zoomLevel = Math.max(1.0, Math.min(3.5, this.zoomLevel + delta));
-  }
-
-  resetZoom(): void {
-    this.zoomLevel = 1.0;
-  }
-
-  onImageMouseMove(event: MouseEvent): void {
-    this.isHoveringImage = true;
-    const target = event.currentTarget as HTMLElement;
-    const rect = target.getBoundingClientRect();
-    const x = ((event.clientX - rect.left) / rect.width) * 100;
-    const y = ((event.clientY - rect.top) / rect.height) * 100;
-    this.originX = Math.max(0, Math.min(100, x));
-    this.originY = Math.max(0, Math.min(100, y));
-  }
-
-  onImageMouseLeave(): void {
-    this.isHoveringImage = false;
-  }
-
-  getTransformStyle(): string {
-    const scale = this.isHoveringImage ? Math.max(this.zoomLevel, 2.0) : this.zoomLevel;
-    if (scale <= 1.0) {
-      return 'scale(1.0)';
+  @HostListener('document:keydown.escape')
+  onEscapePress(): void {
+    if (this.isImageModalOpen) {
+      this.closeImageModal();
     }
-    return `scale(${scale}) translate(${(50 - this.originX) * 0.4}%, ${(50 - this.originY) * 0.4}%)`;
+  }
+
+  openImageModal(): void {
+    this.isImageModalOpen = true;
+  }
+
+  closeImageModal(): void {
+    this.isImageModalOpen = false;
   }
 
   attachPrototypeReceipt(): void {
