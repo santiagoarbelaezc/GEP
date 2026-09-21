@@ -88,11 +88,11 @@ import { Order, OrderStatus } from '../../../core/models/order.model';
             @if (selectedOrder.pago?.comprobanteUrl) {
               <div class="mb-6">
                 <p class="micro-label mb-3">Comprobante de Pago</p>
-                <div class="bg-zinc-100 rounded-2xl overflow-hidden">
+                <div class="bg-zinc-100/70 rounded-2xl overflow-hidden p-3 flex justify-center border border-zinc-200/80">
                   <img
                     [src]="selectedOrder.pago!.comprobanteUrl"
                     alt="Comprobante de pago"
-                    class="w-full h-auto cursor-zoom-in hover:scale-[1.02] transition-transform duration-300"
+                    class="w-auto max-w-[260px] max-h-[460px] object-contain rounded-xl shadow-sm cursor-zoom-in hover:scale-[1.02] transition-transform duration-300 bg-white"
                   />
                 </div>
                 <div class="mt-3 grid grid-cols-2 gap-3">

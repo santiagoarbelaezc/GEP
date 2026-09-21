@@ -137,11 +137,11 @@ import { Order, OrderStatus, ORDER_STATUS_LABELS } from '../../../core/models/or
               <div class="card p-6">
                 <p class="micro-label mb-4">Comprobante de Pago</p>
                 <div class="flex items-start gap-4">
-                  <div class="w-40 h-56 bg-zinc-100 rounded-xl overflow-hidden flex-shrink-0">
+                  <div class="w-36 h-64 bg-zinc-100/70 rounded-xl overflow-hidden flex-shrink-0 p-1 flex items-center justify-center border border-zinc-200 cursor-pointer group">
                     <img
                       [src]="order.pago!.comprobanteUrl"
                       alt="Comprobante de pago"
-                      class="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
+                      class="w-full h-full object-contain rounded-lg group-hover:scale-105 transition-transform duration-300 bg-white"
                       (click)="imageExpanded = !imageExpanded"
                     />
                   </div>
@@ -149,6 +149,13 @@ import { Order, OrderStatus, ORDER_STATUS_LABELS } from '../../../core/models/or
                     <p class="text-sm text-zinc-600"><span class="font-semibold">Método:</span> {{ order.pago!.metodo }}</p>
                     <p class="text-sm text-zinc-600 mt-1"><span class="font-semibold">Referencia:</span> {{ order.pago!.referencia }}</p>
                     <p class="text-sm text-zinc-600 mt-1"><span class="font-semibold">Estado:</span> {{ order.pago!.estado }}</p>
+                    <button
+                      (click)="imageExpanded = true"
+                      class="mt-3 btn-secondary text-xs py-1 px-3 inline-flex items-center gap-1"
+                    >
+                      <span class="material-symbols-outlined text-sm">zoom_in</span>
+                      Ampliar
+                    </button>
                   </div>
                 </div>
               </div>
@@ -166,13 +173,13 @@ import { Order, OrderStatus, ORDER_STATUS_LABELS } from '../../../core/models/or
       <!-- Expanded image overlay -->
       @if (imageExpanded && order.pago?.comprobanteUrl) {
         <div
-          class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in"
+          class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in"
           (click)="imageExpanded = false"
         >
           <img
             [src]="order.pago!.comprobanteUrl"
             alt="Comprobante ampliado"
-            class="max-w-full max-h-[90vh] rounded-2xl shadow-2xl"
+            class="w-auto max-w-[380px] max-h-[85vh] object-contain rounded-2xl shadow-2xl bg-white border border-zinc-200"
           />
         </div>
       }

@@ -9,6 +9,9 @@ import {
   Payment,
 } from '../models/order.model';
 
+export const PROTOTYPE_COMPROBANTE_URL =
+  'https://res.cloudinary.com/doxdjiyvi/image/upload/v1789948206/IMG_6859_f7mhv9.png';
+
 // ─── Mock Data — Catálogo Espumas, Plásticos y Empaques ───────────────────
 
 const MOCK_ITEMS: OrderItem[][] = [
@@ -91,21 +94,19 @@ function generateMockOrders(): Order[] {
     const createdAt = new Date(now.getTime() - (i * 3600000 + Math.random() * 7200000));
     const clienteData = CLIENTES[i % CLIENTES.length];
 
-    const pago: Payment | undefined =
-      ['pago_en_revision', 'pago_confirmado', 'en_preparacion', 'en_camino', 'entregado'].includes(estado)
-        ? {
-            id: i + 100,
-            pedidoId: i + 1,
-            metodo: i % 3 === 0 ? 'Nequi' : i % 3 === 1 ? 'Bancolombia' : 'Davivienda',
-            referencia: `REF-${1000 + i}`,
-            comprobanteUrl: 'https://placehold.co/400x600/f5f5f5/27272a?text=Comprobante',
-            estado: estado === 'pago_en_revision' ? 'pendiente' : 'confirmado',
-            revisadoPor: estado !== 'pago_en_revision' ? 2 : undefined,
-            revisadoPorNombre: estado !== 'pago_en_revision' ? 'María García' : undefined,
-            fechaRevision: estado !== 'pago_en_revision' ? createdAt.toISOString() : undefined,
-            monto: total,
-          }
-        : undefined;
+    const isPendingPayment = ['nuevo', 'pago_pendiente', 'pago_en_revision'].includes(estado);
+    const pago: Payment = {
+      id: i + 100,
+      pedidoId: i + 1,
+      metodo: i % 3 === 0 ? 'Nequi' : i % 3 === 1 ? 'Bancolombia' : 'Davivienda',
+      referencia: `REF-${1000 + i}`,
+      comprobanteUrl: PROTOTYPE_COMPROBANTE_URL,
+      estado: isPendingPayment ? 'pendiente' : 'confirmado',
+      revisadoPor: !isPendingPayment ? 2 : undefined,
+      revisadoPorNombre: !isPendingPayment ? 'María García' : undefined,
+      fechaRevision: !isPendingPayment ? createdAt.toISOString() : undefined,
+      monto: total,
+    };
 
     orders.push({
       id: i + 1,

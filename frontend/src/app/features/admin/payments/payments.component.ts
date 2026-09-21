@@ -185,8 +185,12 @@ import { Order, Payment } from '../../../core/models/order.model';
             @if (selectedOrder.pago?.comprobanteUrl) {
               <div class="mb-6">
                 <p class="micro-label mb-3">Comprobante</p>
-                <div class="bg-zinc-100 rounded-2xl overflow-hidden">
-                  <img [src]="selectedOrder.pago!.comprobanteUrl" alt="Comprobante" class="w-full h-auto" />
+                <div class="bg-zinc-100/70 rounded-2xl overflow-hidden p-3 flex justify-center border border-zinc-200/80">
+                  <img
+                    [src]="selectedOrder.pago!.comprobanteUrl"
+                    alt="Comprobante"
+                    class="w-auto max-w-[260px] max-h-[460px] object-contain rounded-xl shadow-sm bg-white"
+                  />
                 </div>
               </div>
             }
