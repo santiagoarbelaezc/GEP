@@ -58,7 +58,7 @@ import { Order } from '../../../core/models/order.model';
                   <table class="w-full">
                     <thead>
                       <tr class="border-b border-zinc-200 bg-zinc-50">
-                        <th class="text-left px-6 py-3 micro-label">Folio</th>
+                        <th class="text-left px-6 py-3 micro-label">Código</th>
                         <th class="text-left px-6 py-3 micro-label">Fecha</th>
                         <th class="text-right px-6 py-3 micro-label">Total</th>
                         <th class="text-left px-6 py-3 micro-label">Estado</th>

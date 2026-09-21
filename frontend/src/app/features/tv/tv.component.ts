@@ -45,9 +45,7 @@ const QUINDIO_CUSTOMERS = [
         
         <!-- Logo & Título Limpio -->
         <div class="flex items-center gap-3.5">
-          <div class="w-9 h-9 bg-white text-zinc-950 rounded-xl flex items-center justify-center font-bold text-base shadow-sm shrink-0">
-            G
-          </div>
+          <img src="/favicon.svg" alt="GEP Logo" class="w-9 h-9 rounded-xl shrink-0 shadow-xs border border-zinc-800" />
           <div>
             <div class="flex items-center gap-2.5">
               <h1 class="text-sm sm:text-base font-extrabold text-white tracking-tight">

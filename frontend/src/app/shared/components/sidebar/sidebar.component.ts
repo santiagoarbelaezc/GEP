@@ -24,12 +24,10 @@ import { UserRole, MenuItem, ROLE_LABELS, ROLE_MENUS } from '../../../core/model
       <!-- Logo -->
       <div class="px-6 py-6 border-b border-zinc-100">
         <div class="flex items-center gap-3">
-          <div class="w-9 h-9 bg-black rounded-xl flex items-center justify-center">
-            <span class="text-white text-sm font-extrabold tracking-tight">G</span>
-          </div>
+          <img src="/favicon.svg" alt="GEP Logo" class="w-9 h-9 rounded-xl shadow-xs shrink-0" />
           <div>
             <h1 class="text-base font-extrabold text-zinc-900 tracking-tight">GEP</h1>
-            <p class="text-[10px] text-zinc-400 uppercase tracking-[0.2em] font-semibold">Gestión de Pedidos</p>
+            <p class="text-[10px] text-zinc-400 uppercase tracking-[0.18em] font-semibold">Order Management</p>
           </div>
         </div>
       </div>

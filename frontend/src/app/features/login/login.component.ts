@@ -20,11 +20,9 @@ interface RoleOption {
       <div class="w-full max-w-lg animate-fade-in">
         <!-- Logo -->
         <div class="text-center mb-10">
-          <div class="w-14 h-14 bg-black rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
-            <span class="text-white text-xl font-extrabold tracking-tight">G</span>
-          </div>
+          <img src="/favicon.svg" alt="GEP Logo" class="w-16 h-16 rounded-2xl mx-auto mb-4 shadow-lg border border-zinc-200/80" />
           <h1 class="text-2xl font-extrabold text-zinc-900 tracking-tight">GEP</h1>
-          <p class="text-sm text-zinc-400 mt-1.5 font-medium">Gestión de Pedidos</p>
+          <p class="text-xs text-zinc-400 mt-1 font-semibold uppercase tracking-[0.2em]">Order Management</p>
         </div>
 
         <!-- Role subtitle -->

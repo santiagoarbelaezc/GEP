@@ -63,7 +63,7 @@ import { Order, Payment } from '../../../core/models/order.model';
           <input
             type="text"
             class="input-premium"
-            placeholder="Buscar por folio o cliente..."
+            placeholder="Buscar código..."
             [(ngModel)]="searchQuery"
             (input)="applyFilters()"
             id="payment-search"
@@ -89,7 +89,7 @@ import { Order, Payment } from '../../../core/models/order.model';
           <table class="w-full">
             <thead>
               <tr class="bg-zinc-50 border-b border-zinc-200">
-                <th class="text-left px-5 py-3 micro-label">Folio</th>
+                <th class="text-left px-5 py-3 micro-label">Código</th>
                 <th class="text-left px-5 py-3 micro-label">Cliente</th>
                 <th class="text-left px-5 py-3 micro-label hidden md:table-cell">Método</th>
                 <th class="text-left px-5 py-3 micro-label hidden lg:table-cell">Referencia</th>

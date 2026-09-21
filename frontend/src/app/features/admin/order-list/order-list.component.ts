@@ -25,7 +25,7 @@ import { Order, OrderStatus, ORDER_STATUS_LABELS } from '../../../core/models/or
           <input
             type="text"
             class="input-premium"
-            placeholder="Buscar por folio o cliente..."
+            placeholder="Buscar por código o cliente..."
             [(ngModel)]="searchQuery"
             (input)="applyFilters()"
             id="search-input"
@@ -57,7 +57,7 @@ import { Order, OrderStatus, ORDER_STATUS_LABELS } from '../../../core/models/or
           <table class="w-full">
             <thead>
               <tr class="bg-zinc-50 border-b border-zinc-200">
-                <th class="text-left px-5 py-3 micro-label">Folio</th>
+                <th class="text-left px-5 py-3 micro-label">Código</th>
                 <th class="text-left px-5 py-3 micro-label">Cliente</th>
                 <th class="text-left px-5 py-3 micro-label hidden md:table-cell">Ciudad</th>
                 <th class="text-left px-5 py-3 micro-label">Total</th>

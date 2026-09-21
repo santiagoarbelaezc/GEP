@@ -103,7 +103,7 @@ type FilterStage = 'todos' | 'revision' | 'espera' | 'aprobados';
             <input
               type="text"
               class="input-premium pl-10"
-              placeholder="Buscar por folio (ej. GEP-2024001), cliente o referencia..."
+              placeholder="Buscar por código (ej. GEP-2024001), cliente o referencia..."
               [(ngModel)]="searchQuery"
               (input)="applyFilters()"
             />

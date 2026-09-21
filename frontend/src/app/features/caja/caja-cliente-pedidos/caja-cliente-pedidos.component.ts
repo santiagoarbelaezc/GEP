@@ -148,7 +148,7 @@ import { Order } from '../../../core/models/order.model';
                 type="text"
                 [(ngModel)]="searchQuery"
                 (ngModelChange)="onFilterChange()"
-                placeholder="Buscar por folio..."
+                placeholder="Buscar por código..."
                 class="w-full pl-8 pr-3 py-1.5 rounded-xl border border-zinc-200 text-xs bg-white focus:outline-none focus:border-zinc-900"
               />
             </div>
@@ -173,7 +173,7 @@ import { Order } from '../../../core/models/order.model';
           <table class="w-full">
             <thead>
               <tr class="bg-zinc-50 border-b border-zinc-200">
-                <th class="text-left px-5 py-3 micro-label">Folio / Fecha</th>
+                <th class="text-left px-5 py-3 micro-label">Código / Fecha</th>
                 <th class="text-left px-5 py-3 micro-label hidden md:table-cell">Productos Plaxtilíneas</th>
                 <th class="text-left px-5 py-3 micro-label hidden lg:table-cell">Canal / Referencia</th>
                 <th class="text-right px-5 py-3 micro-label">Total</th>
