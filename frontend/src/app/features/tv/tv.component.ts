@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { interval, Subscription } from 'rxjs';
 import { OrderService } from '../../core/services/order.service';
 import { AuthService } from '../../core/services/auth.service';
-import { StatusBadgeComponent } from '../../shared/components/status-badge/status-badge.component';
 import { Order, OrderItem, OrderStatus, Payment } from '../../core/models/order.model';
 
 // Catálogo de productos reales Plaxtilíneas para simulación en vivo
@@ -37,147 +36,156 @@ const QUINDIO_CUSTOMERS = [
 @Component({
   selector: 'app-tv',
   standalone: true,
-  imports: [CommonModule, StatusBadgeComponent],
+  imports: [CommonModule],
   template: `
-    <div class="min-h-screen bg-zinc-950 text-white p-4 sm:p-6 lg:p-8 flex flex-col font-sans select-none overflow-x-hidden">
+    <div class="h-screen max-h-screen bg-zinc-950 text-zinc-100 p-3 lg:p-4 flex flex-col font-sans select-none overflow-hidden">
       
-      <!-- ── Header Minimalista del Monitor TV con Reloj Prominente ── -->
-      <header class="py-4 px-6 sm:px-8 bg-zinc-900/95 backdrop-blur-md rounded-3xl border border-zinc-800/80 flex items-center justify-between gap-6 mb-6 shrink-0 shadow-2xl">
+      <!-- ── Header Sobrio y Elegante (Estilo Admin) ── -->
+      <header class="h-16 shrink-0 px-6 bg-zinc-900/80 backdrop-blur-md rounded-2xl border border-zinc-800/80 flex items-center justify-between gap-4 mb-3 shadow-lg">
         
         <!-- Logo & Título Limpio -->
-        <div class="flex items-center gap-4">
-          <div class="w-12 h-12 bg-white text-zinc-950 rounded-2xl flex items-center justify-center font-black text-xl shadow-lg">
+        <div class="flex items-center gap-3.5">
+          <div class="w-9 h-9 bg-white text-zinc-950 rounded-xl flex items-center justify-center font-bold text-base shadow-sm shrink-0">
             G
           </div>
           <div>
-            <div class="flex items-center gap-3">
-              <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">
-                GEP &bull; PEDIDOS EN VIVO
+            <div class="flex items-center gap-2.5">
+              <h1 class="text-sm sm:text-base font-extrabold text-white tracking-tight">
+                GEP &bull; Pedidos en Vivo
               </h1>
-              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase tracking-widest animate-pulse">
-                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase tracking-wider">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                 En Vivo
               </span>
             </div>
-            <p class="text-xs text-zinc-400 font-medium mt-0.5">
+            <p class="text-[11px] text-zinc-400 font-medium">
               Plaxtilíneas &bull; Quindío
             </p>
           </div>
         </div>
 
-        <!-- Reloj Digital Grande y Salida -->
-        <div class="flex items-center gap-6">
+        <!-- Reloj Digital y Salida (Tipografía Admin) -->
+        <div class="flex items-center gap-5">
           <div class="text-right">
-            <p class="text-4xl sm:text-5xl lg:text-6xl font-black text-white font-mono tracking-tight leading-none drop-shadow-md">
+            <p class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-none tabular-nums">
               {{ currentTime }}
             </p>
-            <p class="text-xs sm:text-sm text-emerald-400 font-bold uppercase tracking-widest mt-1.5 capitalize">
+            <p class="text-[10px] sm:text-[11px] text-zinc-400 font-semibold uppercase tracking-wider mt-1 capitalize">
               {{ currentDate }}
             </p>
           </div>
 
           <button
             (click)="onLogout()"
-            class="p-3 rounded-2xl bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors border border-zinc-700/80 cursor-pointer shadow-md"
+            class="p-2 rounded-xl bg-zinc-800/80 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors border border-zinc-700/60 cursor-pointer"
             title="Cerrar sesión"
           >
-            <span class="material-symbols-outlined text-xl">logout</span>
+            <span class="material-symbols-outlined text-base">logout</span>
           </button>
         </div>
       </header>
 
-      <!-- ── Contenedor Principal Split (Hero Grande + Cola Derecha) ── -->
-      <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 min-h-0">
+      <!-- ── Contenedor Principal Split (100% Ajustado a la Pantalla) ── -->
+      <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-3.5 min-h-0 overflow-hidden">
         
         <!-- ════════════════════════════════════════════════════════════════════════ -->
-        <!-- LADO IZQUIERDO: PRIMER PEDIDO (HERO MASIVO Y DETALLADO)                 -->
+        <!-- LADO IZQUIERDO: HERO ELEGANTE Y DETALLADO                               -->
         <!-- ════════════════════════════════════════════════════════════════════════ -->
-        <section class="lg:col-span-7 xl:col-span-7 flex flex-col min-h-0">
+        <section class="lg:col-span-7 flex flex-col min-h-0 h-full overflow-hidden">
           
           @if (heroOrder) {
             <div
-              class="flex-1 bg-zinc-900/95 rounded-3xl border-2 border-emerald-500/60 p-6 lg:p-8 flex flex-col justify-between relative overflow-hidden shadow-[0_0_50px_rgba(16,185,129,0.12)] animate-hero-entry"
+              class="h-full bg-zinc-900/80 rounded-2xl border border-zinc-800 p-4 lg:p-5 flex flex-col justify-between overflow-hidden shadow-lg animate-hero-entry"
             >
-              <!-- Indicador Superior Limpio -->
-              <div class="flex items-center justify-between pb-4 border-b border-zinc-800">
-                <div class="flex items-center gap-3">
-                  <span class="px-3 py-1 rounded-full text-[11px] font-black bg-emerald-500 text-zinc-950 flex items-center gap-2 shadow-md uppercase tracking-wider">
-                    <span class="w-2 h-2 rounded-full bg-zinc-950 animate-ping"></span>
-                    ÚLTIMO PEDIDO
+              <!-- Indicador Superior Sobrio -->
+              <div class="flex items-center justify-between pb-3 border-b border-zinc-800/80 shrink-0">
+                <div class="flex items-center gap-2.5">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1.5 uppercase tracking-wider shadow-sm">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Último Pedido
                   </span>
-                  <span class="text-xs text-zinc-400 font-mono">
+                  <span class="text-xs text-zinc-400 font-medium tabular-nums">
                     {{ heroOrder.createdAt | date:'HH:mm:ss' }}
                   </span>
                 </div>
 
-                <app-status-badge [status]="heroOrder.estado" />
+                <div class="flex items-center gap-2">
+                  <!-- Distintivo de Pago Sobrio -->
+                  <span
+                    class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border"
+                    [class]="getPaymentStatusInfo(heroOrder).class"
+                  >
+                    <span class="material-symbols-outlined text-xs">{{ getPaymentStatusInfo(heroOrder).icon }}</span>
+                    <span>{{ getPaymentStatusInfo(heroOrder).label }}</span>
+                  </span>
+                </div>
               </div>
 
-              <!-- Folio, Monto y Cliente -->
-              <div class="my-4">
-                <div class="flex flex-wrap items-baseline justify-between gap-2 mb-3">
-                  <h2 class="text-4xl lg:text-5xl font-black font-mono tracking-tight text-white">
+              <!-- Folio, Monto y Ficha del Cliente (Estilo Admin) -->
+              <div class="my-2 shrink-0">
+                <div class="flex flex-wrap items-baseline justify-between gap-2 mb-2">
+                  <h2 class="text-2xl lg:text-3xl font-extrabold tracking-tight text-white">
                     {{ heroOrder.folio }}
                   </h2>
                   <div class="text-right">
-                    <span class="text-[10px] text-zinc-400 uppercase tracking-widest font-semibold block">Total</span>
-                    <span class="price-value-xl text-3xl lg:text-4xl text-emerald-400 font-black">
+                    <span class="text-[10px] text-zinc-400 uppercase tracking-widest font-semibold block">Total a Facturar</span>
+                    <span class="price-value-xl text-2xl lg:text-3xl text-white font-extrabold">
                       {{ heroOrder.total | currency:'COP':'symbol-narrow':'1.0-0' }}
                     </span>
                   </div>
                 </div>
 
-                <!-- Tarjeta del Cliente Simplificada -->
-                <div class="p-4 rounded-2xl bg-zinc-950/80 border border-zinc-800/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                  <div>
-                    <p class="text-xl font-black text-zinc-100">{{ heroOrder.cliente.nombre }}</p>
-                    <p class="text-xs text-zinc-400 mt-1 flex items-center gap-1.5">
-                      <span class="material-symbols-outlined text-sm text-emerald-400">location_on</span>
-                      <strong class="text-zinc-200">{{ heroOrder.ciudad }}</strong> &bull; {{ heroOrder.direccionEnvio }}
+                <!-- Tarjeta del Cliente y Método de Pago -->
+                <div class="p-3 rounded-xl bg-zinc-950/60 border border-zinc-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                  <div class="min-w-0">
+                    <p class="text-sm sm:text-base font-bold text-zinc-100 truncate">{{ heroOrder.cliente.nombre }}</p>
+                    <p class="text-xs text-zinc-400 mt-0.5 flex items-center gap-1.5 truncate font-medium">
+                      <span class="material-symbols-outlined text-sm text-zinc-400 shrink-0">location_on</span>
+                      <strong class="text-zinc-300 font-semibold">{{ heroOrder.ciudad }}</strong> &bull; {{ heroOrder.direccionEnvio }}
                     </p>
                   </div>
                   
-                  <div class="sm:text-right border-t sm:border-t-0 sm:border-l border-zinc-800 pt-2 sm:pt-0 sm:pl-4 shrink-0">
-                    <span class="text-sm font-bold text-zinc-200 flex items-center gap-1.5 sm:justify-end">
-                      <span class="material-symbols-outlined text-base text-zinc-400">payments</span>
-                      {{ heroOrder.pago?.metodo || 'Transferencia' }}
+                  <div class="sm:text-right border-t sm:border-t-0 sm:border-l border-zinc-800/80 pt-2 sm:pt-0 sm:pl-3 shrink-0">
+                    <span class="text-xs font-semibold text-zinc-300 flex items-center gap-1.5 sm:justify-end">
+                      <span class="material-symbols-outlined text-sm text-zinc-400">payments</span>
+                      {{ heroOrder.pago?.metodo || 'Pago por Definir' }}
                     </span>
-                    <span class="text-[11px] font-mono text-zinc-400 block mt-0.5">
-                      Ref: {{ heroOrder.pago?.referencia || 'Pendiente' }}
+                    <span class="text-[10px] text-zinc-400 font-medium block mt-0.5">
+                      {{ heroOrder.pago?.referencia ? 'Ref: ' + heroOrder.pago?.referencia : 'Sin comprobante adjunto' }}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <!-- ── LISTA DE PRODUCTOS QUE PIDIERON ── -->
-              <div class="flex-1 flex flex-col min-h-0 mt-2">
-                <div class="flex items-center justify-between mb-2.5">
+              <!-- ── LISTA DE PRODUCTOS QUE PIDIERON (AMPLIADA Y ELEGANTE) ── -->
+              <div class="flex-1 flex flex-col min-h-0 overflow-hidden my-1.5">
+                <div class="flex items-center justify-between mb-2 shrink-0">
                   <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-base text-emerald-400">inventory_2</span>
-                    <h3 class="text-xs font-black text-zinc-300 uppercase tracking-wider">
+                    <span class="material-symbols-outlined text-base text-zinc-400">inventory_2</span>
+                    <h3 class="text-xs sm:text-sm font-bold text-zinc-300 uppercase tracking-wider">
                       Productos Solicitados ({{ heroOrder.items.length }})
                     </h3>
                   </div>
                 </div>
 
-                <div class="space-y-2 overflow-y-auto max-h-[300px] pr-1.5 custom-scrollbar">
+                <div class="flex-1 space-y-2 overflow-y-auto pr-1 custom-scrollbar min-h-0">
                   @for (item of heroOrder.items; track item.id) {
-                    <div class="p-3 rounded-xl bg-zinc-950/70 border border-zinc-800/90 flex items-center justify-between gap-4">
+                    <div class="p-3 rounded-xl bg-zinc-950/60 border border-zinc-800/80 hover:border-zinc-700 transition-colors flex items-center justify-between gap-3.5">
                       <div class="flex items-center gap-3 min-w-0">
-                        <div class="w-9 h-9 rounded-lg bg-zinc-800 text-emerald-400 flex items-center justify-center font-black text-sm shrink-0 border border-zinc-700">
+                        <div class="w-9 h-9 rounded-xl bg-zinc-800/90 text-white flex items-center justify-center font-extrabold text-sm shrink-0 border border-zinc-700/60 shadow-xs">
                           x{{ item.cantidad }}
                         </div>
                         <div class="min-w-0">
-                          <p class="text-sm font-bold text-white truncate">{{ item.nombreProducto }}</p>
-                          <p class="text-[11px] text-zinc-400 truncate">{{ item.nombreVariante }}</p>
+                          <p class="text-sm sm:text-base font-bold text-white truncate tracking-tight">{{ item.nombreProducto }}</p>
+                          <p class="text-xs text-zinc-400 truncate mt-0.5">{{ item.nombreVariante }}</p>
                         </div>
                       </div>
 
                       <div class="text-right shrink-0">
-                        <span class="price-value-sm text-white font-bold block">
+                        <span class="price-value-sm text-zinc-100 font-extrabold block text-sm sm:text-base">
                           {{ item.subtotal | currency:'COP':'symbol-narrow':'1.0-0' }}
                         </span>
-                        <span class="text-[10px] text-zinc-500 font-mono">
+                        <span class="text-[11px] text-zinc-400 font-medium">
                           {{ item.precioUnitario | currency:'COP':'symbol-narrow':'1.0-0' }} c/u
                         </span>
                       </div>
@@ -186,20 +194,20 @@ const QUINDIO_CUSTOMERS = [
                 </div>
               </div>
 
-              <!-- Footer Minimalista -->
-              <div class="pt-3 mt-3 border-t border-zinc-800/80 flex items-center justify-between text-xs text-zinc-500">
-                <span class="flex items-center gap-1.5">
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                  Plaxtilíneas Quindío
+              <!-- Footer Sobrio -->
+              <div class="pt-2 border-t border-zinc-800/80 flex items-center justify-between text-[11px] text-zinc-400 shrink-0">
+                <span class="flex items-center gap-1.5 font-medium">
+                  <span class="w-1.5 h-1.5 rounded-full bg-zinc-500"></span>
+                  Plaxtilíneas Quindío &bull; Despacho Central
                 </span>
-                <span class="font-mono text-[11px]">#{{ heroOrder.id }}</span>
+                <span class="text-zinc-400 font-medium">#{{ heroOrder.id }}</span>
               </div>
 
             </div>
           } @else {
-            <div class="flex-1 rounded-3xl bg-zinc-900 border border-zinc-800 flex flex-col items-center justify-center p-12 text-center">
-              <span class="material-symbols-outlined text-5xl text-zinc-600 mb-2 animate-spin">sync</span>
-              <p class="text-sm text-zinc-400">Cargando pedidos en vivo...</p>
+            <div class="h-full rounded-2xl bg-zinc-900/60 border border-zinc-800 flex flex-col items-center justify-center p-8 text-center">
+              <span class="material-symbols-outlined text-4xl text-zinc-600 mb-2 animate-spin">sync</span>
+              <p class="text-xs text-zinc-400">Cargando pedidos en vivo...</p>
             </div>
           }
 
@@ -208,59 +216,55 @@ const QUINDIO_CUSTOMERS = [
         <!-- ════════════════════════════════════════════════════════════════════════ -->
         <!-- LADO DERECHO: CONTENEDORES PEQUEÑOS EN COLA CON PAGINACIÓN              -->
         <!-- ════════════════════════════════════════════════════════════════════════ -->
-        <section class="lg:col-span-5 xl:col-span-5 flex flex-col min-h-0 bg-zinc-900/60 rounded-3xl border border-zinc-800/80 p-4 sm:p-5">
+        <section class="lg:col-span-5 flex flex-col min-h-0 h-full overflow-hidden bg-zinc-900/60 rounded-2xl border border-zinc-800/80 p-3 sm:p-4">
           
-          <div class="flex items-center justify-between mb-3 px-1">
-            <h2 class="text-xs font-black text-zinc-300 uppercase tracking-wider flex items-center gap-2">
-              <span class="material-symbols-outlined text-base text-emerald-400">view_agenda</span>
+          <div class="flex items-center justify-between mb-2 px-1 shrink-0">
+            <h2 class="text-xs font-bold text-zinc-300 uppercase tracking-wider flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-sm text-zinc-400">view_agenda</span>
               En Cola ({{ queueOrders.length }})
             </h2>
-            <span class="text-xs text-zinc-400 font-mono">
-              Página {{ currentPage }} de {{ totalPages }}
+            <span class="text-[11px] text-zinc-400 font-medium">
+              Pág. {{ currentPage }} de {{ totalPages }}
             </span>
           </div>
 
-          <!-- Contenedores Pequeños Paginados -->
-          <div class="flex-1 space-y-2.5 overflow-y-auto pr-1 custom-scrollbar min-h-0">
-            @for (order of paginatedQueueOrders; track order.id; let i = $index) {
+          <!-- Contenedores Pequeños Cuadrados Paginados (2x2) -->
+          <div class="flex-1 grid grid-cols-2 grid-rows-2 gap-2.5 min-h-0 overflow-hidden">
+            @for (order of paginatedQueueOrders; track order.id) {
               <div
                 (click)="spotlightOrder(order)"
-                class="p-3.5 rounded-2xl bg-zinc-950/80 border border-zinc-800 hover:border-emerald-500/50 hover:bg-zinc-900 transition-all cursor-pointer flex flex-col gap-1.5 group shadow-sm active:scale-[0.99]"
+                class="p-3 sm:p-3.5 rounded-2xl bg-zinc-950/60 border border-zinc-800/80 hover:border-zinc-700 hover:bg-zinc-900/80 transition-all cursor-pointer flex flex-col justify-between group shadow-sm active:scale-[0.99] min-h-0 overflow-hidden"
               >
-                <!-- Fila 1: Folio, Posición y Estado -->
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <span class="w-6 h-6 rounded-lg bg-zinc-800 text-zinc-300 text-[10px] font-black flex items-center justify-center border border-zinc-700">
-                      #{{ (currentPage - 1) * pageSize + i + 2 }}
-                    </span>
-                    <span class="font-mono font-bold text-xs text-white group-hover:text-emerald-400 transition-colors">
-                      {{ order.folio }}
-                    </span>
-                  </div>
+                <!-- 1. Código del pedido y Estado del Pago -->
+                <div class="flex items-center justify-between gap-1.5 shrink-0">
+                  <span class="font-extrabold text-xs sm:text-sm text-white tracking-tight group-hover:text-emerald-400 transition-colors">
+                    {{ order.folio }}
+                  </span>
 
-                  <div class="flex items-center gap-2">
-                    <span class="text-[10px] text-zinc-400 font-mono">{{ order.createdAt | date:'HH:mm' }}</span>
-                    <app-status-badge [status]="order.estado" />
-                  </div>
+                  <span
+                    class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold border shrink-0"
+                    [class]="getPaymentBadge(order).class"
+                  >
+                    <span class="w-1.5 h-1.5 rounded-full" [class]="getPaymentBadge(order).dot"></span>
+                    {{ getPaymentBadge(order).shortLabel }}
+                  </span>
                 </div>
 
-                <!-- Fila 2: Cliente y Ciudad -->
-                <div class="flex items-center justify-between text-xs">
-                  <span class="font-bold text-zinc-200 truncate max-w-[60%]">
+                <!-- 2. Nombre del cliente y Lugar -->
+                <div class="my-auto py-1 min-w-0">
+                  <p class="font-bold text-xs sm:text-sm text-zinc-100 truncate">
                     {{ order.cliente.nombre }}
-                  </span>
-                  <span class="text-[11px] text-zinc-400 flex items-center gap-1 shrink-0">
-                    <span class="material-symbols-outlined text-xs text-zinc-500">location_on</span>
+                  </p>
+                  <p class="text-[11px] text-zinc-400 flex items-center gap-1 mt-0.5 font-medium truncate">
+                    <span class="material-symbols-outlined text-xs text-zinc-500 shrink-0">location_on</span>
                     {{ order.ciudad }}
-                  </span>
+                  </p>
                 </div>
 
-                <!-- Fila 3: Total y Cantidad de Productos -->
-                <div class="pt-1.5 border-t border-zinc-800/60 flex items-center justify-between text-xs">
-                  <span class="text-zinc-500 text-[11px]">
-                    {{ order.items.length }} {{ order.items.length === 1 ? 'producto' : 'productos' }}
-                  </span>
-                  <span class="price-value-sm text-emerald-400 font-black">
+                <!-- 3. Valor -->
+                <div class="pt-2 border-t border-zinc-800/60 flex items-center justify-between shrink-0">
+                  <span class="text-[10px] text-zinc-400 uppercase tracking-wider font-semibold">Total</span>
+                  <span class="price-value-sm text-sm sm:text-base font-extrabold text-white">
                     {{ order.total | currency:'COP':'symbol-narrow':'1.0-0' }}
                   </span>
                 </div>
@@ -268,22 +272,22 @@ const QUINDIO_CUSTOMERS = [
             }
 
             @if (paginatedQueueOrders.length === 0) {
-              <div class="p-8 text-center bg-zinc-950/40 rounded-2xl border border-zinc-800/80 text-zinc-500 text-xs">
+              <div class="col-span-2 p-6 text-center bg-zinc-950/30 rounded-xl border border-zinc-800/60 text-zinc-400 text-xs flex items-center justify-center">
                 No hay más pedidos en cola.
               </div>
             }
           </div>
 
-          <!-- Paginación de la Cola -->
-          <div class="pt-3 mt-3 border-t border-zinc-800 flex items-center justify-between">
+          <!-- Paginación Compacta de la Cola (Estilo Admin) -->
+          <div class="pt-2 border-t border-zinc-800/80 flex items-center justify-between shrink-0">
             <button
               type="button"
               (click)="prevPage()"
               [disabled]="currentPage === 1"
-              class="px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 disabled:opacity-30 disabled:cursor-not-allowed transition-all text-xs font-bold flex items-center gap-1 cursor-pointer border border-zinc-700"
+              class="px-2.5 py-1 rounded-lg bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 disabled:opacity-30 disabled:cursor-not-allowed transition-all text-xs font-semibold flex items-center gap-1 cursor-pointer border border-zinc-700/60"
             >
               <span class="material-symbols-outlined text-sm">chevron_left</span>
-              <span>Anterior</span>
+              <span>Ant.</span>
             </button>
 
             <div class="flex items-center gap-1">
@@ -291,8 +295,8 @@ const QUINDIO_CUSTOMERS = [
                 <button
                   type="button"
                   (click)="goToPage(p)"
-                  class="w-7 h-7 rounded-xl text-xs font-bold transition-all flex items-center justify-center cursor-pointer"
-                  [class]="currentPage === p ? 'bg-emerald-500 text-zinc-950 font-black shadow-md' : 'bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-750 border border-zinc-700/60'"
+                  class="w-6 h-6 rounded-lg text-xs font-semibold transition-all flex items-center justify-center cursor-pointer"
+                  [class]="currentPage === p ? 'bg-white text-zinc-950 font-bold shadow-xs' : 'bg-zinc-800/60 text-zinc-400 hover:text-white hover:bg-zinc-700 border border-zinc-700/50'"
                 >
                   {{ p }}
                 </button>
@@ -303,9 +307,9 @@ const QUINDIO_CUSTOMERS = [
               type="button"
               (click)="nextPage()"
               [disabled]="currentPage >= totalPages"
-              class="px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 disabled:opacity-30 disabled:cursor-not-allowed transition-all text-xs font-bold flex items-center gap-1 cursor-pointer border border-zinc-700"
+              class="px-2.5 py-1 rounded-lg bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 disabled:opacity-30 disabled:cursor-not-allowed transition-all text-xs font-semibold flex items-center gap-1 cursor-pointer border border-zinc-700/60"
             >
-              <span>Siguiente</span>
+              <span>Sig.</span>
               <span class="material-symbols-outlined text-sm">chevron_right</span>
             </button>
           </div>
@@ -314,13 +318,20 @@ const QUINDIO_CUSTOMERS = [
 
       </div>
 
-      <!-- ── Notificación Flotante Discreta ── -->
-      @if (flashNotification) {
-        <div class="fixed bottom-6 right-6 bg-emerald-500 text-zinc-950 px-5 py-3 rounded-xl shadow-2xl z-50 flex items-center gap-3 border border-emerald-400">
-          <span class="material-symbols-outlined text-xl font-bold">notifications_active</span>
-          <div>
-            <p class="text-[10px] font-black uppercase tracking-wider">Nuevo Pedido</p>
-            <p class="text-xs font-black">{{ flashNotification }}</p>
+      <!-- ── Anuncio en Vivo Grande con Texto Mínimo (Verde Único Acento) ── -->
+      @if (newOrderAlert) {
+        <div class="fixed top-6 left-1/2 -translate-x-1/2 z-50 animate-alert-slide flex items-center gap-4 sm:gap-5 bg-zinc-900/95 border border-zinc-800 px-6 sm:px-8 py-4 sm:py-5 rounded-2xl shadow-[0_25px_60px_rgba(0,0,0,0.9)] backdrop-blur-2xl max-w-xl w-[92vw]">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center border border-emerald-500/30 shrink-0">
+            <span class="material-symbols-outlined text-2xl sm:text-3xl animate-bounce">notifications_active</span>
+          </div>
+
+          <div class="min-w-0 flex-1">
+            <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight leading-tight">
+              ¡Nuevo pedido en <span class="text-emerald-400 uppercase">{{ newOrderAlert.ciudad }}</span>!
+            </h2>
+            <p class="text-sm sm:text-base text-zinc-300 font-semibold mt-0.5 truncate">
+              {{ newOrderAlert.cliente }} &bull; <span class="text-white font-black">{{ newOrderAlert.total | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+            </p>
           </div>
         </div>
       }
@@ -328,6 +339,13 @@ const QUINDIO_CUSTOMERS = [
     </div>
   `,
   styles: [`
+    @keyframes alertSlide {
+      0% { opacity: 0; transform: translate(-50%, -24px) scale(0.96); }
+      100% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+    }
+    .animate-alert-slide {
+      animation: alertSlide 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
     @keyframes heroEntry {
       0% { opacity: 0; transform: scale(0.97) translateY(8px); }
       100% { opacity: 1; transform: scale(1) translateY(0); }
@@ -356,14 +374,25 @@ export class TvComponent implements OnInit, OnDestroy {
   heroOrder: Order | null = null;
   queueOrders: Order[] = [];
 
+  // Paginación de la cola de pedidos
+  currentPage = 1;
+  pageSize = 4;
+
   currentTime = '';
   currentDate = '';
-  flashNotification: string | null = null;
+  newOrderAlert: {
+    ciudad: string;
+    folio: string;
+    cliente: string;
+    total: number;
+    itemsCount: number;
+  } | null = null;
 
   private clockSub?: Subscription;
   private simulationSub?: Subscription;
   private audioCtx?: AudioContext;
   private nextSimulatedId = 3000;
+  private alertTimeout?: ReturnType<typeof setTimeout>;
 
   private unlockAudio = () => {
     try {
@@ -378,6 +407,39 @@ export class TvComponent implements OnInit, OnDestroy {
       // Browser audio restriction fallback
     }
   };
+
+  get totalPages(): number {
+    return Math.max(1, Math.ceil(this.queueOrders.length / this.pageSize));
+  }
+
+  get paginatedQueueOrders(): Order[] {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.queueOrders.slice(start, start + this.pageSize);
+  }
+
+  get pagesList(): number[] {
+    const pages: number[] = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pages.push(i);
+    }
+    return pages;
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  goToPage(page: number): void {
+    this.currentPage = page;
+  }
 
   constructor(
     private orderService: OrderService,
@@ -408,6 +470,9 @@ export class TvComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.clockSub?.unsubscribe();
     this.simulationSub?.unsubscribe();
+    if (this.alertTimeout) {
+      clearTimeout(this.alertTimeout);
+    }
     window.removeEventListener('pointerdown', this.unlockAudio);
     window.removeEventListener('keydown', this.unlockAudio);
   }
@@ -415,12 +480,74 @@ export class TvComponent implements OnInit, OnDestroy {
   refreshLayout(): void {
     if (this.orders.length > 0) {
       this.heroOrder = this.orders[0];
-      this.queueOrders = this.orders.slice(1, 15);
+      this.queueOrders = this.orders.slice(1);
     }
   }
 
   spotlightOrder(order: Order): void {
     this.heroOrder = order;
+  }
+
+  getPaymentStatusInfo(order: Order): { label: string; class: string; icon: string } {
+    if (!order.pago || order.pago.metodo === 'Pendiente' || order.estado === 'pago_pendiente' || order.estado === 'nuevo') {
+      return {
+        label: 'Pago Pendiente',
+        class: 'bg-zinc-900/90 text-zinc-400 border-zinc-800',
+        icon: 'schedule'
+      };
+    }
+    if (order.estado === 'pago_en_revision' || order.pago.estado === 'pendiente' || order.pago.estado === 'revisado') {
+      return {
+        label: `En Revisión (${order.pago.metodo})`,
+        class: 'bg-zinc-800 text-zinc-200 border-zinc-700/80',
+        icon: 'hourglass_empty'
+      };
+    }
+    if (order.pago.estado === 'confirmado' || order.estado === 'pago_confirmado' || order.estado === 'en_preparacion' || order.estado === 'en_camino' || order.estado === 'entregado') {
+      return {
+        label: `Pagado (${order.pago.metodo})`,
+        class: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30 font-bold',
+        icon: 'check_circle'
+      };
+    }
+    return {
+      label: 'Pago Pendiente',
+      class: 'bg-zinc-900/90 text-zinc-400 border-zinc-800',
+      icon: 'schedule'
+    };
+  }
+
+  getPaymentBadge(order: Order): { shortLabel: string; class: string; icon: string; dot: string } {
+    if (!order.pago || order.pago.metodo === 'Pendiente' || order.estado === 'pago_pendiente' || order.estado === 'nuevo') {
+      return {
+        shortLabel: 'Pago Pendiente',
+        class: 'bg-zinc-900/90 text-zinc-400 border-zinc-800',
+        icon: 'schedule',
+        dot: 'bg-zinc-500'
+      };
+    }
+    if (order.estado === 'pago_en_revision' || order.pago.estado === 'pendiente' || order.pago.estado === 'revisado') {
+      return {
+        shortLabel: 'En Revisión',
+        class: 'bg-zinc-800 text-zinc-200 border-zinc-700/80',
+        icon: 'hourglass_empty',
+        dot: 'bg-white'
+      };
+    }
+    if (order.pago.estado === 'confirmado' || order.estado === 'pago_confirmado' || order.estado === 'en_preparacion') {
+      return {
+        shortLabel: 'Pagado',
+        class: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30 font-bold',
+        icon: 'check_circle',
+        dot: 'bg-emerald-400'
+      };
+    }
+    return {
+      shortLabel: 'Pago Pendiente',
+      class: 'bg-zinc-900/90 text-zinc-400 border-zinc-800',
+      icon: 'schedule',
+      dot: 'bg-zinc-500'
+    };
   }
 
   // ─── Generador de Simulación en Vivo Constante (Quindío & Plaxtilíneas) ───
@@ -450,8 +577,49 @@ export class TvComponent implements OnInit, OnDestroy {
     const impuestos = Math.round(subtotal * 0.19);
     const costoEnvio = Math.random() > 0.5 ? 25000 : 0;
     const total = subtotal + impuestos + costoEnvio;
-    const paymentMethods = ['Nequi', 'Bancolombia', 'Daviplata', 'Efectivo'];
-    const selectedMethod = paymentMethods[Math.floor(Math.random() * paymentMethods.length)];
+
+    // Distribución realista: 55% sin pagar, 25% en revisión de soporte, 20% pagado
+    const randScenario = Math.random();
+    let pago: Payment | undefined = undefined;
+    let estado: OrderStatus = 'nuevo';
+
+    if (randScenario < 0.55) {
+      // 55% Sin pagar / Pendiente
+      estado = Math.random() > 0.5 ? 'nuevo' : 'pago_pendiente';
+      pago = Math.random() > 0.4 ? {
+        id: this.nextSimulatedId + 500,
+        pedidoId: this.nextSimulatedId,
+        metodo: 'Pendiente',
+        referencia: '',
+        estado: 'pendiente',
+        monto: total
+      } : undefined;
+    } else if (randScenario < 0.80) {
+      // 25% En Revisión (Cliente envió soporte de Nequi/Bancolombia/Daviplata)
+      const reviewMethods = ['Nequi', 'Bancolombia', 'Daviplata'];
+      const m = reviewMethods[Math.floor(Math.random() * reviewMethods.length)];
+      estado = 'pago_en_revision';
+      pago = {
+        id: this.nextSimulatedId + 500,
+        pedidoId: this.nextSimulatedId,
+        metodo: m,
+        referencia: `REF-${Math.floor(1000 + Math.random() * 9000)}`,
+        comprobanteUrl: 'https://res.cloudinary.com/doxdjiyvi/image/upload/v1789948206/IMG_6859_f7mhv9.png',
+        estado: 'pendiente',
+        monto: total
+      };
+    } else {
+      // 20% Ya aprobado y en preparación
+      estado = 'en_preparacion';
+      pago = {
+        id: this.nextSimulatedId + 500,
+        pedidoId: this.nextSimulatedId,
+        metodo: 'Transferencia Bancaria',
+        referencia: `OK-${Math.floor(10000 + Math.random() * 90000)}`,
+        estado: 'confirmado',
+        monto: total
+      };
+    }
 
     const newOrder: Order = {
       id: this.nextSimulatedId++,
@@ -470,15 +638,8 @@ export class TvComponent implements OnInit, OnDestroy {
       impuestos,
       costoEnvio,
       total,
-      estado: 'nuevo',
-      pago: {
-        id: this.nextSimulatedId + 500,
-        pedidoId: this.nextSimulatedId,
-        metodo: selectedMethod,
-        referencia: `REF-${Math.floor(1000 + Math.random() * 9000)}`,
-        estado: 'pendiente',
-        monto: total
-      },
+      estado,
+      pago,
       historial: [],
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
@@ -487,11 +648,12 @@ export class TvComponent implements OnInit, OnDestroy {
     // Insertar en la primera posición (Hero)
     this.orders.unshift(newOrder);
     this.heroOrder = newOrder;
-    this.queueOrders = this.orders.slice(1, 15);
+    this.queueOrders = this.orders.slice(1);
+    this.currentPage = 1;
 
-    // Sonido y Flash siempre activos
+    // Sonido y Alerta Grande en Pantalla por Ciudad
     this.playCashChime();
-    this.showFlashNotification(`${newOrder.folio} &bull; ${newOrder.cliente.nombre} (${newOrder.ciudad})`);
+    this.triggerAlert(newOrder);
   }
 
   // ─── Efecto de Sonido Profesional (Campana de Caja Registradora) ───
@@ -549,11 +711,20 @@ export class TvComponent implements OnInit, OnDestroy {
     }
   }
 
-  private showFlashNotification(msg: string): void {
-    this.flashNotification = msg;
-    setTimeout(() => {
-      this.flashNotification = null;
-    }, 4500);
+  private triggerAlert(order: Order): void {
+    if (this.alertTimeout) {
+      clearTimeout(this.alertTimeout);
+    }
+    this.newOrderAlert = {
+      ciudad: order.ciudad,
+      folio: order.folio,
+      cliente: order.cliente.nombre,
+      total: order.total,
+      itemsCount: order.items.length
+    };
+    this.alertTimeout = setTimeout(() => {
+      this.newOrderAlert = null;
+    }, 6000);
   }
 
   private updateClock(): void {
