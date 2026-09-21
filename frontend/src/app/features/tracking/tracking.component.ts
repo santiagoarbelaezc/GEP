@@ -30,7 +30,7 @@ import { Order, OrderStatus, ORDER_STATUS_LABELS, TRACKING_STEPS } from '../../c
             <h1 class="text-xl font-extrabold text-zinc-900 mb-2">Rastrear tu pedido</h1>
             <p class="text-sm text-zinc-400 mb-6">Ingresa el folio de tu pedido para ver el estado actual</p>
 
-            <div class="flex gap-3 max-w-sm mx-auto">
+            <div class="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto">
               <input
                 type="text"
                 class="input-premium flex-1"
@@ -77,11 +77,11 @@ import { Order, OrderStatus, ORDER_STATUS_LABELS, TRACKING_STEPS } from '../../c
             </div>
 
             <!-- Stepper -->
-            <div class="card p-6 mb-6">
+            <div class="card p-4 sm:p-6 mb-6 overflow-x-auto">
               <p class="micro-label mb-5 text-center">Estado del Pedido</p>
 
               <!-- Horizontal stepper -->
-              <div class="flex items-center justify-between relative px-4">
+              <div class="flex items-center justify-between relative px-2 sm:px-4 min-w-[320px]">
                 <!-- Background line -->
                 <div class="absolute top-5 left-8 right-8 h-0.5 bg-zinc-200"></div>
                 <div

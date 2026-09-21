@@ -9,7 +9,7 @@ import { OrderStatus, WORKFLOW_STEPS } from '../../../core/models/order.model';
   template: `
     <div [class]="compact ? '' : 'p-1'">
       <!-- Horizontal workflow -->
-      <div class="flex items-center" [class]="compact ? 'gap-0' : 'gap-0'">
+      <div class="flex items-center min-w-[320px] sm:min-w-0" [class]="compact ? 'gap-0' : 'gap-0'">
         @for (step of steps; track step.status; let i = $index; let last = $last) {
           <!-- Step -->
           <div class="flex items-center" [class]="compact ? '' : 'flex-1'">

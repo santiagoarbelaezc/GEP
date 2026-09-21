@@ -29,11 +29,11 @@ interface RoleOption {
         <p class="micro-label text-center mb-5">Selecciona tu rol para continuar</p>
 
         <!-- Role cards -->
-        <div class="grid grid-cols-2 gap-3 animate-stagger">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 animate-stagger">
           @for (option of roleOptions; track option.role) {
             <button
               (click)="selectRole(option.role)"
-              class="card p-5 text-left cursor-pointer hover:border-zinc-400 hover:shadow-md transition-all duration-200 group active:scale-[0.98]"
+              class="card p-4 sm:p-5 text-left cursor-pointer hover:border-zinc-400 hover:shadow-md transition-all duration-200 group active:scale-[0.98]"
               [id]="'role-' + option.role"
             >
               <div class="w-10 h-10 bg-zinc-100 rounded-xl flex items-center justify-center mb-3 group-hover:bg-black group-hover:text-white transition-all duration-200">

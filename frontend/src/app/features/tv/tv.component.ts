@@ -214,7 +214,7 @@ const QUINDIO_CUSTOMERS = [
         <!-- ════════════════════════════════════════════════════════════════════════ -->
         <!-- LADO DERECHO: CONTENEDORES PEQUEÑOS EN COLA CON PAGINACIÓN              -->
         <!-- ════════════════════════════════════════════════════════════════════════ -->
-        <section class="lg:col-span-5 flex flex-col min-h-0 h-full overflow-hidden bg-zinc-900/60 rounded-2xl border border-zinc-800/80 p-3 sm:p-4">
+        <section class="lg:col-span-5 flex flex-col min-h-0 h-auto lg:h-full overflow-visible lg:overflow-hidden bg-zinc-900/60 rounded-2xl border border-zinc-800/80 p-3 sm:p-4">
           
           <div class="flex items-center justify-between mb-2 px-1 shrink-0">
             <h2 class="text-xs font-bold text-zinc-300 uppercase tracking-wider flex items-center gap-1.5">
@@ -227,7 +227,7 @@ const QUINDIO_CUSTOMERS = [
           </div>
 
           <!-- Contenedores Pequeños Cuadrados Paginados (2x2) -->
-          <div class="flex-1 grid grid-cols-2 grid-rows-2 gap-2.5 min-h-0 overflow-hidden">
+          <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-rows-2 gap-2.5 min-h-0 overflow-visible lg:overflow-hidden">
             @for (order of paginatedQueueOrders; track order.id) {
               <div
                 (click)="spotlightOrder(order)"
