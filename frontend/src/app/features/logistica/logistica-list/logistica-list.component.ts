@@ -17,11 +17,11 @@ import { Order, OrderStatus } from '../../../core/models/order.model';
       </div>
 
       <!-- Tab filters -->
-      <div class="flex gap-2 mb-6">
+      <div class="flex gap-2 mb-6 overflow-x-auto pb-1 sm:pb-0">
         @for (tab of tabs; track tab.status) {
           <button
             (click)="activeTab = tab.status; loadOrders()"
-            class="px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200"
+            class="px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 whitespace-nowrap"
             [class]="activeTab === tab.status ? 'bg-black text-white' : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'"
           >
             {{ tab.label }}
@@ -32,7 +32,7 @@ import { Order, OrderStatus } from '../../../core/models/order.model';
       <!-- Orders -->
       <div class="space-y-4">
         @for (order of orders; track order.id) {
-          <div class="card p-5">
+          <div class="card p-4 sm:p-5">
             <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
               <!-- Info -->
               <div class="flex-1">
@@ -57,7 +57,7 @@ import { Order, OrderStatus } from '../../../core/models/order.model';
                   </div>
                 </div>
 
-                <div class="flex gap-3 mt-3">
+                <div class="flex flex-wrap gap-2 sm:gap-3 mt-3">
                   @for (item of order.items; track item.id) {
                     <span class="inline-flex items-center px-2 py-1 bg-zinc-50 rounded-lg text-xs text-zinc-600">
                       {{ item.nombreProducto }} × {{ item.cantidad }}

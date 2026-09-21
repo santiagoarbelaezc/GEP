@@ -16,7 +16,7 @@ import { Order } from '../../../core/models/order.model';
     <div class="animate-fade-in">
 
       <!-- Header (Estilo Admin) -->
-      <div class="flex items-center justify-between mb-6">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
         <div>
           <h1 class="page-title">Clientes de Caja</h1>
           <p class="text-sm text-zinc-400 mt-1">Directorio de clientes, datos de contacto y gestión de comprobantes</p>
@@ -29,47 +29,47 @@ import { Order } from '../../../core/models/order.model';
       </div>
 
       <!-- KPIs (Estilo Admin) -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6 animate-stagger">
-        <div class="card p-5">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 animate-stagger">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-zinc-100 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-zinc-600">people</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-zinc-100 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-zinc-600">people</span>
             </div>
           </div>
-          <p class="text-2xl font-extrabold text-zinc-900">{{ clients.length }}</p>
-          <p class="text-xs text-zinc-400 mt-0.5">Total Clientes</p>
+          <p class="text-xl sm:text-2xl font-extrabold text-zinc-900">{{ clients.length }}</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Total Clientes</p>
         </div>
 
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-zinc-100 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-zinc-600">person</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-zinc-100 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-zinc-600">person</span>
             </div>
           </div>
-          <p class="text-2xl font-extrabold text-zinc-900">{{ personaCount }}</p>
-          <p class="text-xs text-zinc-400 mt-0.5">Personas Naturales (CC)</p>
+          <p class="text-xl sm:text-2xl font-extrabold text-zinc-900">{{ personaCount }}</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Personas (CC)</p>
         </div>
 
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-blue-600">business</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-blue-50 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-blue-600">business</span>
             </div>
           </div>
-          <p class="text-2xl font-extrabold text-zinc-900">{{ empresaCount }}</p>
-          <p class="text-xs text-zinc-400 mt-0.5">Empresas (NIT)</p>
+          <p class="text-xl sm:text-2xl font-extrabold text-zinc-900">{{ empresaCount }}</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Empresas (NIT)</p>
         </div>
 
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-zinc-900 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-white">payments</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-zinc-900 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-white">payments</span>
             </div>
           </div>
-          <p class="price-value-xl truncate">
+          <p class="text-base sm:text-2xl font-extrabold text-zinc-900 truncate">
             {{ totalFacturadoClientes | currency:'COP':'symbol-narrow':'1.0-0' }}
           </p>
-          <p class="text-xs text-zinc-400 mt-0.5">Total Facturado</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Total Facturado</p>
         </div>
       </div>
 
@@ -97,13 +97,13 @@ import { Order } from '../../../core/models/order.model';
           <table class="w-full">
             <thead>
               <tr class="bg-zinc-50 border-b border-zinc-200">
-                <th class="text-left px-5 py-3 micro-label">Cliente</th>
-                <th class="text-left px-5 py-3 micro-label">Documento</th>
-                <th class="text-left px-5 py-3 micro-label hidden md:table-cell">Ciudad & Dirección</th>
-                <th class="text-left px-5 py-3 micro-label hidden sm:table-cell">Teléfono</th>
-                <th class="text-center px-5 py-3 micro-label">Pedidos</th>
-                <th class="text-right px-5 py-3 micro-label">Total Comprado</th>
-                <th class="text-right px-5 py-3 micro-label">Acciones</th>
+                <th class="text-left px-3.5 sm:px-5 py-3 micro-label">Cliente</th>
+                <th class="text-left px-3.5 sm:px-5 py-3 micro-label">Documento</th>
+                <th class="text-left px-3.5 sm:px-5 py-3 micro-label hidden md:table-cell">Ciudad & Dirección</th>
+                <th class="text-left px-3.5 sm:px-5 py-3 micro-label hidden sm:table-cell">Teléfono</th>
+                <th class="text-center px-3.5 sm:px-5 py-3 micro-label">Pedidos</th>
+                <th class="text-right px-3.5 sm:px-5 py-3 micro-label">Total Comprado</th>
+                <th class="text-right px-3.5 sm:px-5 py-3 micro-label">Acciones</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-zinc-100">

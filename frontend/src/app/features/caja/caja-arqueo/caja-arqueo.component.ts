@@ -12,7 +12,7 @@ import { Order } from '../../../core/models/order.model';
     <div class="animate-fade-in">
 
       <!-- Header (Estilo Admin) -->
-      <div class="flex items-center justify-between mb-6">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
         <div>
           <h1 class="page-title">Arqueo de Turno</h1>
           <p class="text-sm text-zinc-400 mt-1">Conciliación de recaudos por canal bancario y balance general del turno</p>
@@ -20,7 +20,7 @@ import { Order } from '../../../core/models/order.model';
         <div class="flex items-center gap-2">
           <button
             (click)="imprimirCierre()"
-            class="btn-primary py-2 px-4 text-xs flex items-center gap-2"
+            class="btn-primary py-2 px-4 text-xs flex items-center gap-2 w-full sm:w-auto justify-center"
           >
             <span class="material-symbols-outlined text-base">print</span>
             Imprimir Cierre
@@ -29,49 +29,49 @@ import { Order } from '../../../core/models/order.model';
       </div>
 
       <!-- KPIs (Estilo Admin) -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6 animate-stagger">
-        <div class="card p-5">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 animate-stagger">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-zinc-900 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-white">payments</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-zinc-900 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-white">payments</span>
             </div>
           </div>
-          <p class="price-value-xl truncate">
+          <p class="text-base sm:text-2xl font-extrabold text-zinc-900 truncate">
             {{ totalRecaudado | currency:'COP':'symbol-narrow':'1.0-0' }}
           </p>
-          <p class="text-xs text-zinc-400 mt-0.5">Recaudo Total Turno</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Recaudo Total Turno</p>
         </div>
 
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-emerald-600">check_circle</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-emerald-600">check_circle</span>
             </div>
           </div>
-          <p class="text-2xl font-extrabold text-zinc-900">{{ approvedOrders.length }}</p>
-          <p class="text-xs text-zinc-400 mt-0.5">Cobros Validados</p>
+          <p class="text-xl sm:text-2xl font-extrabold text-zinc-900">{{ approvedOrders.length }}</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Cobros Validados</p>
         </div>
 
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-zinc-100 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-zinc-600">receipt</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-zinc-100 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-zinc-600">receipt</span>
             </div>
           </div>
-          <p class="price-value-xl truncate">
+          <p class="text-base sm:text-2xl font-extrabold text-zinc-900 truncate">
             {{ (approvedOrders.length > 0 ? (totalRecaudado / approvedOrders.length) : 0) | currency:'COP':'symbol-narrow':'1.0-0' }}
           </p>
-          <p class="text-xs text-zinc-400 mt-0.5">Ticket Promedio</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Ticket Promedio</p>
         </div>
 
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-xl text-emerald-600">verified</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg sm:text-xl text-emerald-600">verified</span>
             </div>
           </div>
-          <p class="text-2xl font-extrabold text-emerald-600">96.5%</p>
-          <p class="text-xs text-zinc-400 mt-0.5">Efectividad de Cobro</p>
+          <p class="text-xl sm:text-2xl font-extrabold text-emerald-600">96.5%</p>
+          <p class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Efectividad de Cobro</p>
         </div>
       </div>
 
