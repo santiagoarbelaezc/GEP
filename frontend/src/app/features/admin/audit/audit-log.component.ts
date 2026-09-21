@@ -89,7 +89,7 @@ import { UserRole, ROLE_LABELS } from '../../../core/models/user.model';
           <div class="card p-6">
             <p class="micro-label mb-5">Actividad Reciente</p>
             <div class="relative">
-              @for (log of filteredLogs; track log.id; let last = $last) {
+              @for (log of paginatedLogs; track log.id; let last = $last) {
                 <div class="flex gap-4 pb-5" [class.pb-0]="last">
                   <div class="flex flex-col items-center">
                     <div class="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 z-10"
@@ -126,6 +126,61 @@ import { UserRole, ROLE_LABELS } from '../../../core/models/user.model';
                 </div>
               }
             </div>
+
+            <!-- Pagination Bar -->
+            @if (filteredLogs.length > 0) {
+              <div class="mt-6 pt-4 border-t border-zinc-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs">
+                <div class="flex items-center gap-3 text-zinc-500">
+                  <span>
+                    Mostrando <strong class="text-zinc-900">{{ (currentPage - 1) * pageSize + 1 }}–{{ Math.min(currentPage * pageSize, filteredLogs.length) }}</strong> de <strong class="text-zinc-900">{{ filteredLogs.length }}</strong> registros
+                  </span>
+                  <div class="hidden sm:flex items-center gap-1.5 pl-2 border-l border-zinc-200">
+                    <span class="text-[11px] text-zinc-400">Por pág:</span>
+                    <select
+                      [(ngModel)]="pageSize"
+                      (change)="onPageSizeChange()"
+                      class="bg-zinc-100 border-none rounded-lg px-2 py-0.5 text-xs font-bold text-zinc-700 cursor-pointer focus:outline-none"
+                    >
+                      @for (opt of pageSizeOptions; track opt) {
+                        <option [ngValue]="opt">{{ opt }}</option>
+                      }
+                    </select>
+                  </div>
+                </div>
+
+                @if (totalPages > 1) {
+                  <div class="flex items-center gap-1 self-end sm:self-auto">
+                    <button
+                      (click)="goToPage(currentPage - 1)"
+                      [disabled]="currentPage === 1"
+                      class="px-2.5 py-1.5 rounded-lg border border-zinc-200 text-xs font-semibold text-zinc-600 hover:bg-zinc-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                      title="Página anterior"
+                    >
+                      &larr; Ant
+                    </button>
+
+                    @for (p of pages; track p) {
+                      <button
+                        (click)="goToPage(p)"
+                        class="w-7 h-7 rounded-lg font-bold text-xs transition-all flex items-center justify-center"
+                        [class]="p === currentPage ? 'bg-zinc-900 text-white shadow-xs' : 'text-zinc-600 hover:bg-zinc-100 border border-transparent'"
+                      >
+                        {{ p }}
+                      </button>
+                    }
+
+                    <button
+                      (click)="goToPage(currentPage + 1)"
+                      [disabled]="currentPage === totalPages"
+                      class="px-2.5 py-1.5 rounded-lg border border-zinc-200 text-xs font-semibold text-zinc-600 hover:bg-zinc-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                      title="Página siguiente"
+                    >
+                      Sig &rarr;
+                    </button>
+                  </div>
+                }
+              </div>
+            }
           </div>
         </div>
 
@@ -198,6 +253,35 @@ export class AuditLogComponent implements OnInit {
   cajaCount = 0;
   logisticaCount = 0;
 
+  currentPage = 1;
+  pageSize = 7;
+  pageSizeOptions = [5, 7, 10, 20];
+  Math = Math;
+
+  get totalPages(): number {
+    return Math.ceil(this.filteredLogs.length / this.pageSize) || 1;
+  }
+
+  get paginatedLogs(): AuditLog[] {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.filteredLogs.slice(start, start + this.pageSize);
+  }
+
+  get pages(): number[] {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+
+  onPageSizeChange(): void {
+    this.pageSize = Number(this.pageSize);
+    this.currentPage = 1;
+  }
+
   actionOptions = Object.entries(AUDIT_ACTION_LABELS).map(([value, label]) => ({ value, label }));
 
   operatorSummaries: { name: string; role: string; actions: number }[] = [];
@@ -239,6 +323,7 @@ export class AuditLogComponent implements OnInit {
     if (this.actionFilter) result = result.filter(l => l.accion === this.actionFilter);
     if (this.entityFilter) result = result.filter(l => l.entidad === this.entityFilter);
     this.filteredLogs = result;
+    this.currentPage = 1;
   }
 
   getRoleColor(rol: UserRole): string {

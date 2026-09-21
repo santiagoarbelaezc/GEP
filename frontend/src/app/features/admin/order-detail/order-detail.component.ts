@@ -159,6 +159,18 @@ import { Order, OrderStatus, ORDER_STATUS_LABELS } from '../../../core/models/or
                   </div>
                 </div>
               </div>
+            } @else {
+              <div class="card p-6 bg-zinc-50/50 border-dashed">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined text-xl">hourglass_empty</span>
+                  </div>
+                  <div>
+                    <p class="text-sm font-semibold text-zinc-800">Sin comprobante adjunto</p>
+                    <p class="text-xs text-zinc-400">El cliente aún no ha subido el soporte de pago. Estará disponible a partir del estado "Pago en Revisión".</p>
+                  </div>
+                </div>
+              </div>
             }
           </div>
 

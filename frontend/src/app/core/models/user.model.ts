@@ -26,12 +26,16 @@ export const ROLE_MENUS: Record<UserRole, MenuItem[]> = {
     { label: 'Dashboard', icon: 'dashboard', route: '/admin/dashboard' },
     { label: 'Clientes', icon: 'people', route: '/admin/clientes' },
     { label: 'Pedidos', icon: 'receipt_long', route: '/admin/pedidos' },
+    { label: 'Caja Operativa', icon: 'point_of_sale', route: '/caja' },
     { label: 'Pagos', icon: 'payments', route: '/admin/pagos' },
     { label: 'Estadísticas', icon: 'bar_chart', route: '/admin/estadisticas' },
     { label: 'Auditoría', icon: 'shield', route: '/admin/auditoria' },
   ],
   caja: [
-    { label: 'Pedidos Pendientes', icon: 'point_of_sale', route: '/caja' },
+    { label: 'Caja Operativa', icon: 'point_of_sale', route: '/caja' },
+    { label: 'Pedidos', icon: 'receipt_long', route: '/caja/pedidos' },
+    { label: 'Clientes', icon: 'people', route: '/caja/clientes' },
+    { label: 'Arqueo de Turno', icon: 'account_balance_wallet', route: '/caja/arqueo' },
   ],
   tv: [],
   logistica: [

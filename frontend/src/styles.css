@@ -84,6 +84,37 @@
   .section-subtitle {
     @apply text-sm font-semibold text-zinc-700;
   }
+
+  /* ── Estilo Elegante de Precios (Estándar Global Admin) ── */
+  .price-value {
+    @apply font-bold text-zinc-900 tracking-tight font-sans;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+  }
+
+  .price-value-sm {
+    @apply text-sm font-bold text-zinc-900 tracking-tight font-sans;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+  }
+
+  .price-value-base {
+    @apply text-base font-extrabold text-zinc-900 tracking-tight font-sans;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+  }
+
+  .price-value-lg {
+    @apply text-xl font-extrabold text-zinc-900 tracking-tight font-sans;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+  }
+
+  .price-value-xl {
+    @apply text-2xl font-extrabold text-zinc-900 tracking-tight font-sans;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+  }
 }
 
 /* ── Animations ──────────────────────────────────────────────────── */

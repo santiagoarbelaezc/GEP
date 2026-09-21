@@ -131,4 +131,13 @@ export class AuditService {
     const count = this.logs.filter(l => l.rol === rol && new Date(l.timestamp) >= startOfDay).length;
     return of(count).pipe(delay(100));
   }
+
+  logAction(log: Omit<AuditLog, 'id' | 'timestamp'>): void {
+    const newLog: AuditLog = {
+      ...log,
+      id: this.logs.length + 1,
+      timestamp: new Date().toISOString(),
+    };
+    this.logs.unshift(newLog);
+  }
 }

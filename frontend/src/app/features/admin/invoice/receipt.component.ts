@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { OrderService } from '../../../core/services/order.service';
-import { Order, Payment } from '../../../core/models/order.model';
+import { Order, Payment, ORDER_STATUS_LABELS } from '../../../core/models/order.model';
+import { StatusBadgeComponent } from '../../../shared/components/status-badge/status-badge.component';
 
 const DEFAULT_RECEIPT_IMAGE =
   'https://res.cloudinary.com/doxdjiyvi/image/upload/v1789948206/IMG_6859_f7mhv9.png';
@@ -10,7 +11,7 @@ const DEFAULT_RECEIPT_IMAGE =
 @Component({
   selector: 'app-receipt',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, StatusBadgeComponent],
   template: `
     @if (order) {
       <!-- Top Action Controls (hidden on print) -->
@@ -63,43 +64,68 @@ const DEFAULT_RECEIPT_IMAGE =
                 <span class="text-zinc-400 font-medium">Cliente</span>
                 <span class="text-zinc-900 font-bold text-right truncate max-w-[65%]">{{ order.cliente.nombre }}</span>
               </div>
-              <div class="flex justify-between items-center">
-                <span class="text-zinc-400 font-medium">Fecha de Pago</span>
-                <span class="text-zinc-900 font-semibold">
-                  {{ (currentPago.fechaRevision || order.createdAt) | date:'dd/MM/yyyy HH:mm' }}
-                </span>
-              </div>
-              <div class="flex justify-between items-center">
-                <span class="text-zinc-400 font-medium">Método de Pago</span>
-                <span class="text-zinc-900 font-bold">{{ currentPago.metodo }}</span>
-              </div>
-              <div class="flex justify-between items-center">
-                <span class="text-zinc-400 font-medium">Nº Referencia / Aprobación</span>
-                <span class="text-zinc-900 font-mono font-bold">{{ currentPago.referencia }}</span>
-              </div>
-              @if (currentPago.revisadoPorNombre) {
+
+              @if (order.pago) {
                 <div class="flex justify-between items-center">
-                  <span class="text-zinc-400 font-medium">Verificado por</span>
-                  <span class="text-emerald-700 font-semibold">{{ currentPago.revisadoPorNombre }}</span>
+                  <span class="text-zinc-400 font-medium">Fecha de Pago</span>
+                  <span class="text-zinc-900 font-semibold">
+                    {{ (order.pago.fechaRevision || order.createdAt) | date:'dd/MM/yyyy HH:mm' }}
+                  </span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-zinc-400 font-medium">Método de Pago</span>
+                  <span class="text-zinc-900 font-bold">{{ order.pago.metodo }}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-zinc-400 font-medium">Nº Referencia / Aprobación</span>
+                  <span class="text-zinc-900 font-mono font-bold">{{ order.pago.referencia }}</span>
+                </div>
+                @if (order.pago.revisadoPorNombre) {
+                  <div class="flex justify-between items-center">
+                    <span class="text-zinc-400 font-medium">Verificado por</span>
+                    <span class="text-emerald-700 font-semibold">{{ order.pago.revisadoPorNombre }}</span>
+                  </div>
+                }
+              } @else {
+                <div class="flex justify-between items-center">
+                  <span class="text-zinc-400 font-medium">Estado del Pago</span>
+                  <span class="text-amber-700 font-bold">Pendiente por el cliente</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-zinc-400 font-medium">Método</span>
+                  <span class="text-zinc-500 italic">Sin registrar soporte</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-zinc-400 font-medium">Comprobante</span>
+                  <span class="text-zinc-500 italic">No adjuntado aún</span>
                 </div>
               }
             </div>
 
             <!-- Amount Banner -->
             <div class="bg-zinc-900 rounded-2xl p-4 text-center mb-5 print:bg-black text-white shadow-sm">
-              <p class="text-[10px] text-zinc-400 uppercase tracking-widest font-semibold mb-0.5">Total Recibido</p>
+              <p class="text-[10px] text-zinc-400 uppercase tracking-widest font-semibold mb-0.5">
+                {{ order.pago ? 'Total Recibido' : 'Total a Pagar' }}
+              </p>
               <p class="text-2xl font-extrabold tracking-tight">{{ order.total | currency:'COP':'symbol-narrow':'1.0-0' }}</p>
             </div>
 
             <!-- Status Badge -->
             <div class="text-center mb-5">
-              <span
-                class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold shadow-xs"
-                [class]="currentPago.estado === 'confirmado' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200'"
-              >
-                <span class="material-symbols-outlined text-sm">{{ currentPago.estado === 'confirmado' ? 'verified' : 'schedule' }}</span>
-                {{ currentPago.estado === 'confirmado' ? 'TRANSACCIÓN APROBADA' : 'PAGO EN REVISIÓN' }}
-              </span>
+              @if (order.pago) {
+                <span
+                  class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold shadow-xs"
+                  [class]="order.pago.estado === 'confirmado' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200'"
+                >
+                  <span class="material-symbols-outlined text-sm">{{ order.pago.estado === 'confirmado' ? 'verified' : 'schedule' }}</span>
+                  {{ order.pago.estado === 'confirmado' ? 'TRANSACCIÓN APROBADA' : 'PAGO EN REVISIÓN' }}
+                </span>
+              } @else {
+                <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold shadow-xs bg-zinc-100 text-zinc-700 border border-zinc-200">
+                  <span class="material-symbols-outlined text-sm text-zinc-400">hourglass_top</span>
+                  PEDIDO NUEVO &bull; ESPERANDO PAGO
+                </span>
+              }
             </div>
 
             <!-- Footer -->
@@ -111,98 +137,128 @@ const DEFAULT_RECEIPT_IMAGE =
           </div>
         </div>
 
-        <!-- ── Right Section: Comprobante Digital con Zoom Interactivo ─────── -->
+        <!-- ── Right Section: Comprobante Digital con Zoom Interactivo O Estado Vacío ─── -->
         <div class="lg:col-span-7 w-full print:hidden">
-          <div class="bg-white border border-zinc-200 rounded-3xl shadow-sm p-6">
-            <!-- Header bar of Comprobante -->
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 mb-4 border-b border-zinc-100">
-              <div>
+          @if (order.pago?.comprobanteUrl) {
+            <!-- Comprobante con Zoom cuando ya existe soporte -->
+            <div class="bg-white border border-zinc-200 rounded-3xl shadow-sm p-6">
+              <!-- Header bar of Comprobante -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 mb-4 border-b border-zinc-100">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-emerald-600 text-lg">verified</span>
+                    <h3 class="text-sm font-bold text-zinc-900">Comprobante de Pago Digital</h3>
+                  </div>
+                  <p class="text-xs text-zinc-400 mt-0.5">
+                    Ref: <span class="font-mono text-zinc-700 font-medium">{{ order.pago!.referencia }}</span> &bull; {{ order.pago!.metodo }}
+                  </p>
+                </div>
+
+                <!-- Zoom level controls & actions -->
                 <div class="flex items-center gap-2">
-                  <span class="material-symbols-outlined text-emerald-600 text-lg">verified</span>
-                  <h3 class="text-sm font-bold text-zinc-900">Comprobante de Pago Digital</h3>
+                  <div class="inline-flex items-center bg-zinc-100 p-0.5 rounded-xl text-xs font-semibold text-zinc-600">
+                    <button
+                      (click)="setZoomScale(1.8)"
+                      class="px-2.5 py-1 rounded-lg transition-all"
+                      [class]="zoomScale === 1.8 ? 'bg-white text-zinc-900 shadow-xs' : 'hover:text-zinc-900'"
+                    >
+                      1.8x
+                    </button>
+                    <button
+                      (click)="setZoomScale(2.4)"
+                      class="px-2.5 py-1 rounded-lg transition-all"
+                      [class]="zoomScale === 2.4 ? 'bg-white text-zinc-900 shadow-xs' : 'hover:text-zinc-900'"
+                    >
+                      2.4x
+                    </button>
+                    <button
+                      (click)="setZoomScale(3.2)"
+                      class="px-2.5 py-1 rounded-lg transition-all"
+                      [class]="zoomScale === 3.2 ? 'bg-white text-zinc-900 shadow-xs' : 'hover:text-zinc-900'"
+                    >
+                      3.2x
+                    </button>
+                  </div>
+
+                  <a
+                    [href]="order.pago!.comprobanteUrl"
+                    target="_blank"
+                    class="p-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-700 hover:text-black transition-colors"
+                    title="Abrir imagen original"
+                  >
+                    <span class="material-symbols-outlined text-base">open_in_new</span>
+                  </a>
                 </div>
-                <p class="text-xs text-zinc-400 mt-0.5">
-                  Ref: <span class="font-mono text-zinc-700 font-medium">{{ currentPago.referencia }}</span> &bull; {{ currentPago.metodo }}
-                </p>
               </div>
 
-              <!-- Zoom level controls & actions -->
+              <!-- Interactive Cursor Zoom Viewport -->
+              <div
+                class="relative overflow-hidden rounded-2xl bg-zinc-900/95 border border-zinc-200/80 shadow-inner select-none flex items-center justify-center p-3 cursor-crosshair group"
+                style="height: 580px;"
+                (mousemove)="onZoomMove($event)"
+                (mouseenter)="onZoomEnter()"
+                (mouseleave)="onZoomLeave()"
+              >
+                <img
+                  [src]="order.pago!.comprobanteUrl"
+                  alt="Comprobante de Pago con Zoom"
+                  class="max-h-full w-auto max-w-[360px] object-contain rounded-xl shadow-lg transition-transform duration-75 ease-out pointer-events-none bg-white"
+                  [style.transform-origin]="zoomX + '% ' + zoomY + '%'"
+                  [style.transform]="isHovering ? 'scale(' + zoomScale + ')' : 'scale(1)'"
+                />
+
+                <!-- Floating guidance pill when not hovering -->
+                @if (!isHovering) {
+                  <div class="absolute bottom-5 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-md text-white text-xs font-semibold px-4 py-2 rounded-full flex items-center gap-2 pointer-events-none shadow-xl border border-white/10">
+                    <span class="material-symbols-outlined text-sm text-emerald-400">zoom_in</span>
+                    Pasa el cursor sobre el comprobante para ampliar detalles
+                  </div>
+                } @else {
+                  <!-- Active zoom level pill -->
+                  <div class="absolute top-4 right-4 bg-black/85 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1 rounded-full pointer-events-none flex items-center gap-1.5 shadow-md border border-white/10">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                    Lupa {{ zoomScale }}x activa
+                  </div>
+                }
+              </div>
+
+              <!-- Bottom helper hints -->
+              <div class="mt-4 flex items-center justify-between text-xs text-zinc-400 px-1">
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm text-zinc-500">touch_app</span>
+                  Mueve el puntero por el comprobante para examinar número, fecha y QR
+                </div>
+                <span class="font-medium text-zinc-500">Resolución nativa verificada</span>
+              </div>
+            </div>
+          } @else {
+            <!-- Empty state para pedidos nuevos o sin soporte aún -->
+            <div class="bg-white border border-zinc-200 rounded-3xl shadow-sm p-10 text-center flex flex-col items-center justify-center" style="min-height: 520px;">
+              <div class="w-16 h-16 bg-zinc-100 rounded-2xl flex items-center justify-center text-zinc-400 mb-4">
+                <span class="material-symbols-outlined text-3xl">receipt_long</span>
+              </div>
+              <h3 class="text-base font-bold text-zinc-900 mb-1">Sin comprobante adjunto todavía</h3>
+              <p class="text-xs text-zinc-400 max-w-sm mb-6">
+                Este pedido se encuentra en estado <span class="font-semibold text-zinc-700 uppercase">{{ order.estado }}</span>. El cliente aún no ha subido el soporte de pago.
+              </p>
+
+              <div class="bg-zinc-50 border border-zinc-200/80 rounded-2xl p-4 max-w-md text-left text-xs text-zinc-600 space-y-2 mb-6">
+                <div class="flex items-start gap-2.5">
+                  <span class="material-symbols-outlined text-amber-500 text-base flex-shrink-0 mt-0.5">info</span>
+                  <div>
+                    <p class="font-semibold text-zinc-800">Flujo operativo de pago:</p>
+                    <p class="text-zinc-500 mt-0.5">
+                      El comprobante aparecerá aquí automáticamente a partir de que el pedido pase a <strong>Pago en Revisión</strong> (cuando el cliente transfiera vía Nequi/Bancolombia y envíe su pantallazo).
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               <div class="flex items-center gap-2">
-                <div class="inline-flex items-center bg-zinc-100 p-0.5 rounded-xl text-xs font-semibold text-zinc-600">
-                  <button
-                    (click)="setZoomScale(1.8)"
-                    class="px-2.5 py-1 rounded-lg transition-all"
-                    [class]="zoomScale === 1.8 ? 'bg-white text-zinc-900 shadow-xs' : 'hover:text-zinc-900'"
-                  >
-                    1.8x
-                  </button>
-                  <button
-                    (click)="setZoomScale(2.4)"
-                    class="px-2.5 py-1 rounded-lg transition-all"
-                    [class]="zoomScale === 2.4 ? 'bg-white text-zinc-900 shadow-xs' : 'hover:text-zinc-900'"
-                  >
-                    2.4x
-                  </button>
-                  <button
-                    (click)="setZoomScale(3.2)"
-                    class="px-2.5 py-1 rounded-lg transition-all"
-                    [class]="zoomScale === 3.2 ? 'bg-white text-zinc-900 shadow-xs' : 'hover:text-zinc-900'"
-                  >
-                    3.2x
-                  </button>
-                </div>
-
-                <a
-                  [href]="currentPago.comprobanteUrl || defaultImage"
-                  target="_blank"
-                  class="p-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-700 hover:text-black transition-colors"
-                  title="Abrir imagen original"
-                >
-                  <span class="material-symbols-outlined text-base">open_in_new</span>
-                </a>
+                <app-status-badge [status]="order.estado" />
               </div>
             </div>
-
-            <!-- Interactive Cursor Zoom Viewport -->
-            <div
-              class="relative overflow-hidden rounded-2xl bg-zinc-900/95 border border-zinc-200/80 shadow-inner select-none flex items-center justify-center p-3 cursor-crosshair group"
-              style="height: 580px;"
-              (mousemove)="onZoomMove($event)"
-              (mouseenter)="onZoomEnter()"
-              (mouseleave)="onZoomLeave()"
-            >
-              <img
-                [src]="currentPago.comprobanteUrl || defaultImage"
-                alt="Comprobante de Pago con Zoom"
-                class="max-h-full w-auto max-w-[360px] object-contain rounded-xl shadow-lg transition-transform duration-75 ease-out pointer-events-none bg-white"
-                [style.transform-origin]="zoomX + '% ' + zoomY + '%'"
-                [style.transform]="isHovering ? 'scale(' + zoomScale + ')' : 'scale(1)'"
-              />
-
-              <!-- Floating guidance pill when not hovering -->
-              @if (!isHovering) {
-                <div class="absolute bottom-5 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-md text-white text-xs font-semibold px-4 py-2 rounded-full flex items-center gap-2 pointer-events-none shadow-xl border border-white/10">
-                  <span class="material-symbols-outlined text-sm text-emerald-400">zoom_in</span>
-                  Pasa el cursor sobre el comprobante para ampliar detalles
-                </div>
-              } @else {
-                <!-- Active zoom level pill -->
-                <div class="absolute top-4 right-4 bg-black/85 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1 rounded-full pointer-events-none flex items-center gap-1.5 shadow-md border border-white/10">
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-                  Lupa {{ zoomScale }}x activa
-                </div>
-              }
-            </div>
-
-            <!-- Bottom helper hints -->
-            <div class="mt-4 flex items-center justify-between text-xs text-zinc-400 px-1">
-              <div class="flex items-center gap-1.5">
-                <span class="material-symbols-outlined text-sm text-zinc-500">touch_app</span>
-                Mueve el puntero por el comprobante para examinar número, fecha y QR
-              </div>
-              <span class="font-medium text-zinc-500">Resolución nativa verificada</span>
-            </div>
-          </div>
+          }
         </div>
 
       </div>
@@ -246,7 +302,6 @@ export class ReceiptComponent implements OnInit {
   order: Order | null = null;
   loading = true;
   printDate = new Date();
-  defaultImage = DEFAULT_RECEIPT_IMAGE;
 
   // Interactive Cursor Zoom
   zoomScale = 2.4;
@@ -270,26 +325,6 @@ export class ReceiptComponent implements OnInit {
         this.loading = false;
       },
     });
-  }
-
-  get currentPago(): Payment {
-    if (this.order?.pago) {
-      return {
-        ...this.order.pago,
-        comprobanteUrl: this.order.pago.comprobanteUrl || DEFAULT_RECEIPT_IMAGE,
-      };
-    }
-    return {
-      id: (this.order?.id || 1) + 100,
-      pedidoId: this.order?.id || 1,
-      metodo: 'Transferencia Bancaria',
-      referencia: `REF-${1000 + (this.order?.id || 1)}`,
-      comprobanteUrl: DEFAULT_RECEIPT_IMAGE,
-      estado: 'confirmado',
-      monto: this.order?.total || 0,
-      fechaRevision: this.order?.createdAt,
-      revisadoPorNombre: 'María García',
-    };
   }
 
   onZoomMove(event: MouseEvent): void {

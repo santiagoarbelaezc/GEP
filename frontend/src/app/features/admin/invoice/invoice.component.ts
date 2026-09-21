@@ -177,6 +177,12 @@ import { Order } from '../../../core/models/order.model';
                   </div>
                 </div>
               </div>
+            } @else {
+              <div class="bg-zinc-50 border border-zinc-200/80 rounded-xl p-3 print:bg-transparent print:border-zinc-300">
+                <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Estado de Pago</p>
+                <p class="text-xs font-semibold text-amber-700">Pendiente por Pagar</p>
+                <p class="text-[10.5px] text-zinc-400 mt-0.5">El cliente aún no ha adjuntado soporte de transferencia.</p>
+              </div>
             }
 
             <div class="text-[10px] text-zinc-400 leading-relaxed pl-1">

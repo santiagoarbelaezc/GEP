@@ -12,54 +12,78 @@ import {
 export const PROTOTYPE_COMPROBANTE_URL =
   'https://res.cloudinary.com/doxdjiyvi/image/upload/v1789948206/IMG_6859_f7mhv9.png';
 
-// ─── Mock Data — Catálogo Espumas, Plásticos y Empaques ───────────────────
+// ─── Mock Data — Catálogo Real Plaxtilíneas (Espumas, Plásticos, Mallas y Telas) ─
 
 const MOCK_ITEMS: OrderItem[][] = [
   [
-    { id: 1, productoId: 101, nombreProducto: 'Lámina Espuma PE 20mm', nombreVariante: '1.00 x 2.00 m', cantidad: 50, precioUnitario: 12000, subtotal: 600000 },
-    { id: 2, productoId: 102, nombreProducto: 'Rollo Plástico Burbuja', nombreVariante: '1.20m x 100m', cantidad: 5, precioUnitario: 85000, subtotal: 425000 },
+    { id: 1, productoId: 201, nombreProducto: 'Malla Cafetera', nombreVariante: 'Rollo 1.00m x 50m / Secado Polietileno', cantidad: 3, precioUnitario: 145000, subtotal: 435000 },
+    { id: 2, productoId: 217, nombreProducto: 'Soga Ganadera', nombreVariante: 'Madeja 12mm x 50m / Protección UV', cantidad: 4, precioUnitario: 38000, subtotal: 152000 },
   ],
   [
-    { id: 3, productoId: 103, nombreProducto: 'Stretch Film Industrial', nombreVariante: '50cm x 300m / Cal. 12', cantidad: 12, precioUnitario: 32000, subtotal: 384000 },
+    { id: 3, productoId: 209, nombreProducto: 'Polisombra Negra', nombreVariante: '80% Sombra / Rollo 4m x 100m', cantidad: 2, precioUnitario: 320000, subtotal: 640000 },
+    { id: 4, productoId: 224, nombreProducto: 'Clavos Acero', nombreVariante: 'Caja x 100 unid. 2 1/2"', cantidad: 6, precioUnitario: 12500, subtotal: 75000 },
   ],
   [
-    { id: 4, productoId: 104, nombreProducto: 'Esquinero de Cartón', nombreVariante: '2" x 1.20m', cantidad: 200, precioUnitario: 1500, subtotal: 300000 },
-    { id: 5, productoId: 105, nombreProducto: 'Bolsa LDPE Transparente', nombreVariante: '40x60 cm / Cal. 2', cantidad: 1000, precioUnitario: 180, subtotal: 180000 },
-    { id: 6, productoId: 106, nombreProducto: 'Cinta Embalaje Transparente', nombreVariante: '48mm x 100m', cantidad: 36, precioUnitario: 4500, subtotal: 162000 },
+    { id: 5, productoId: 207, nombreProducto: 'Plástico Invernadero', nombreVariante: 'Ancho 6m x 30m / Filtro UV', cantidad: 1, precioUnitario: 480000, subtotal: 480000 },
+    { id: 6, productoId: 205, nombreProducto: 'Plástico Negro', nombreVariante: 'Calibre 6 / Rollo 3m x 50m', cantidad: 2, precioUnitario: 135000, subtotal: 270000 },
   ],
   [
-    { id: 7, productoId: 107, nombreProducto: 'Espuma Polietileno Rollo', nombreVariante: '1mm x 1.20m x 200m', cantidad: 3, precioUnitario: 145000, subtotal: 435000 },
+    { id: 7, productoId: 215, nombreProducto: 'Lámina Espuma Rosada Poliflex D-26', nombreVariante: '1.00m x 1.90m x 10cm', cantidad: 4, precioUnitario: 115000, subtotal: 460000 },
+    { id: 8, productoId: 222, nombreProducto: 'Pegante PL285', nombreVariante: 'Galón 3.785 L / Contacto Profesional', cantidad: 2, precioUnitario: 68000, subtotal: 136000 },
   ],
   [
-    { id: 8, productoId: 108, nombreProducto: 'Foam Board 10mm', nombreVariante: '1.22 x 2.44 m / Blanco', cantidad: 20, precioUnitario: 28000, subtotal: 560000 },
-    { id: 9, productoId: 109, nombreProducto: 'Bolsa Ziplock', nombreVariante: '15x20 cm', cantidad: 500, precioUnitario: 250, subtotal: 125000 },
+    { id: 9, productoId: 201, nombreProducto: 'Malla Plástica', nombreVariante: 'Rollo 1.20m x 30m / Cerramiento PEAD', cantidad: 3, precioUnitario: 120000, subtotal: 360000 },
+    { id: 10, productoId: 204, nombreProducto: 'Tela Cerramiento', nombreVariante: 'Verde / Rollo 2.10m x 100m', cantidad: 2, precioUnitario: 110000, subtotal: 220000 },
   ],
   [
-    { id: 10, productoId: 110, nombreProducto: 'Papel Kraft Rollo', nombreVariante: '60cm x 300m / 80g', cantidad: 4, precioUnitario: 72000, subtotal: 288000 },
-    { id: 11, productoId: 111, nombreProducto: 'Espuma Poliuretano Plancha', nombreVariante: '30mm / D-18 / 1x2m', cantidad: 30, precioUnitario: 18000, subtotal: 540000 },
+    { id: 11, productoId: 211, nombreProducto: 'Thermolon Negro', nombreVariante: 'Espesor 5mm x 1m x 50m / Aislante PE', cantidad: 3, precioUnitario: 165000, subtotal: 495000 },
+    { id: 12, productoId: 223, nombreProducto: 'Ductolón', nombreVariante: 'Tubo 2m x 1/2" / Celda Cerrada', cantidad: 15, precioUnitario: 8500, subtotal: 127500 },
   ],
   [
-    { id: 12, productoId: 112, nombreProducto: 'Película Termoencogible PVC', nombreVariante: '40cm x 500m / Cal. 60', cantidad: 8, precioUnitario: 55000, subtotal: 440000 },
-    { id: 13, productoId: 113, nombreProducto: 'Esquinero de Espuma', nombreVariante: 'Perfil L 5cm x 1m', cantidad: 100, precioUnitario: 2800, subtotal: 280000 },
+    { id: 13, productoId: 213, nombreProducto: 'Strech Transparente', nombreVariante: '50cm x 300m / Cal. 12 Industrial', cantidad: 10, precioUnitario: 34000, subtotal: 340000 },
+    { id: 14, productoId: 208, nombreProducto: 'Plástico Burbuja', nombreVariante: 'Rollo 1.20m x 100m / Amortiguación', cantidad: 3, precioUnitario: 89000, subtotal: 267000 },
+  ],
+  [
+    { id: 15, productoId: 218, nombreProducto: 'Piso Estoperol Bolas', nombreVariante: 'Ancho 1.40m x 8m / Vinilo Tráfico', cantidad: 1, precioUnitario: 390000, subtotal: 390000 },
+    { id: 16, productoId: 222, nombreProducto: 'Pegante PL285', nombreVariante: '1/4 Galón / Adhesivo de Contacto', cantidad: 2, precioUnitario: 24000, subtotal: 480000 },
+  ],
+  [
+    { id: 17, productoId: 214, nombreProducto: 'Lámina Placus', nombreVariante: '1.00m x 2.00m x 15mm / Alta Densidad', cantidad: 6, precioUnitario: 52000, subtotal: 312000 },
+    { id: 18, productoId: 221, nombreProducto: 'Lámina Espuma Blanca D-12', nombreVariante: '1.00m x 2.00m x 5cm', cantidad: 8, precioUnitario: 29000, subtotal: 232000 },
+  ],
+  [
+    { id: 19, productoId: 203, nombreProducto: 'Tela Laminada Plastificada', nombreVariante: 'Ancho 1.50m x 20m / Impermeable', cantidad: 1, precioUnitario: 310000, subtotal: 310000 },
+    { id: 20, productoId: 220, nombreProducto: 'Lona Kodra', nombreVariante: 'Ancho 1.50m x 10m / Plastificada', cantidad: 1, precioUnitario: 185000, subtotal: 185000 },
+  ],
+  [
+    { id: 21, productoId: 225, nombreProducto: 'Cartón Corrugado', nombreVariante: 'Rollo 1.20m x 50kg / Protección Obra', cantidad: 2, precioUnitario: 125000, subtotal: 250000 },
+    { id: 22, productoId: 219, nombreProducto: 'Mantel', nombreVariante: 'Rollo 1.40m x 25m / Tipo Cocina Lavable', cantidad: 2, precioUnitario: 95000, subtotal: 190000 },
+  ],
+  [
+    { id: 23, productoId: 210, nombreProducto: 'Polisombra Verde y Blanca', nombreVariante: '80% Sombra Privacidad / 4m x 50m', cantidad: 1, precioUnitario: 290000, subtotal: 290000 },
+    { id: 24, productoId: 206, nombreProducto: 'Plástico Transparente', nombreVariante: 'Calibre 4 / Rollo 2m x 50m', cantidad: 2, precioUnitario: 115000, subtotal: 230000 },
+    { id: 25, productoId: 216, nombreProducto: 'Malla Plástica Antimosquito', nombreVariante: 'Rollo 1.20m x 30m / Blanco', cantidad: 2, precioUnitario: 78000, subtotal: 156000 },
   ],
 ];
 
+// Clientes reales (predominantemente personas naturales, ocasionalmente empresas)
 const CLIENTES = [
-  { id: 1, nombre: 'Empaques del Valle S.A.S', telefono: '602 887 4520', email: 'compras@empaquesdelvalle.com' },
-  { id: 2, nombre: 'Plásticos Andinos Ltda.', telefono: '604 512 3300', email: 'pedidos@plasticosandinos.co' },
-  { id: 3, nombre: 'Distribuidora Nacional de Empaques', telefono: '601 745 9900', email: 'logistica@disnacional.com' },
-  { id: 4, nombre: 'Carlos Martínez', telefono: '311 456 7890', email: 'carlos.martinez@gmail.com' },
-  { id: 5, nombre: 'Foam Solutions Colombia', telefono: '605 234 5678', email: 'info@foamsolutions.co' },
-  { id: 6, nombre: 'Laura Torres', telefono: '312 890 1234', email: 'laura.t@hotmail.com' },
-  { id: 7, nombre: 'Industrias de Embalaje del Caribe S.A.', telefono: '605 678 9012', email: 'ventas@embalajecaribe.com' },
-  { id: 8, nombre: 'Espumas y Colchones del Eje', telefono: '606 345 6789', email: 'compras@espumaseje.co' },
-  { id: 9, nombre: 'Andrés Vargas', telefono: '319 678 9012', email: 'andres.v@outlook.com' },
-  { id: 10, nombre: 'ProtecPack S.A.S', telefono: '602 456 7890', email: 'contacto@protecpack.co' },
-  { id: 11, nombre: 'Empaques Flexibles del Pacífico', telefono: '602 111 2233', email: 'admon@empflexpacifico.co' },
-  { id: 12, nombre: 'Valentina Díaz', telefono: '301 901 2345', email: 'vale.diaz@gmail.com' },
-  { id: 13, nombre: 'Multiempaques Bogotá S.A.', telefono: '601 333 4455', email: 'pedidos@multiempaques.co' },
-  { id: 14, nombre: 'Polímeros del Norte Ltda.', telefono: '605 567 8901', email: 'gerencia@polimerosnorte.com' },
-  { id: 15, nombre: 'Santiago Rojas', telefono: '317 789 0124', email: 'santi.rojas@gmail.com' },
+  { id: 1, nombre: 'Carlos Andrés Martínez Restrepo', telefono: '311 456 7890', email: 'carlos.martinez@gmail.com' },
+  { id: 2, nombre: 'Laura Sofía Torres Pineda', telefono: '312 890 1234', email: 'laura.torres@hotmail.com' },
+  { id: 3, nombre: 'Andrés Felipe Vargas Henao', telefono: '319 678 9012', email: 'andres.vargas@outlook.com' },
+  { id: 4, nombre: 'Valentina Morales Gómez', telefono: '301 901 2345', email: 'vale.morales@gmail.com' },
+  { id: 5, nombre: 'Santiago Rojas Arbelaez', telefono: '317 789 0124', email: 'santi.rojas@gmail.com' },
+  { id: 6, nombre: 'Diana Marcela Quintero', telefono: '310 234 5678', email: 'diana.quintero@gmail.com' },
+  { id: 7, nombre: 'Juan Pablo Ospina Gil', telefono: '315 345 6789', email: 'juanpa.ospina@yahoo.com' },
+  { id: 8, nombre: 'Mariana Castro Jaramillo', telefono: '314 567 8901', email: 'mariana.castro@gmail.com' },
+  { id: 9, nombre: 'Felipe Restrepo Cárdenas', telefono: '316 789 0123', email: 'felipe.restrepo@outlook.com' },
+  { id: 10, nombre: 'Claudia Patricia Benítez', telefono: '318 890 1234', email: 'claudia.benitez@gmail.com' },
+  { id: 11, nombre: 'Mateo Salazar Ortiz', telefono: '313 456 7890', email: 'mateo.salazar@hotmail.com' },
+  { id: 12, nombre: 'Camila Andrea Herrera', telefono: '320 567 8901', email: 'camila.herrera@gmail.com' },
+  { id: 13, nombre: 'Empaques del Valle S.A.S', telefono: '602 887 4520', email: 'compras@empaquesdelvalle.com' },
+  { id: 14, nombre: 'Plásticos Andinos Ltda.', telefono: '604 512 3300', email: 'pedidos@plasticosandinos.co' },
+  { id: 15, nombre: 'AgroInsumos del Café S.A.S', telefono: '606 345 6789', email: 'compras@agroinsumoscafe.co' },
+  { id: 16, nombre: 'Construcciones & Acabados del Eje', telefono: '606 745 9900', email: 'logistica@acabadosdeleje.com' },
 ];
 
 function generateMockOrders(): Order[] {
@@ -94,19 +118,36 @@ function generateMockOrders(): Order[] {
     const createdAt = new Date(now.getTime() - (i * 3600000 + Math.random() * 7200000));
     const clienteData = CLIENTES[i % CLIENTES.length];
 
-    const isPendingPayment = ['nuevo', 'pago_pendiente', 'pago_en_revision'].includes(estado);
-    const pago: Payment = {
-      id: i + 100,
-      pedidoId: i + 1,
-      metodo: i % 3 === 0 ? 'Nequi' : i % 3 === 1 ? 'Bancolombia' : 'Davivienda',
-      referencia: `REF-${1000 + i}`,
-      comprobanteUrl: PROTOTYPE_COMPROBANTE_URL,
-      estado: isPendingPayment ? 'pendiente' : 'confirmado',
-      revisadoPor: !isPendingPayment ? 2 : undefined,
-      revisadoPorNombre: !isPendingPayment ? 'María García' : undefined,
-      fechaRevision: !isPendingPayment ? createdAt.toISOString() : undefined,
-      monto: total,
-    };
+    // El comprobante y el pago SOLO existen a partir de 'pago_en_revision'
+    const hasPaymentSubmitted = [
+      'pago_en_revision',
+      'pago_confirmado',
+      'en_preparacion',
+      'en_camino',
+      'entregado',
+    ].includes(estado);
+
+    const isConfirmed = [
+      'pago_confirmado',
+      'en_preparacion',
+      'en_camino',
+      'entregado',
+    ].includes(estado);
+
+    const pago: Payment | undefined = hasPaymentSubmitted
+      ? {
+          id: i + 100,
+          pedidoId: i + 1,
+          metodo: i % 3 === 0 ? 'Nequi' : i % 3 === 1 ? 'Bancolombia' : 'Davivienda',
+          referencia: `REF-${1000 + i}`,
+          comprobanteUrl: PROTOTYPE_COMPROBANTE_URL,
+          estado: isConfirmed ? 'confirmado' : 'pendiente',
+          revisadoPor: isConfirmed ? 2 : undefined,
+          revisadoPorNombre: isConfirmed ? 'María García' : undefined,
+          fechaRevision: isConfirmed ? createdAt.toISOString() : undefined,
+          monto: total,
+        }
+      : undefined;
 
     orders.push({
       id: i + 1,
@@ -279,12 +320,39 @@ export class OrderService {
     return of(order).pipe(delay(400));
   }
 
-  confirmPayment(id: number): Observable<Order | undefined> {
-    return this.updateStatus(id, 'pago_confirmado', 'Pago verificado correctamente');
+  confirmPayment(id: number, nota?: string): Observable<Order | undefined> {
+    const order = this.orders.find(o => o.id === id);
+    if (order && order.pago) {
+      order.pago.estado = 'confirmado';
+      order.pago.fechaRevision = new Date().toISOString();
+      order.pago.revisadoPorNombre = 'Caja Principal';
+    }
+    return this.updateStatus(id, 'pago_confirmado', nota || 'Pago verificado correctamente por caja');
+  }
+
+  confirmAndSendToPreparation(id: number, nota?: string): Observable<Order | undefined> {
+    const order = this.orders.find(o => o.id === id);
+    if (order && order.pago) {
+      order.pago.estado = 'confirmado';
+      order.pago.fechaRevision = new Date().toISOString();
+      order.pago.revisadoPorNombre = 'Caja Principal';
+    }
+    this.updateStatus(id, 'pago_confirmado', nota || 'Pago verificado por caja');
+    return this.updateStatus(id, 'en_preparacion', 'Pago OK — Enviado a bodega para preparación');
   }
 
   rejectPayment(id: number, nota: string): Observable<Order | undefined> {
-    return this.updateStatus(id, 'rechazado', nota);
+    const order = this.orders.find(o => o.id === id);
+    if (order && order.pago) {
+      order.pago.estado = 'rechazado';
+      order.pago.fechaRevision = new Date().toISOString();
+      order.pago.revisadoPorNombre = 'Caja Principal';
+    }
+    return this.updateStatus(id, 'rechazado', nota || 'Comprobante rechazado por caja');
+  }
+
+  sendToPreparation(id: number): Observable<Order | undefined> {
+    return this.updateStatus(id, 'en_preparacion', 'Pedido enviado a bodega para preparación');
   }
 
   markInTransit(id: number): Observable<Order | undefined> {

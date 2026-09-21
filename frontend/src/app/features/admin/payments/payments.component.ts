@@ -193,6 +193,12 @@ import { Order, Payment } from '../../../core/models/order.model';
                   />
                 </div>
               </div>
+            } @else {
+              <div class="mb-6 bg-zinc-50 border border-dashed border-zinc-200 rounded-2xl p-4 text-center">
+                <span class="material-symbols-outlined text-zinc-400 text-2xl mb-1">receipt_long</span>
+                <p class="text-xs font-semibold text-zinc-600">Sin comprobante adjunto</p>
+                <p class="text-[11px] text-zinc-400 mt-0.5">El cliente aún no ha cargado soporte de pago.</p>
+              </div>
             }
 
             <!-- Total -->

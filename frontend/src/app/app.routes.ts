@@ -74,12 +74,37 @@ export const routes: Routes = [
   {
     path: 'caja',
     component: MainLayoutComponent,
-    canActivate: [roleGuard(['caja'])],
+    canActivate: [roleGuard(['caja', 'admin'])],
     children: [
       {
         path: '',
         loadComponent: () =>
-          import('./features/caja/caja-list/caja-list.component').then(m => m.CajaListComponent),
+          import('./features/caja/caja-operativa/caja-operativa.component').then(m => m.CajaOperativaComponent),
+      },
+      {
+        path: 'operativa',
+        loadComponent: () =>
+          import('./features/caja/caja-operativa/caja-operativa.component').then(m => m.CajaOperativaComponent),
+      },
+      {
+        path: 'pedidos',
+        loadComponent: () =>
+          import('./features/caja/caja-pedidos/caja-pedidos.component').then(m => m.CajaPedidosComponent),
+      },
+      {
+        path: 'clientes',
+        loadComponent: () =>
+          import('./features/caja/caja-clientes/caja-clientes.component').then(m => m.CajaClientesComponent),
+      },
+      {
+        path: 'arqueo',
+        loadComponent: () =>
+          import('./features/caja/caja-arqueo/caja-arqueo.component').then(m => m.CajaArqueoComponent),
+      },
+      {
+        path: 'pedido/:id',
+        loadComponent: () =>
+          import('./features/caja/caja-pedido-detalle/caja-pedido-detalle.component').then(m => m.CajaPedidoDetalleComponent),
       },
     ],
   },
