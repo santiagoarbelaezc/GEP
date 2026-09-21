@@ -108,7 +108,11 @@ import { Order } from '../../../core/models/order.model';
             </thead>
             <tbody class="divide-y divide-zinc-100">
               @for (c of paginatedClients; track c.id) {
-                <tr class="hover:bg-zinc-50 transition-colors">
+                <tr
+                  [routerLink]="['/caja/cliente', c.id, 'pedidos']"
+                  class="hover:bg-zinc-50/80 transition-colors cursor-pointer group"
+                  title="Haz clic para ver todos los pedidos de {{ c.nombre }}"
+                >
                   
                   <!-- Cliente -->
                   <td class="px-5 py-4">
@@ -159,25 +163,23 @@ import { Order } from '../../../core/models/order.model';
                     </span>
                   </td>
 
-                  <!-- Acciones -->
+                  <!-- Acciones / Ver Pedidos -->
                   <td class="px-5 py-4 text-right">
-                    <div class="flex items-center justify-end gap-1.5">
+                    <div class="flex items-center justify-end gap-2">
                       <a
                         [href]="getWhatsAppUrl(c)"
                         target="_blank"
                         rel="noopener"
+                        (click)="$event.stopPropagation()"
                         class="p-2 rounded-xl text-emerald-600 hover:bg-emerald-50 transition-colors"
-                        title="Contactar por WhatsApp para comprobante"
+                        title="Contactar por WhatsApp"
                       >
                         <span class="material-symbols-outlined text-lg">chat</span>
                       </a>
-                      <button
-                        (click)="viewClientOrders(c)"
-                        class="p-2 rounded-xl text-zinc-400 hover:text-zinc-700 hover:bg-zinc-100 transition-colors"
-                        title="Ver pedidos de este cliente"
-                      >
-                        <span class="material-symbols-outlined text-lg">receipt_long</span>
-                      </button>
+                      <span class="inline-flex items-center gap-1 text-xs font-bold text-zinc-500 group-hover:text-zinc-900 transition-colors">
+                        <span>Ver Pedidos</span>
+                        <span class="material-symbols-outlined text-base">chevron_right</span>
+                      </span>
                     </div>
                   </td>
 
@@ -251,118 +253,24 @@ import { Order } from '../../../core/models/order.model';
         }
       </div>
 
-      <!-- Modal de Pedidos del Cliente -->
-      @if (selectedClient) {
-        <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-          <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden border border-zinc-200 animate-scale-up">
-            
-            <div class="p-5 border-b border-zinc-200 flex items-center justify-between bg-zinc-50">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-zinc-900 text-white flex items-center justify-center font-bold text-sm">
-                  {{ selectedClient.nombre.charAt(0) }}
-                </div>
-                <div>
-                  <h3 class="font-extrabold text-zinc-900 text-sm">{{ selectedClient.nombre }}</h3>
-                  <p class="text-xs text-zinc-400">Historial de pedidos asociados</p>
-                </div>
-              </div>
-              <button
-                (click)="selectedClient = null"
-                class="p-2 rounded-xl text-zinc-400 hover:text-zinc-700 hover:bg-zinc-200 transition-colors"
-              >
-                <span class="material-symbols-outlined text-xl">close</span>
-              </button>
-            </div>
-
-            <div class="p-5 overflow-y-auto space-y-3 flex-1">
-              @for (order of clientOrders; track order.id) {
-                <div class="card p-4 flex items-center justify-between hover:border-zinc-300 transition-colors">
-                  <div>
-                    <div class="flex items-center gap-2">
-                      <span class="font-mono font-bold text-sm text-zinc-900">{{ order.folio }}</span>
-                      <app-status-badge [status]="order.estado" />
-                    </div>
-                    <p class="text-xs text-zinc-400 mt-1">{{ order.createdAt | date:'dd/MM/yyyy HH:mm' }} &bull; {{ order.items.length }} producto(s)</p>
-                  </div>
-                  <div class="text-right">
-                    <p class="price-value-sm">{{ order.total | currency:'COP':'symbol-narrow':'1.0-0' }}</p>
-                    <div class="flex items-center gap-2 justify-end mt-1">
-                      <a
-                        [routerLink]="['/caja/pedido', order.id]"
-                        (click)="selectedClient = null"
-                        class="text-xs text-zinc-900 hover:text-emerald-700 font-bold hover:underline"
-                      >
-                        Validar &rarr;
-                      </a>
-                      <span class="text-zinc-300">&bull;</span>
-                      <a
-                        [routerLink]="['/admin/factura', order.id]"
-                        target="_blank"
-                        class="text-xs text-emerald-600 hover:underline font-semibold"
-                      >
-                        Factura
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              }
-
-              @if (clientOrders.length === 0) {
-                <div class="text-center py-10 text-zinc-400 text-sm">
-                  No hay pedidos registrados para este cliente en el sistema.
-                </div>
-              }
-            </div>
-
-            <div class="p-4 border-t border-zinc-200 bg-zinc-50 flex justify-end">
-              <button
-                (click)="selectedClient = null"
-                class="btn-secondary text-xs"
-              >
-                Cerrar
-              </button>
-            </div>
-
-          </div>
-        </div>
-      }
-
     </div>
-  `,
-  styles: [`
-    @keyframes scaleUp {
-      from { transform: scale(0.96); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-    .animate-scale-up {
-      animation: scaleUp 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-  `],
+  `
 })
 export class CajaClientesComponent implements OnInit {
   clients: Client[] = [];
   filteredClients: Client[] = [];
-  allOrders: Order[] = [];
 
   searchQuery = '';
   typeFilter: 'todos' | 'persona' | 'empresa' = 'todos';
 
-  selectedClient: Client | null = null;
-  clientOrders: Order[] = [];
-
   constructor(
-    private clientService: ClientService,
-    private orderService: OrderService
+    private clientService: ClientService
   ) {}
 
   ngOnInit(): void {
     this.clientService.getClients().subscribe(clients => {
       this.clients = clients;
       this.applyFilters();
-    });
-
-    this.orderService.getOrders().subscribe(orders => {
-      this.allOrders = orders;
     });
   }
 
@@ -432,13 +340,5 @@ export class CajaClientesComponent implements OnInit {
     const phone = client.telefono.replace(/\D/g, '');
     const msg = encodeURIComponent(`Hola ${client.nombre}, te contactamos del área de caja de GEP S.A.S. respecto al estado de tus pedidos.`);
     return `https://wa.me/57${phone}?text=${msg}`;
-  }
-
-  viewClientOrders(client: Client): void {
-    this.selectedClient = client;
-    this.clientOrders = this.allOrders.filter(o => 
-      o.cliente.nombre.toLowerCase().includes(client.nombre.toLowerCase()) ||
-      client.nombre.toLowerCase().includes(o.cliente.nombre.toLowerCase())
-    );
   }
 }

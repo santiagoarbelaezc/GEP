@@ -104,8 +104,7 @@ import { Order, OrderStatus } from '../../../core/models/order.model';
                 <th class="text-left px-5 py-3 micro-label hidden md:table-cell">Productos Plaxtilíneas</th>
                 <th class="text-left px-5 py-3 micro-label hidden lg:table-cell">Método / Ref</th>
                 <th class="text-right px-5 py-3 micro-label">Total</th>
-                <th class="text-left px-5 py-3 micro-label">Estado</th>
-                <th class="text-right px-5 py-3 micro-label">Acciones</th>
+                <th class="text-center px-5 py-3 micro-label">Estado</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-zinc-100">
@@ -159,35 +158,8 @@ import { Order, OrderStatus } from '../../../core/models/order.model';
                   </td>
 
                   <!-- Estado -->
-                  <td class="px-5 py-4">
+                  <td class="px-5 py-4 text-center">
                     <app-status-badge [status]="order.estado" />
-                  </td>
-
-                  <!-- Acciones -->
-                  <td class="px-5 py-4 text-right">
-                    <div class="flex items-center justify-end gap-1.5">
-                      <a
-                        [routerLink]="['/admin/factura', order.id]"
-                        target="_blank"
-                        (click)="$event.stopPropagation()"
-                        class="p-2 rounded-xl text-zinc-400 hover:text-zinc-700 hover:bg-zinc-100 transition-colors"
-                        title="Ver Factura de Venta"
-                      >
-                        <span class="material-symbols-outlined text-lg">receipt_long</span>
-                      </a>
-                      <a
-                        [routerLink]="['/admin/recibo', order.id]"
-                        target="_blank"
-                        (click)="$event.stopPropagation()"
-                        class="p-2 rounded-xl text-zinc-400 hover:text-zinc-700 hover:bg-zinc-100 transition-colors"
-                        title="Ver Recibo de Caja"
-                      >
-                        <span class="material-symbols-outlined text-lg">print</span>
-                      </a>
-                      <span class="material-symbols-outlined text-zinc-300 group-hover:text-zinc-700 text-lg transition-colors ml-1">
-                        chevron_right
-                      </span>
-                    </div>
                   </td>
 
                 </tr>
@@ -195,7 +167,7 @@ import { Order, OrderStatus } from '../../../core/models/order.model';
 
               @if (filteredOrders.length === 0) {
                 <tr>
-                  <td colspan="7" class="px-5 py-12 text-center text-zinc-400 text-sm">
+                  <td colspan="6" class="px-5 py-12 text-center text-zinc-400 text-sm">
                     No se encontraron pedidos con estos filtros
                   </td>
                 </tr>

@@ -265,14 +265,14 @@ import { Order } from '../../../core/models/order.model';
                 </div>
 
                 @if (order.pago?.comprobanteUrl) {
-                  <button
-                    (click)="openImageModal()"
-                    class="btn-secondary text-xs py-1.5 px-3 flex items-center gap-1.5"
-                    title="Ver imagen completa"
+                  <a
+                    [routerLink]="['/caja/pedido', order.id, 'comprobante']"
+                    class="btn-secondary text-xs py-1.5 px-3 flex items-center gap-1.5 bg-zinc-900 text-white hover:bg-black"
+                    title="Abrir visor completo en pantalla dedicada"
                   >
-                    <span class="material-symbols-outlined text-base">fullscreen</span>
-                    <span>Ver Completo</span>
-                  </button>
+                    <span class="material-symbols-outlined text-base text-emerald-400">fullscreen</span>
+                    <span>Ver en Pantalla Completa</span>
+                  </a>
                 }
               </div>
 
@@ -280,25 +280,25 @@ import { Order } from '../../../core/models/order.model';
               @if (order.pago?.comprobanteUrl) {
                 <div class="p-4 bg-zinc-900 flex flex-col items-center justify-center min-h-[380px]">
                   
-                  <div
-                    class="relative overflow-hidden rounded-xl border border-zinc-700 bg-zinc-950 cursor-pointer max-w-full shadow-2xl group transition-all hover:border-zinc-500"
-                    (click)="openImageModal()"
-                    title="Haz clic para ver el comprobante completo"
+                  <a
+                    [routerLink]="['/caja/pedido', order.id, 'comprobante']"
+                    class="relative overflow-hidden rounded-xl border border-zinc-700 bg-zinc-950 cursor-pointer max-w-full shadow-2xl group transition-all hover:border-zinc-500 block"
+                    title="Haz clic para abrir el visor completo en pantalla completa"
                   >
                     <img
                       [src]="order.pago!.comprobanteUrl"
                       alt="Comprobante Bancario de Pago"
-                      class="max-h-[380px] w-auto object-contain block select-none group-hover:scale-[1.01] transition-transform duration-200"
+                      class="max-h-[380px] w-auto object-contain block select-none group-hover:scale-[1.01] transition-transform duration-200 mx-auto"
                     />
 
                     <!-- Indicador Hover -->
-                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                      <span class="bg-black/80 backdrop-blur-md text-white px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-xl border border-white/20">
-                        <span class="material-symbols-outlined text-base">fullscreen</span>
-                        Ver imagen completa
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                      <span class="bg-black/90 backdrop-blur-md text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 shadow-2xl border border-white/20">
+                        <span class="material-symbols-outlined text-base text-emerald-400">fullscreen</span>
+                        Abrir Visor Dedicado
                       </span>
                     </div>
-                  </div>
+                  </a>
 
                   <!-- Cotejo de Monto -->
                   <div class="w-full mt-3 p-3 bg-zinc-800/80 rounded-xl border border-zinc-700 flex items-center justify-between text-white text-xs">
@@ -435,91 +435,6 @@ import { Order } from '../../../core/models/order.model';
         </div>
       }
 
-      <!-- Modal de Imagen Completa (Superpuesto a TODOS los componentes: z-[99999], sin padding, zoom con scroll) -->
-      @if (isImageModalOpen && order?.pago?.comprobanteUrl) {
-        <div
-          class="fixed inset-0 z-[99999] flex items-center justify-center bg-black/95 backdrop-blur-md p-0 m-0 select-none overflow-hidden animate-fade-in"
-          (click)="closeImageModal()"
-          (wheel)="onImageWheel($event)"
-        >
-          <!-- Barra Flotante Superior de Ayuda y Controles (Overlay z-[100000]) -->
-          <div
-            class="absolute top-4 inset-x-4 z-[100000] flex items-center justify-between pointer-events-none"
-          >
-            <!-- Badge Informativo -->
-            <div class="pointer-events-auto bg-black/75 backdrop-blur-md text-white/90 text-xs px-3.5 py-2 rounded-full border border-white/10 flex items-center gap-2 shadow-2xl">
-              <span class="material-symbols-outlined text-base text-emerald-400">zoom_in</span>
-              <span>Usa el <b>scroll del ratón</b> para hacer zoom</span>
-              <span class="text-white/30">•</span>
-              <span class="text-white/60">Doble clic para alternar</span>
-            </div>
-
-            <!-- Controles de Zoom y Cerrar -->
-            <div class="pointer-events-auto flex items-center gap-2">
-              <div class="flex items-center bg-black/75 backdrop-blur-md rounded-full border border-white/10 px-2 py-1 shadow-2xl">
-                <button
-                  type="button"
-                  (click)="$event.stopPropagation(); zoomOut()"
-                  [disabled]="modalZoomScale <= 1.0"
-                  class="w-8 h-8 rounded-full text-white/80 hover:text-white hover:bg-white/10 flex items-center justify-center disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
-                  title="Alejar (-)"
-                >
-                  <span class="material-symbols-outlined text-lg">remove</span>
-                </button>
-                <span class="text-xs font-mono font-bold px-2 text-white min-w-[50px] text-center">
-                  {{ (modalZoomScale * 100).toFixed(0) }}%
-                </span>
-                <button
-                  type="button"
-                  (click)="$event.stopPropagation(); zoomIn()"
-                  [disabled]="modalZoomScale >= 5.0"
-                  class="w-8 h-8 rounded-full text-white/80 hover:text-white hover:bg-white/10 flex items-center justify-center disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
-                  title="Acercar (+)"
-                >
-                  <span class="material-symbols-outlined text-lg">add</span>
-                </button>
-                <button
-                  type="button"
-                  (click)="$event.stopPropagation(); resetModalZoom()"
-                  class="w-8 h-8 rounded-full text-white/80 hover:text-white hover:bg-white/10 flex items-center justify-center ml-1 border-l border-white/10 transition-colors"
-                  title="Restablecer tamaño (100%)"
-                >
-                  <span class="material-symbols-outlined text-base">restart_alt</span>
-                </button>
-              </div>
-
-              <!-- Botón Cerrar -->
-              <button
-                type="button"
-                (click)="closeImageModal()"
-                class="w-10 h-10 rounded-full bg-black/80 hover:bg-zinc-800 text-white flex items-center justify-center backdrop-blur-md transition-all border border-white/20 cursor-pointer shadow-2xl"
-                title="Cerrar (Esc)"
-              >
-                <span class="material-symbols-outlined text-2xl">close</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Contenedor Interactivo de la Imagen: Cero Padding, Scroll Zoom & Pan -->
-          <div
-            class="relative w-screen h-screen flex items-center justify-center p-0 m-0 overflow-hidden"
-            (click)="$event.stopPropagation()"
-            (mousedown)="onMouseDown($event)"
-            (mousemove)="onMouseMove($event)"
-            [style.cursor]="modalZoomScale > 1.0 ? (isDragging ? 'grabbing' : 'grab') : 'zoom-in'"
-          >
-            <img
-              [src]="order!.pago!.comprobanteUrl"
-              alt="Comprobante Completo"
-              (dblclick)="onDoubleTapImage()"
-              [style.transform]="'translate(' + panX + 'px, ' + panY + 'px) scale(' + modalZoomScale + ')'"
-              [style.transition]="isDragging ? 'none' : 'transform 0.1s ease-out'"
-              class="max-w-[98vw] max-h-[96vh] w-auto h-auto object-contain block p-0 m-0 select-none origin-center will-change-transform drop-shadow-2xl"
-            />
-          </div>
-        </div>
-      }
-
     </div>
   `,
   styles: [`
@@ -535,15 +450,6 @@ import { Order } from '../../../core/models/order.model';
 export class CajaPedidoDetalleComponent implements OnInit {
   order: Order | null = null;
   loading = true;
-
-  // Modal de Comprobante Completo & Zoom
-  isImageModalOpen = false;
-  modalZoomScale = 1.0;
-  panX = 0;
-  panY = 0;
-  isDragging = false;
-  dragStartX = 0;
-  dragStartY = 0;
 
   // Acciones
   reviewNote = '';
@@ -579,95 +485,6 @@ export class CajaPedidoDetalleComponent implements OnInit {
         this.loading = false;
       }
     });
-  }
-
-  @HostListener('document:keydown.escape')
-  onEscapePress(): void {
-    if (this.isImageModalOpen) {
-      this.closeImageModal();
-    }
-  }
-
-  openImageModal(): void {
-    this.isImageModalOpen = true;
-    this.modalZoomScale = 1.0;
-    this.panX = 0;
-    this.panY = 0;
-    this.isDragging = false;
-  }
-
-  closeImageModal(): void {
-    this.isImageModalOpen = false;
-    this.modalZoomScale = 1.0;
-    this.panX = 0;
-    this.panY = 0;
-    this.isDragging = false;
-  }
-
-  onImageWheel(event: WheelEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-
-    const zoomStep = 0.25;
-    if (event.deltaY < 0) {
-      // Rueda hacia arriba -> Acercar (zoom in)
-      this.modalZoomScale = Math.min(5.0, Number((this.modalZoomScale + zoomStep).toFixed(2)));
-    } else {
-      // Rueda hacia abajo -> Alejar (zoom out)
-      this.modalZoomScale = Math.max(1.0, Number((this.modalZoomScale - zoomStep).toFixed(2)));
-    }
-
-    if (this.modalZoomScale === 1.0) {
-      this.panX = 0;
-      this.panY = 0;
-    }
-  }
-
-  zoomIn(): void {
-    this.modalZoomScale = Math.min(5.0, Number((this.modalZoomScale + 0.25).toFixed(2)));
-  }
-
-  zoomOut(): void {
-    this.modalZoomScale = Math.max(1.0, Number((this.modalZoomScale - 0.25).toFixed(2)));
-    if (this.modalZoomScale === 1.0) {
-      this.panX = 0;
-      this.panY = 0;
-    }
-  }
-
-  resetModalZoom(): void {
-    this.modalZoomScale = 1.0;
-    this.panX = 0;
-    this.panY = 0;
-  }
-
-  onDoubleTapImage(): void {
-    if (this.modalZoomScale > 1.0) {
-      this.resetModalZoom();
-    } else {
-      this.modalZoomScale = 2.2;
-    }
-  }
-
-  onMouseDown(event: MouseEvent): void {
-    if (this.modalZoomScale > 1.0) {
-      this.isDragging = true;
-      this.dragStartX = event.clientX - this.panX;
-      this.dragStartY = event.clientY - this.panY;
-      event.preventDefault();
-    }
-  }
-
-  onMouseMove(event: MouseEvent): void {
-    if (this.isDragging && this.modalZoomScale > 1.0) {
-      this.panX = event.clientX - this.dragStartX;
-      this.panY = event.clientY - this.dragStartY;
-    }
-  }
-
-  @HostListener('window:mouseup')
-  onMouseUp(): void {
-    this.isDragging = false;
   }
 
   attachPrototypeReceipt(): void {

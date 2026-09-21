@@ -30,12 +30,14 @@ export const ROLE_MENUS: Record<UserRole, MenuItem[]> = {
     { label: 'Pagos', icon: 'payments', route: '/admin/pagos' },
     { label: 'Estadísticas', icon: 'bar_chart', route: '/admin/estadisticas' },
     { label: 'Auditoría', icon: 'shield', route: '/admin/auditoria' },
+    { label: 'Monitor TV', icon: 'tv', route: '/tv' },
   ],
   caja: [
     { label: 'Caja Operativa', icon: 'point_of_sale', route: '/caja' },
     { label: 'Pedidos', icon: 'receipt_long', route: '/caja/pedidos' },
     { label: 'Clientes', icon: 'people', route: '/caja/clientes' },
     { label: 'Arqueo de Turno', icon: 'account_balance_wallet', route: '/caja/arqueo' },
+    { label: 'Monitor TV', icon: 'tv', route: '/tv' },
   ],
   tv: [],
   logistica: [

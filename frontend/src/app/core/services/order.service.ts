@@ -66,7 +66,7 @@ const MOCK_ITEMS: OrderItem[][] = [
   ],
 ];
 
-// Clientes reales (predominantemente personas naturales, ocasionalmente empresas)
+// Clientes reales del Quindío (predominantemente personas naturales, ocasionalmente empresas)
 const CLIENTES = [
   { id: 1, nombre: 'Carlos Andrés Martínez Restrepo', telefono: '311 456 7890', email: 'carlos.martinez@gmail.com' },
   { id: 2, nombre: 'Laura Sofía Torres Pineda', telefono: '312 890 1234', email: 'laura.torres@hotmail.com' },
@@ -80,10 +80,10 @@ const CLIENTES = [
   { id: 10, nombre: 'Claudia Patricia Benítez', telefono: '318 890 1234', email: 'claudia.benitez@gmail.com' },
   { id: 11, nombre: 'Mateo Salazar Ortiz', telefono: '313 456 7890', email: 'mateo.salazar@hotmail.com' },
   { id: 12, nombre: 'Camila Andrea Herrera', telefono: '320 567 8901', email: 'camila.herrera@gmail.com' },
-  { id: 13, nombre: 'Empaques del Valle S.A.S', telefono: '602 887 4520', email: 'compras@empaquesdelvalle.com' },
-  { id: 14, nombre: 'Plásticos Andinos Ltda.', telefono: '604 512 3300', email: 'pedidos@plasticosandinos.co' },
-  { id: 15, nombre: 'AgroInsumos del Café S.A.S', telefono: '606 345 6789', email: 'compras@agroinsumoscafe.co' },
-  { id: 16, nombre: 'Construcciones & Acabados del Eje', telefono: '606 745 9900', email: 'logistica@acabadosdeleje.com' },
+  { id: 13, nombre: 'Cafeteros & Agro del Quindío S.A.S', telefono: '606 745 1280', email: 'compras@agrodelquindio.com' },
+  { id: 14, nombre: 'Inversiones & Glamping Salento S.A.S', telefono: '606 759 3300', email: 'pedidos@glampingsalento.co' },
+  { id: 15, nombre: 'Cooperativa de Caficultores de Quimbaya', telefono: '606 758 2250', email: 'compras@cafecoopquimbaya.co' },
+  { id: 16, nombre: 'Ferretería & Construcciones Calarcá', telefono: '606 742 9900', email: 'logistica@construccionescalarca.com' },
 ];
 
 function generateMockOrders(): Order[] {
@@ -92,16 +92,23 @@ function generateMockOrders(): Order[] {
     'en_preparacion', 'en_camino', 'entregado', 'rechazado', 'cancelado',
   ];
 
-  const ciudades = ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Bucaramanga', 'Cartagena', 'Manizales'];
-  const direcciones = [
-    'Calle 15 #23-45, Zona Industrial',
-    'Carrera 43A #1Sur-50, Ofc 301',
-    'Av. Boyacá #64-50, Bodega 12',
-    'Calle 85 #15-40, Apto 302',
-    'Km 5 Vía Mamonal',
-    'Carrera 7 #120-35, Torre B',
-    'Calle 30 #18-120, P.I. El Bosque',
-    'Av. Kevin Ángel #54-30',
+  const ubicacionesQuindio = [
+    { ciudad: 'Armenia', direccion: 'Carrera 14 #19-45, Centro' },
+    { ciudad: 'Calarcá', direccion: 'Calle 39 #24-15, Parque Principal' },
+    { ciudad: 'Quimbaya', direccion: 'Carrera 6 #8-30, Salida a Panaca' },
+    { ciudad: 'Circasia', direccion: 'Calle 7 #14-20, Alto de la Cruz' },
+    { ciudad: 'Filandia', direccion: 'Calle 6 #5-12, Calle del Tiempo Detenido' },
+    { ciudad: 'Salento', direccion: 'Calle Real #3-45, Centro Histórico' },
+    { ciudad: 'Montenegro', direccion: 'Carrera 7 #18-24, Vía Parque del Café' },
+    { ciudad: 'La Tebaida', direccion: 'Av. Principal #10-35, Zona Franca' },
+    { ciudad: 'Armenia', direccion: 'Av. Bolívar #14N-25, La Castellana' },
+    { ciudad: 'Calarcá', direccion: 'Carrera 25 #42-10, Barrio Versalles' },
+    { ciudad: 'Quimbaya', direccion: 'Vereda La Soledad, Finca El Recuerdo' },
+    { ciudad: 'Circasia', direccion: 'Vereda La Julia, Finca El Paraíso' },
+    { ciudad: 'Armenia', direccion: 'Av. Centenario #28-15, Zona Agroindustrial' },
+    { ciudad: 'Salento', direccion: 'Km 4 Vía Valle de Cocora' },
+    { ciudad: 'Quimbaya', direccion: 'Carrera 7 #12-40, Centro' },
+    { ciudad: 'Calarcá', direccion: 'Variante Sur #15-80' },
   ];
 
   const now = new Date();
@@ -117,6 +124,7 @@ function generateMockOrders(): Order[] {
     const estado = statuses[i % statuses.length];
     const createdAt = new Date(now.getTime() - (i * 3600000 + Math.random() * 7200000));
     const clienteData = CLIENTES[i % CLIENTES.length];
+    const ubicacion = ubicacionesQuindio[i % ubicacionesQuindio.length];
 
     // El comprobante y el pago SOLO existen a partir de 'pago_en_revision'
     const hasPaymentSubmitted = [
@@ -154,8 +162,8 @@ function generateMockOrders(): Order[] {
       folio: `GEP-${String(2024001 + i)}`,
       clienteId: clienteData.id,
       cliente: { nombre: clienteData.nombre, telefono: clienteData.telefono, email: clienteData.email },
-      direccionEnvio: direcciones[i % direcciones.length],
-      ciudad: ciudades[i % ciudades.length],
+      direccionEnvio: ubicacion.direccion,
+      ciudad: ubicacion.ciudad,
       referencias: i % 3 === 0 ? 'Bodega principal, portería vehicular' : undefined,
       items,
       subtotal,

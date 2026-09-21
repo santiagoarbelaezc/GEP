@@ -70,6 +70,14 @@ export const routes: Routes = [
     ],
   },
 
+  // ─── Visor Pantalla Completa Comprobante (Sin Layout / Sin Panel de Control) ───
+  {
+    path: 'caja/pedido/:id/comprobante',
+    canActivate: [roleGuard(['caja', 'admin'])],
+    loadComponent: () =>
+      import('./features/caja/caja-comprobante-visor/caja-comprobante-visor.component').then(m => m.CajaComprobanteVisorComponent),
+  },
+
   // ─── Caja ───────────────────────────────────────────
   {
     path: 'caja',
@@ -106,13 +114,18 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/caja/caja-pedido-detalle/caja-pedido-detalle.component').then(m => m.CajaPedidoDetalleComponent),
       },
+      {
+        path: 'cliente/:id/pedidos',
+        loadComponent: () =>
+          import('./features/caja/caja-cliente-pedidos/caja-cliente-pedidos.component').then(m => m.CajaClientePedidosComponent),
+      },
     ],
   },
 
   // ─── TV ─────────────────────────────────────────────
   {
     path: 'tv',
-    canActivate: [roleGuard(['tv'])],
+    canActivate: [roleGuard(['tv', 'admin', 'caja'])],
     loadComponent: () =>
       import('./features/tv/tv.component').then(m => m.TvComponent),
   },

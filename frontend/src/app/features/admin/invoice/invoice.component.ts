@@ -76,8 +76,8 @@ import { Order } from '../../../core/models/order.model';
               <p class="text-[10px] text-zinc-400 font-semibold uppercase tracking-wider mt-0.5">Gestión de Empaques y Plásticos</p>
               <div class="mt-1.5 text-[11px] text-zinc-500 leading-snug">
                 <p>NIT: 901.482.930-1 &bull; Régimen Común</p>
-                <p>Calle 45 #23-10, Zona Industrial &bull; Bogotá D.C.</p>
-                <p>Tel: +57 (601) 320 4500 &bull; contacto&#64;gep-empaques.co</p>
+                <p>Av. Centenario #28-15, Zona Agroindustrial &bull; Armenia, Quindío</p>
+                <p>Tel: +57 (606) 745 1280 &bull; contacto&#64;gep-empaques.co</p>
               </div>
             </div>
           </div>

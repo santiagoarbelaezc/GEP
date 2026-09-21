@@ -260,7 +260,7 @@ export class ClientTimelineService {
           hitoClave: 'Guía de reparto #ENV-9821',
           responsable: 'Repartidor Juan Duque',
           porcentaje: 0,
-          observaciones: 'Ruta hacia Calle 85 #15-40 Bogotá programada.',
+          observaciones: 'Ruta hacia Carrera 14 #19-45 Armenia programada.',
           subEventos: [
             { id: 605, titulo: 'Despacho de vehículo', descripcion: 'Salida de bodega programada para las 14:00.', fecha: '2026-02-14 14:00', usuario: 'Juan Duque', badge: 'En Espera' },
           ],

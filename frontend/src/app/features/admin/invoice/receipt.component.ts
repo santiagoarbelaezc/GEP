@@ -47,7 +47,7 @@ const DEFAULT_RECEIPT_IMAGE =
               </div>
               <h2 class="text-base font-extrabold text-zinc-900 tracking-tight leading-none">GEP S.A.S.</h2>
               <p class="text-[10px] text-zinc-400 uppercase tracking-widest font-semibold mt-1">Distribuidora de Espumas, Plásticos y Empaques</p>
-              <p class="text-[11px] text-zinc-500 mt-1">NIT: 901.482.930-1 &bull; Bogotá, Colombia</p>
+              <p class="text-[11px] text-zinc-500 mt-1">NIT: 901.482.930-1 &bull; Armenia, Quindío</p>
             </div>
 
             <div class="text-center mb-5">
